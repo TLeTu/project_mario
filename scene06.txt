@@ -5,6 +5,7 @@ brick.txt
 coin.txt
 goomba.txt
 cloud.txt
+box.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -182,16 +183,16 @@ cloud.txt
 1	1072	196
 
 # BOX
-1	176	132
-1	192	132
+6	176	132
+6	192	132
 
-1	224	84
-1	240	84
+6	224	84
+6	240	84
 
-1	416	100
+6	416	100
 
-1	656	164
-1	704	132
+6	656	164
+6	704	132
 
 # PLATFORM
 1	240	148
@@ -232,3 +233,18 @@ cloud.txt
 1	368	164
 1	352	148
 1	368	148
+
+# GOOMBA
+2	224	180
+
+2	368	180
+
+2	1008	164
+2	1040	164
+
+# WINGS GOOMBA
+2	1072	164
+
+
+# KOOPAs
+2	592	148
