@@ -6,6 +6,7 @@ coin.txt
 goomba.txt
 cloud.txt
 box.txt
+koopas.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -220,11 +221,13 @@ box.txt
 1	560	84
 
 1	512	164
+1	512	158
 1	528	164
 1	544	164
 1	560	164
 1	576	164
 1	592	164
+1	592	158
 
 # TUBE
 1	352	180
@@ -247,4 +250,4 @@ box.txt
 
 
 # KOOPAs
-2	592	148
+3	586	116
