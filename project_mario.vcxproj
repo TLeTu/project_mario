@@ -185,6 +185,7 @@
     <Text Include="cloud.txt" />
     <Text Include="coin.txt" />
     <Text Include="goomba.txt" />
+    <Text Include="koopas.txt" />
     <Text Include="mario-sample.txt" />
     <Text Include="mario.txt" />
     <Text Include="scene0005.txt" />

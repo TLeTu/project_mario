@@ -81,6 +81,15 @@
     <ClCompile Include="Box.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Koopas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EdgeDetectingObject.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EdgeDetectingObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -155,6 +164,9 @@
     <ClInclude Include="Box.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Koopas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="brick.txt">
@@ -190,5 +202,6 @@
     <Text Include="box.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="koopas.txt" />
   </ItemGroup>
 </Project>
