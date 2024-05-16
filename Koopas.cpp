@@ -5,7 +5,7 @@ CKoopas::CKoopas(float x, float y) :CGameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = KOOPAS_GRAVITY;
-	edgeDetector = NULL;
+	this->edgeDetector = NULL;
 	restore_start = -1;
 	SetState(KOOPAS_STATE_WALKING);
 }
@@ -54,11 +54,29 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vy += ay * dt;
 	vx += ax * dt;
 
-	if ((state == KOOPAS_STATE_HIDE) && (GetTickCount64() - restore_start > KOOPAS_RESTORE_TIMEOUT))
-	{
-		SetState(KOOPAS_STATE_WALKING);
-		return;
+	if (state == KOOPAS_STATE_WALKING && edgeDetector == NULL) {
+		if (vx > 0)
+		{
+			edgeDetector = new CEdgeDetector(x + 16, y);
+		}
+		else 
+		{
+			edgeDetector = new CEdgeDetector(x - 16, y);
+		}
 	}
+
+	if ((state == KOOPAS_STATE_HIDE) && (GetTickCount64() - restore_start > KOOPAS_RESTORE_TIMEOUT) && (edgeDetector != NULL))
+	{
+		edgeDetector->Delete();
+		edgeDetector = NULL;
+		SetState(KOOPAS_STATE_WALKING);
+	}
+
+	if (state == KOOPAS_STATE_WALKING && edgeDetector != NULL)
+	{
+		edgeDetector->Update(dt, coObjects);
+	}
+
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -83,7 +101,10 @@ void CKoopas::Render()
 
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	RenderBoundingBox();
-
+	if (edgeDetector != NULL)
+	{
+		edgeDetector->Render();
+	}
 }
 
 void CKoopas::SetState(int state)
