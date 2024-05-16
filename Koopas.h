@@ -9,7 +9,7 @@
 #define KOOPAS_BBOX_HEIGHT 24
 #define KOOPAS_BBOX_HEIGHT_DIE 7
 
-#define KOOPAS_DIE_TIMEOUT 500
+#define KOOPAS_RESTORE_TIMEOUT 5000
 
 #define KOOPAS_STATE_WALKING 100
 #define KOOPAS_STATE_HIDE 200
@@ -23,7 +23,7 @@ protected:
 	float ax;
 	float ay;
 
-	ULONGLONG die_start;
+	ULONGLONG restore_start;
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

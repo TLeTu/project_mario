@@ -4,7 +4,7 @@ CKoopas::CKoopas(float x, float y) :CGameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = KOOPAS_GRAVITY;
-	die_start = -1;
+	restore_start = -1;
 	SetState(KOOPAS_STATE_WALKING);
 }
 
@@ -52,8 +52,9 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vy += ay * dt;
 	vx += ax * dt;
 
-	if ((state == KOOPAS_STATE_HIDE) && (GetTickCount64() - die_start > KOOPAS_DIE_TIMEOUT))
+	if ((state == KOOPAS_STATE_HIDE) && (GetTickCount64() - restore_start > KOOPAS_RESTORE_TIMEOUT))
 	{
+		SetState(KOOPAS_STATE_WALKING);
 		return;
 	}
 
@@ -80,7 +81,7 @@ void CKoopas::SetState(int state)
 	switch (state)
 	{
 	case KOOPAS_STATE_HIDE:
-		die_start = GetTickCount64();
+		restore_start = GetTickCount64();
 		y += (KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_DIE) / 2;
 		vx = 0;
 		vy = 0;
