@@ -84,10 +84,10 @@
     <ClCompile Include="Koopas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EdgeDetectingObject.h">
+    <ClCompile Include="EdgeDetector.h">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="EdgeDetectingObject.cpp">
+    <ClCompile Include="EdgeDetector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -202,6 +202,11 @@
     <Text Include="box.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="koopas.txt" />
+    <Text Include="koopas.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="test_scene.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

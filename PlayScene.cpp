@@ -11,6 +11,11 @@
 #include "Platform.h"
 #include "Box.h"
 #include "Koopas.h"
+#include "Brick.h"
+#include "Goomba.h"
+#include "Mario.h"
+#include "EdgeDetector.h"
+
 
 #include "SampleKeyEventHandler.h"
 
@@ -123,6 +128,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
 	case OBJECT_TYPE_BOX: obj = new CBox(x, y); break;
 	case OBJECT_TYPE_KOOPAS: obj = new CKoopas(x, y); break;
+	case OBJECT_TYPE_EDGEDETECTOR: obj = new CEdgeDetector(x, y); break;
 
 	case OBJECT_TYPE_PLATFORM:
 	{

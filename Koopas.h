@@ -1,14 +1,14 @@
 #pragma once
 #include "GameObject.h"
+#include "EdgeDetector.h"
 
 #define KOOPAS_GRAVITY 0.002f
 #define KOOPAS_WALKING_SPEED 0.05f
 
 
-#define KOOPAS_BBOX_WIDTH 15
+#define KOOPAS_BBOX_WIDTH 16
 #define KOOPAS_BBOX_HEIGHT 24
-#define KOOPAS_BBOX_HEIGHT_DIE 7
-
+#define KOOPAS_BBOX_HEIGHT_HIDE 16
 #define KOOPAS_RESTORE_TIMEOUT 5000
 
 #define KOOPAS_STATE_WALKING 100
@@ -36,10 +36,9 @@ protected:
 
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 
-
-	int GetAniId();
-
 public:
+	CEdgeDetector* edgeDetector;
+
 	CKoopas(float x, float y);
 	virtual void SetState(int state);
 };

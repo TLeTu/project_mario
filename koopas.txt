@@ -10,7 +10,6 @@
 #HIDE
 70201	50	139	65	154	10
 
-
 # ani_id	sprite1_id	time1	sprite2_id	time2	...
 [ANIMATIONS]
 7000	70101	100	70102	100

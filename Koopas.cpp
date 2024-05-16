@@ -1,9 +1,11 @@
 #include "Koopas.h"
+#include "EdgeDetector.h"
 
 CKoopas::CKoopas(float x, float y) :CGameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = KOOPAS_GRAVITY;
+	edgeDetector = NULL;
 	restore_start = -1;
 	SetState(KOOPAS_STATE_WALKING);
 }
@@ -13,9 +15,9 @@ void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& botto
 	if (state == KOOPAS_STATE_HIDE)
 	{
 		left = x - KOOPAS_BBOX_WIDTH / 2;
-		top = y - KOOPAS_BBOX_HEIGHT_DIE / 2;
+		top = y - KOOPAS_BBOX_HEIGHT_HIDE / 2;
 		right = left + KOOPAS_BBOX_WIDTH;
-		bottom = top + KOOPAS_BBOX_HEIGHT_DIE;
+		bottom = top + KOOPAS_BBOX_HEIGHT_HIDE;
 	}
 	else
 	{
@@ -60,6 +62,7 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
+
 }
 
 void CKoopas::Render()
@@ -80,6 +83,7 @@ void CKoopas::Render()
 
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	RenderBoundingBox();
+
 }
 
 void CKoopas::SetState(int state)
@@ -89,13 +93,13 @@ void CKoopas::SetState(int state)
 	{
 	case KOOPAS_STATE_HIDE:
 		restore_start = GetTickCount64();
-		y += (KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_DIE) / 2;
+		y += (KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_HIDE) / 2;
 		vx = 0;
 		vy = 0;
 		ay = 0;
 		break;
 	case KOOPAS_STATE_WALKING:
-		y -= (KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_DIE) / 2;
+		y -= (KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_HIDE) / 2;
 		vx = -KOOPAS_WALKING_SPEED;
 		break;
 	}
