@@ -23,6 +23,7 @@ class CKoopas : public CGameObject
 protected:
 	float ax;
 	float ay;
+	float vx_temp;
 	int detecting;
 
 	ULONGLONG restore_start;

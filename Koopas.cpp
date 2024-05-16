@@ -6,6 +6,7 @@ CKoopas::CKoopas(float x, float y) :CGameObject(x, y)
 	this->ax = 0;
 	this->ay = KOOPAS_GRAVITY;
 	this->detecting = 0;
+	this->edgeDetector = new CEdgeDetector();
 	restore_start = -1;
 	SetState(KOOPAS_STATE_WALKING);
 }
@@ -57,13 +58,13 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (state == KOOPAS_STATE_WALKING && !detecting) {
 		if (vx > 0)
 		{
-			edgeDetector = new CEdgeDetector(x + 16, y);
+			edgeDetector->SetPosition(x + 16, y);
 			edgeDetector->SetSpeed(vx, vy);
 			detecting = 1;
 		}
 		else 
 		{
-			edgeDetector = new CEdgeDetector(x - 16, y);
+			edgeDetector->SetPosition(x - 16, y);
 			edgeDetector->SetSpeed(vx, vy);
 			detecting = 1;
 		}
@@ -71,7 +72,7 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if ((state == KOOPAS_STATE_SHELL) && (GetTickCount64() - restore_start > KOOPAS_RESTORE_TIMEOUT) && detecting)
 	{
-		edgeDetector->Delete();
+
 		SetState(KOOPAS_STATE_WALKING);
 		detecting = 0;
 	}
@@ -83,7 +84,6 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		edgeDetector->GetSpeed(edt_vx, edt_vy);
 		if (edt_vy > 0) 
 		{
-			edgeDetector->Delete();
 			detecting = 0;
 			vx = -vx;
 		}
@@ -127,13 +127,21 @@ void CKoopas::SetState(int state)
 	case KOOPAS_STATE_SHELL:
 		restore_start = GetTickCount64();
 		y += (KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_SHELL) / 2;
+		vx_temp = vx;
 		vx = 0;
 		vy = 0;
 		ay = 0;
 		break;
 	case KOOPAS_STATE_WALKING:
 		y -= (KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_SHELL) / 2;
-		vx = -KOOPAS_WALKING_SPEED;
+		if (vx_temp > 0) 
+		{
+			vx = KOOPAS_WALKING_SPEED;
+		}
+		else {
+			vx = -KOOPAS_WALKING_SPEED;
+		}
+
 		break;
 	}
 }
