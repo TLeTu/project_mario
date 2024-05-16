@@ -5,19 +5,19 @@ CKoopas::CKoopas(float x, float y) :CGameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = KOOPAS_GRAVITY;
-	this->edgeDetector = NULL;
+	this->detecting = 0;
 	restore_start = -1;
 	SetState(KOOPAS_STATE_WALKING);
 }
 
 void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (state == KOOPAS_STATE_HIDE)
+	if (state == KOOPAS_STATE_SHELL)
 	{
 		left = x - KOOPAS_BBOX_WIDTH / 2;
-		top = y - KOOPAS_BBOX_HEIGHT_HIDE / 2;
+		top = y - KOOPAS_BBOX_HEIGHT_SHELL / 2;
 		right = left + KOOPAS_BBOX_WIDTH;
-		bottom = top + KOOPAS_BBOX_HEIGHT_HIDE;
+		bottom = top + KOOPAS_BBOX_HEIGHT_SHELL;
 	}
 	else
 	{
@@ -54,27 +54,39 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vy += ay * dt;
 	vx += ax * dt;
 
-	if (state == KOOPAS_STATE_WALKING && edgeDetector == NULL) {
+	if (state == KOOPAS_STATE_WALKING && !detecting) {
 		if (vx > 0)
 		{
 			edgeDetector = new CEdgeDetector(x + 16, y);
+			edgeDetector->SetSpeed(vx, vy);
+			detecting = 1;
 		}
 		else 
 		{
 			edgeDetector = new CEdgeDetector(x - 16, y);
+			edgeDetector->SetSpeed(vx, vy);
+			detecting = 1;
 		}
 	}
 
-	if ((state == KOOPAS_STATE_HIDE) && (GetTickCount64() - restore_start > KOOPAS_RESTORE_TIMEOUT) && (edgeDetector != NULL))
+	if ((state == KOOPAS_STATE_SHELL) && (GetTickCount64() - restore_start > KOOPAS_RESTORE_TIMEOUT) && detecting)
 	{
 		edgeDetector->Delete();
-		edgeDetector = NULL;
 		SetState(KOOPAS_STATE_WALKING);
+		detecting = 0;
 	}
 
-	if (state == KOOPAS_STATE_WALKING && edgeDetector != NULL)
+	if (state == KOOPAS_STATE_WALKING && detecting)
 	{
 		edgeDetector->Update(dt, coObjects);
+		float edt_vx, edt_vy;
+		edgeDetector->GetSpeed(edt_vx, edt_vy);
+		if (edt_vy > 0) 
+		{
+			edgeDetector->Delete();
+			detecting = 0;
+			vx = -vx;
+		}
 	}
 
 
@@ -94,9 +106,9 @@ void CKoopas::Render()
 	{
 		aniId = ID_ANI_KOOPAS_WALKING;
 	}
-	if (state == KOOPAS_STATE_HIDE)
+	if (state == KOOPAS_STATE_SHELL)
 	{
-		aniId = ID_ANI_KOOPAS_HIDE;
+		aniId = ID_ANI_KOOPAS_SHELL;
 	}
 
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
@@ -112,15 +124,15 @@ void CKoopas::SetState(int state)
 	CGameObject::SetState(state);
 	switch (state)
 	{
-	case KOOPAS_STATE_HIDE:
+	case KOOPAS_STATE_SHELL:
 		restore_start = GetTickCount64();
-		y += (KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_HIDE) / 2;
+		y += (KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_SHELL) / 2;
 		vx = 0;
 		vy = 0;
 		ay = 0;
 		break;
 	case KOOPAS_STATE_WALKING:
-		y -= (KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_HIDE) / 2;
+		y -= (KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_SHELL) / 2;
 		vx = -KOOPAS_WALKING_SPEED;
 		break;
 	}
