@@ -62,10 +62,17 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
-
 void CKoopas::Render()
 {
 	int aniId = ID_ANI_KOOPAS_WALKING;
+	if (vx > 0) 
+	{
+		aniId = ID_ANI_KOOPAS_FLIP;
+	}
+	if (vx < 0)
+	{
+		aniId = ID_ANI_KOOPAS_WALKING;
+	}
 	if (state == KOOPAS_STATE_HIDE)
 	{
 		aniId = ID_ANI_KOOPAS_HIDE;

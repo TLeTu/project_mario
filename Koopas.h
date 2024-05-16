@@ -15,6 +15,7 @@
 #define KOOPAS_STATE_HIDE 200
 
 #define ID_ANI_KOOPAS_WALKING 7000
+#define ID_ANI_KOOPAS_FLIP 7002
 #define ID_ANI_KOOPAS_HIDE 7001
 
 class CKoopas : public CGameObject
@@ -34,6 +35,9 @@ protected:
 	virtual void OnNoCollision(DWORD dt);
 
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
+
+
+	int GetAniId();
 
 public:
 	CKoopas(float x, float y);
