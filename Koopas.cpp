@@ -15,19 +15,19 @@ CKoopas::CKoopas(float x, float y) :CGameObject(x, y)
 
 void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (state == KOOPAS_STATE_SHELL)
-	{
-		left = x - KOOPAS_BBOX_WIDTH / 2;
-		top = y - KOOPAS_BBOX_HEIGHT_SHELL / 2;
-		right = left + KOOPAS_BBOX_WIDTH;
-		bottom = top + KOOPAS_BBOX_HEIGHT_SHELL;
-	}
-	else
+	if (state == KOOPAS_STATE_WALKING)
 	{
 		left = x - KOOPAS_BBOX_WIDTH / 2;
 		top = y - KOOPAS_BBOX_HEIGHT / 2;
 		right = left + KOOPAS_BBOX_WIDTH;
 		bottom = top + KOOPAS_BBOX_HEIGHT;
+	}
+	else
+	{
+		left = x - KOOPAS_BBOX_WIDTH / 2;
+		top = y - KOOPAS_BBOX_HEIGHT_SHELL / 2;
+		right = left + KOOPAS_BBOX_WIDTH;
+		bottom = top + KOOPAS_BBOX_HEIGHT_SHELL;
 	}
 }
 
@@ -138,14 +138,16 @@ void CKoopas::Render()
 
 void CKoopas::SetState(int state)
 {
+	int oldState = this->state;
 	CGameObject::SetState(state);
 	switch (state)
 	{
 	case KOOPAS_STATE_SHELL:
 		restore_start = GetTickCount64();
-		y += (KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_SHELL) / 2;
+		y -= (KOOPAS_BBOX_HEIGHT_SHELL) / 2;
 		vx_temp = vx;
 		vx = 0;
+		vy = 0;
 		break;
 	case KOOPAS_STATE_WALKING:
 		y -= (KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_SHELL) / 2;
@@ -158,13 +160,11 @@ void CKoopas::SetState(int state)
 		}
 		break;
 	case KOOPAS_STATE_SPIN:
-	{
-		y -= (KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_SHELL) / 2;
+		y -= (KOOPAS_BBOX_HEIGHT_SHELL) / 2;
 		if (spinDirection > 0)
 			vx = KOOPAS_SPINNING_SPEED;
 		else
 			vx = -KOOPAS_SPINNING_SPEED;
 		break;
-	}
 	}
 }

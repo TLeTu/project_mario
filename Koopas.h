@@ -9,7 +9,7 @@
 
 #define KOOPAS_BBOX_WIDTH 16
 #define KOOPAS_BBOX_HEIGHT 24
-#define KOOPAS_BBOX_HEIGHT_SHELL 16
+#define KOOPAS_BBOX_HEIGHT_SHELL 15
 #define KOOPAS_RESTORE_TIMEOUT 5000
 
 #define KOOPAS_STATE_WALKING 100
@@ -47,6 +47,5 @@ public:
 
 	CKoopas(float x, float y);
 	virtual void SetState(int state);
-	virtual void SetCarried(bool isCarried) { isCarried = isCarried; }
 	virtual void SetSpinDirection(int direction) { spinDirection = direction; }	
 };
