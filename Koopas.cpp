@@ -70,12 +70,15 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
-	//if ((state == KOOPAS_STATE_SHELL) && (GetTickCount64() - restore_start > KOOPAS_RESTORE_TIMEOUT) && detecting)
-	//{
+	if (state == KOOPAS_STATE_SHELL && detecting) 
+	{
+		detecting = 0;
+	}
 
-	//	SetState(KOOPAS_STATE_WALKING);
-	//	detecting = 0;
-	//}
+	if ((state == KOOPAS_STATE_SHELL) && (GetTickCount64() - restore_start > KOOPAS_RESTORE_TIMEOUT))
+	{
+		SetState(KOOPAS_STATE_WALKING);
+	}
 
 	if (state == KOOPAS_STATE_WALKING && detecting)
 	{

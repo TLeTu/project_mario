@@ -31,6 +31,22 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			carriedKoopas->SetPosition(x + 16, y);
 		else 
 			carriedKoopas->SetPosition(x - 16, y);
+		if (carriedKoopas->GetState() == KOOPAS_STATE_WALKING) {
+			if (this->level == MARIO_LEVEL_SMALL)
+			{
+				carriedKoopas->SetPosition(x, y - (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2);
+				DebugOut(L">>> Mario DIE >>> \n");
+				SetState(MARIO_STATE_DIE);
+			}
+			else 
+			{
+				carriedKoopas->SetPosition(x, y);
+				level = MARIO_LEVEL_SMALL;
+				StartUntouchable();
+			}
+			isCarryingKoopas = false;
+			carriedKoopas = nullptr;
+		}
 	}
 
 	isOnPlatform = false;
