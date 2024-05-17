@@ -138,8 +138,10 @@
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="debug.cpp" />
+    <ClCompile Include="Decoration.cpp" />
     <ClCompile Include="EdgeDetector.cpp" />
     <ClCompile Include="EdgeDetector.h" />
+    <ClCompile Include="Floor.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Goomba.cpp" />
@@ -166,6 +168,8 @@
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="debug.h" />
+    <ClInclude Include="Decoration.h" />
+    <ClInclude Include="Floor.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Goomba.h" />
@@ -186,8 +190,9 @@
   <ItemGroup>
     <Text Include="box.txt" />
     <Text Include="brick.txt" />
-    <Text Include="cloud.txt" />
+    <Text Include="colorbox.txt" />
     <Text Include="coin.txt" />
+    <Text Include="floor.txt" />
     <Text Include="goomba.txt" />
     <Text Include="koopas.txt" />
     <Text Include="mario-sample.txt" />

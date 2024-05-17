@@ -90,6 +90,12 @@
     <ClCompile Include="EdgeDetector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Decoration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Floor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -167,12 +173,18 @@
     <ClInclude Include="Koopas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Decoration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Floor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="brick.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="cloud.txt">
+    <Text Include="colorbox.txt">
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="coin.txt">
@@ -206,6 +218,9 @@
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="test_scene.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="floor.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

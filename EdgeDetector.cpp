@@ -47,5 +47,5 @@ void CEdgeDetector::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CEdgeDetector::Render()
 {
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }

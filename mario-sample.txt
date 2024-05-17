@@ -20,3 +20,5 @@ height	240
 10	textures\enemies_transparent.png
 11	textures\enemies_transparent_flip.png
 20	textures\misc_transparent.png
+30	textures\misc-2.png
+31	textures\misc-3.png
