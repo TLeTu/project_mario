@@ -1,5 +1,6 @@
 #include "Koopas.h"
 #include "EdgeDetector.h"
+#include "Goomba.h"
 
 CKoopas::CKoopas(float x, float y) :CGameObject(x, y)
 {
@@ -38,16 +39,24 @@ void CKoopas::OnNoCollision(DWORD dt)
 
 void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-	if (!e->obj->IsBlocking()) return;
-	if (dynamic_cast<CKoopas*>(e->obj)) return;
-
-	if (e->ny != 0)
+	if (e->ny != 0 && e->obj->IsBlocking())
 	{
 		vy = 0;
 	}
-	else if (e->nx != 0)
+	else if (e->nx != 0 && e->obj->IsBlocking())
 	{
 		vx = -vx;
+	}
+	if (dynamic_cast<CGoomba*>(e->obj))
+		OnCollisionWithGoomba(e);
+}
+
+void CKoopas::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
+{
+	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
+	if (goomba->GetState() != GOOMBA_STATE_DIE)
+	{
+			goomba->SetState(GOOMBA_STATE_DIE);
 	}
 }
 

@@ -40,6 +40,9 @@ koopas.txt
 1	304	196
 1	304	180
 
+# GOOMBAS
+2	96	180
+
 # PLATFORM
 #5
 1	64	148
