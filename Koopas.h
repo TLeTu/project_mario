@@ -25,6 +25,7 @@ protected:
 	float ay;
 	float vx_temp;
 	int detecting;
+	int isCarried;
 
 	ULONGLONG restore_start;
 
@@ -39,8 +40,9 @@ protected:
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 
 public:
+	CEdgeDetector* edgeDetector;
 
 	CKoopas(float x, float y);
 	virtual void SetState(int state);
-	CEdgeDetector* edgeDetector;
+	virtual void SetCarried(bool isCarried) { isCarried = isCarried; }
 };

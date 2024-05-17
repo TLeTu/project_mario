@@ -26,6 +26,13 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable = 0;
 	}
 
+	if (isCarryingKoopas && carriedKoopas) {
+		if (nx > 0)
+			carriedKoopas->SetPosition(x + 16, y);
+		else 
+			carriedKoopas->SetPosition(x - 16, y);
+	}
+
 	isOnPlatform = false;
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -98,7 +105,6 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 {
 	CKoopas* koopas = dynamic_cast<CKoopas*>(e->obj);
 
-	// jump on top >> kill Goomba and deflect a bit 
 	if (e->ny < 0)
 	{
 		if (koopas->GetState() != KOOPAS_STATE_SHELL)
@@ -107,11 +113,11 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
 		}
 	}
-	else // hit by Goomba
+	else
 	{
 		if (untouchable == 0)
 		{
-			if (koopas->GetState() != KOOPAS_STATE_SHELL)
+			if (koopas->GetState() == KOOPAS_STATE_WALKING)
 			{
 				if (level > MARIO_LEVEL_SMALL)
 				{
@@ -123,6 +129,11 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 					DebugOut(L">>> Mario DIE >>> \n");
 					SetState(MARIO_STATE_DIE);
 				}
+			}
+			else if (koopas->GetState() == KOOPAS_STATE_SHELL) {
+				isCarryingKoopas = true;
+				carriedKoopas = koopas;
+				koopas->SetCarried(true);
 			}
 		}
 	}

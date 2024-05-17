@@ -3,6 +3,7 @@
 
 #include "Animation.h"
 #include "Animations.h"
+#include "Koopas.h"
 
 #include "debug.h"
 
@@ -32,6 +33,8 @@
 
 #define MARIO_STATE_SIT				600
 #define MARIO_STATE_SIT_RELEASE		601
+
+#define MARIO_STATE_CARRYING_SHELL	700
 
 
 #pragma region ANIMATION_ID
@@ -114,6 +117,9 @@ class CMario : public CGameObject
 	BOOLEAN isOnPlatform;
 	int coin; 
 
+	CKoopas* carriedKoopas;
+	bool isCarryingKoopas;
+
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
 	void OnCollisionWithPortal(LPCOLLISIONEVENT e);
@@ -123,6 +129,7 @@ class CMario : public CGameObject
 	int GetAniIdSmall();
 
 public:
+
 	CMario(float x, float y) : CGameObject(x, y)
 	{
 		isSitting = false;
@@ -135,6 +142,9 @@ public:
 		untouchable_start = -1;
 		isOnPlatform = false;
 		coin = 0;
+
+		isCarryingKoopas = false;
+		carriedKoopas = nullptr;
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
