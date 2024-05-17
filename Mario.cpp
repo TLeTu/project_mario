@@ -158,6 +158,18 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 				koopas->SetSpinDirection(nx);
 				koopas->SetState(KOOPAS_STATE_SPIN);
 			}
+			else if (koopas->GetState() == KOOPAS_STATE_SPIN) {
+				if (level > MARIO_LEVEL_SMALL)
+				{
+					level = MARIO_LEVEL_SMALL;
+					StartUntouchable();
+				}
+				else
+				{
+					DebugOut(L">>> Mario DIE >>> \n");
+					SetState(MARIO_STATE_DIE);
+				}
+			}
 		}
 	}
 }
