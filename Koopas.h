@@ -4,6 +4,7 @@
 
 #define KOOPAS_GRAVITY 0.002f
 #define KOOPAS_WALKING_SPEED 0.05f
+#define KOOPAS_SPINNING_SPEED 0.2f
 
 
 #define KOOPAS_BBOX_WIDTH 16
@@ -13,6 +14,7 @@
 
 #define KOOPAS_STATE_WALKING 100
 #define KOOPAS_STATE_SHELL 200
+#define KOOPAS_STATE_SPIN 300
 
 #define ID_ANI_KOOPAS_WALKING 7000
 #define ID_ANI_KOOPAS_FLIP 7002
@@ -25,7 +27,7 @@ protected:
 	float ay;
 	float vx_temp;
 	int detecting;
-	int isCarried;
+	int spinDirection;
 
 	ULONGLONG restore_start;
 
@@ -45,4 +47,5 @@ public:
 	CKoopas(float x, float y);
 	virtual void SetState(int state);
 	virtual void SetCarried(bool isCarried) { isCarried = isCarried; }
+	virtual void SetSpinDirection(int direction) { spinDirection = direction; }	
 };

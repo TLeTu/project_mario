@@ -7,6 +7,7 @@ CKoopas::CKoopas(float x, float y) :CGameObject(x, y)
 	this->ay = KOOPAS_GRAVITY;
 	this->detecting = 0;
 	this->edgeDetector = new CEdgeDetector();
+	this->spinDirection = -1;
 	restore_start = -1;
 	SetState(KOOPAS_STATE_WALKING);
 }
@@ -113,6 +114,10 @@ void CKoopas::Render()
 	{
 		aniId = ID_ANI_KOOPAS_SHELL;
 	}
+	if (state == KOOPAS_STATE_SPIN)
+	{
+		aniId = ID_ANI_KOOPAS_SHELL;
+	}
 
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	RenderBoundingBox();
@@ -132,8 +137,6 @@ void CKoopas::SetState(int state)
 		y += (KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_SHELL) / 2;
 		vx_temp = vx;
 		vx = 0;
-		vy = 0;
-		ay = 0;
 		break;
 	case KOOPAS_STATE_WALKING:
 		y -= (KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_SHELL) / 2;
@@ -144,7 +147,15 @@ void CKoopas::SetState(int state)
 		else {
 			vx = -KOOPAS_WALKING_SPEED;
 		}
-
 		break;
+	case KOOPAS_STATE_SPIN:
+	{
+		y -= (KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_SHELL) / 2;
+		if (spinDirection > 0)
+			vx = KOOPAS_SPINNING_SPEED;
+		else
+			vx = -KOOPAS_SPINNING_SPEED;
+		break;
+	}
 	}
 }

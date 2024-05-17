@@ -128,6 +128,11 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 			koopas->SetState(KOOPAS_STATE_SHELL);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
 		}
+		else 
+		{
+			koopas->SetSpinDirection(nx);
+			koopas->SetState(KOOPAS_STATE_SPIN);
+		}
 	}
 	else
 	{
@@ -147,9 +152,11 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 				}
 			}
 			else if (koopas->GetState() == KOOPAS_STATE_SHELL) {
-				isCarryingKoopas = true;
-				carriedKoopas = koopas;
-				koopas->SetCarried(true);
+				//isCarryingKoopas = true;
+				//carriedKoopas = koopas;
+				//koopas->SetCarried(true);
+				koopas->SetSpinDirection(nx);
+				koopas->SetState(KOOPAS_STATE_SPIN);
 			}
 		}
 	}
