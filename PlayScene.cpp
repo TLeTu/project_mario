@@ -128,7 +128,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x,y); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x,y); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
-	case OBJECT_TYPE_BOX: obj = new CBox(x, y); break;
 	case OBJECT_TYPE_KOOPAS: obj = new CKoopas(x, y); break;
 	case OBJECT_TYPE_EDGEDETECTOR: obj = new CEdgeDetector(x, y); break;
 	case OBJECT_TYPE_DECORATION: 
@@ -195,6 +194,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		float b = (float)atof(tokens[4].c_str());
 		int scene_id = atoi(tokens[5].c_str());
 		obj = new CPortal(x, y, r, b, scene_id);
+	}
+	case OBJECT_TYPE_BOX: 
+	{
+		int type = atoi(tokens[3].c_str());
+		obj = new CBox(x, y, type);
 	}
 	break;
 

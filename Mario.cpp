@@ -12,6 +12,8 @@
 
 #include "Koopas.h"
 
+#include "Box.h"
+
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	vy += ay * dt;
@@ -81,6 +83,23 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPortal(e);
 	else if (dynamic_cast<CKoopas*>(e->obj))
 		OnCollisionWithKoopas(e);
+	else if (dynamic_cast<CBox*>(e->obj))
+	{
+		OnCollisionWithBox(e);
+	}
+}
+
+void CMario::OnCollisionWithBox(LPCOLLISIONEVENT e)
+{
+	CBox* box = dynamic_cast<CBox*>(e->obj);
+	if (e->ny > 0)
+	{
+		if (box->GetState() != BOX_STATE_EMPTY)
+		{
+			box->SetState(BOX_STATE_EMPTY);
+			coin++;
+		}
+	}
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
