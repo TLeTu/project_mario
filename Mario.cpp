@@ -115,9 +115,7 @@ void CMario::OnCollisionWithBox(LPCOLLISIONEVENT e)
 		{
 			if (box->GetState() == BOX_STATE_MUSHROOM)
 			{
-				float bx, by;
-				box->GetPosition(bx, by);
-				CGameObject* mushroom = new CMushroom(bx, by-17);
+				box->SpawnMushroom();
 				box->SetState(BOX_STATE_EMPTY);
 			}
 			else

@@ -61,6 +61,7 @@ void CKoopas::OnCollisionWithBox(LPCOLLISIONEVENT e)
 	{
 		if (box->GetState() == BOX_STATE_MUSHROOM && this->GetState() == KOOPAS_STATE_SPIN)
 		{
+			box->SpawnMushroom();
 			box->SetState(BOX_STATE_EMPTY);
 		}
 	}

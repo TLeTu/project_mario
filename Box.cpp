@@ -9,6 +9,9 @@ void CBox::Render()
 		aniId = ID_ANI_BOX;
 	CAnimations* animations = CAnimations::GetInstance();
 	animations->Get(aniId)->Render(x, y);
+	if (mushroom != nullptr) {
+		mushroom->Render();
+	}
 
 	//RenderBoundingBox();
 }
@@ -31,4 +34,15 @@ void CBox::SetState(int state)
 	case BOX_STATE_EMPTY:
 		break;
 	}
+}
+
+void CBox::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
+	if (mushroom != nullptr) {
+		mushroom->Update(dt, coObjects);
+	}
+}
+
+void CBox::SpawnMushroom() {
+	mushroom = new CMushroom(x, y - 17);
 }
