@@ -8,6 +8,7 @@ cloud.txt
 box.txt
 koopas.txt
 floor.txt
+mushroom.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -20,6 +21,11 @@ floor.txt
 # FLOOR
 9	0	196	16	16	39	90000	91000	92000
 
+# BRICK
+1	150	180
+1	300	180
+
+
 # BOX
-6	176	132
-6	192	132
+6	250	164	1
+

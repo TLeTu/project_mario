@@ -13,6 +13,8 @@
 #include "Koopas.h"
 
 #include "Box.h"
+#include "Mushroom.h"
+
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -84,8 +86,23 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 	else if (dynamic_cast<CKoopas*>(e->obj))
 		OnCollisionWithKoopas(e);
 	else if (dynamic_cast<CBox*>(e->obj))
-	{
 		OnCollisionWithBox(e);
+	else if (dynamic_cast<CMushroom*>(e->obj))
+		OnCollisionWithMushroom(e);
+}
+
+void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
+{
+	CMushroom* mushroom = dynamic_cast<CMushroom*>(e->obj);
+	if (level == MARIO_LEVEL_SMALL )
+	{
+		SetLevel(MARIO_LEVEL_BIG);
+		StartUntouchable();
+		mushroom->Delete();
+	}
+	else
+	{
+		mushroom->Delete();
 	}
 }
 
@@ -96,8 +113,18 @@ void CMario::OnCollisionWithBox(LPCOLLISIONEVENT e)
 	{
 		if (box->GetState() != BOX_STATE_EMPTY)
 		{
-			box->SetState(BOX_STATE_EMPTY);
-			coin++;
+			if (box->GetState() == BOX_STATE_MUSHROOM)
+			{
+				float bx, by;
+				box->GetPosition(bx, by);
+				CGameObject* mushroom = new CMushroom(bx, by-17);
+				box->SetState(BOX_STATE_EMPTY);
+			}
+			else
+			{
+				box->SetState(BOX_STATE_EMPTY);
+				coin++;
+			}
 		}
 	}
 }

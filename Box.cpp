@@ -9,6 +9,7 @@ void CBox::Render()
 		aniId = ID_ANI_BOX;
 	CAnimations* animations = CAnimations::GetInstance();
 	animations->Get(aniId)->Render(x, y);
+
 	//RenderBoundingBox();
 }
 

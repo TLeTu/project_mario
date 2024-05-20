@@ -1,6 +1,7 @@
 #include "Koopas.h"
 #include "EdgeDetector.h"
 #include "Goomba.h"
+#include "Box.h"
 
 CKoopas::CKoopas(float x, float y) :CGameObject(x, y)
 {
@@ -49,6 +50,21 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 	}
 	if (dynamic_cast<CGoomba*>(e->obj))
 		OnCollisionWithGoomba(e);
+	if (dynamic_cast<CBox*>(e->obj))
+		OnCollisionWithBox(e);
+}
+
+void CKoopas::OnCollisionWithBox(LPCOLLISIONEVENT e)
+{
+	CBox* box = dynamic_cast<CBox*>(e->obj);
+	if (e->ny == 0)
+	{
+		if (box->GetState() == BOX_STATE_MUSHROOM && this->GetState() == KOOPAS_STATE_SPIN)
+		{
+			box->SetState(BOX_STATE_EMPTY);
+		}
+	}
+	else return;
 }
 
 void CKoopas::OnCollisionWithGoomba(LPCOLLISIONEVENT e)

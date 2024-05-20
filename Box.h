@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Animations.h"
+#include "Mushroom.h"
 
 #define ID_ANI_BOX 61000
 #define ID_ANI_BOX_EMPTY 62000
@@ -17,6 +18,7 @@
 class CBox : public CGameObject {
 protected:
 	int type;
+
 public:
 	CBox(float x, float y, int type) : CGameObject(x, y) 
 	{ 

@@ -41,6 +41,7 @@ protected:
 
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
+	void OnCollisionWithBox(LPCOLLISIONEVENT e);
 
 public:
 	CEdgeDetector* edgeDetector;
