@@ -64,7 +64,7 @@ void CKoopas::OnCollisionWithBox(LPCOLLISIONEVENT e)
 		{
 			if (box->GetState() == BOX_STATE_MUSHROOM)
 			{
-				//box->SpawnMushroom();
+				box->SpawnMushroom();
 				box->SetState(BOX_STATE_EMPTY);
 			}
 			else

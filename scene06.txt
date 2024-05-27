@@ -8,6 +8,7 @@ colorbox.txt
 box.txt
 koopas.txt
 floor.txt
+mushroom.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -18,7 +19,7 @@ floor.txt
 1	0	500
 
 # BOX
-6	176	132	1
+6	176	132	0
 6	192	132	0
 
 6	224	84	0

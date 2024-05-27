@@ -23,6 +23,7 @@ void CMushroom::OnNoCollision(DWORD dt)
 
 void CMushroom::OnCollisionWith(LPCOLLISIONEVENT e)
 {
+	if (!e->obj->IsBlocking()) return;
 	if (e->ny != 0)
 	{
 		vy = 0;

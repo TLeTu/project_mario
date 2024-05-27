@@ -36,5 +36,6 @@ void CBox::SetState(int state)
 
 void CBox::SpawnMushroom() {
 	LPGAMEOBJECT mushroom = new CMushroom(x, y - 17);
+	mushroom->SetPosition(x, y - 17);
 	CGame::GetInstance()->GetCurrentScene()->AddGameObject(mushroom);
 }
