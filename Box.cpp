@@ -1,4 +1,6 @@
 #include "Box.h"
+#include "GameObject.h"
+#include "Collision.h"
 
 void CBox::Render()
 {
@@ -9,10 +11,6 @@ void CBox::Render()
 		aniId = ID_ANI_BOX;
 	CAnimations* animations = CAnimations::GetInstance();
 	animations->Get(aniId)->Render(x, y);
-	if (mushroom != nullptr) {
-		mushroom->Render();
-	}
-
 	//RenderBoundingBox();
 }
 
@@ -36,13 +34,7 @@ void CBox::SetState(int state)
 	}
 }
 
-void CBox::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
-{
-	if (mushroom != nullptr) {
-		mushroom->Update(dt, coObjects);
-	}
-}
-
 void CBox::SpawnMushroom() {
-	mushroom = new CMushroom(x, y - 17);
+	LPGAMEOBJECT mushroom = new CMushroom(x, y - 17);
+	CGame::GetInstance()->GetCurrentScene()->AddGameObject(mushroom);
 }

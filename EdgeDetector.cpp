@@ -4,7 +4,6 @@ CEdgeDetector::CEdgeDetector(float x, float y) :CGameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = EDGEDETECTOR_GRAVITY;
-	vx = -EDGEDETECTOR_WALKING_SPEED;
 }
 
 void CEdgeDetector::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -47,5 +46,5 @@ void CEdgeDetector::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CEdgeDetector::Render()
 {
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }

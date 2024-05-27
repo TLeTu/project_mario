@@ -26,7 +26,6 @@ protected:
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 public:
 	CEdgeDetector(float x, float y);
-	CEdgeDetector() : CGameObject() { this->ax = 0; this->ay = EDGEDETECTOR_GRAVITY; this->vx = -EDGEDETECTOR_WALKING_SPEED; }
 	virtual void Render();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 };

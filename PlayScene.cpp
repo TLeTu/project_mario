@@ -18,6 +18,7 @@
 #include "Decoration.h"
 #include "Floor.h"
 #include "Mushroom.h"
+#include "Collision.h"
 
 
 #include "SampleKeyEventHandler.h"
@@ -293,9 +294,12 @@ void CPlayScene::Update(DWORD dt)
 	// TO-DO: This is a "dirty" way, need a more organized way 
 
 	vector<LPGAMEOBJECT> coObjects;
-	for (size_t i = 1; i < objects.size(); i++)
+	for (auto object : objects)
 	{
-		coObjects.push_back(objects[i]);
+		if (object != player)
+		{
+			coObjects.push_back(object);
+		}
 	}
 
 	for (size_t i = 0; i < objects.size(); i++)
@@ -377,4 +381,10 @@ void CPlayScene::PurgeDeletedObjects()
 	objects.erase(
 		std::remove_if(objects.begin(), objects.end(), CPlayScene::IsGameObjectDeleted),
 		objects.end());
+}
+
+void CPlayScene::AddGameObject(LPGAMEOBJECT obj)
+{
+
+	objects.push_back(obj);
 }

@@ -18,7 +18,6 @@
 class CBox : public CGameObject {
 protected:
 	int type;
-	CMushroom* mushroom;
 
 public:
 	CBox(float x, float y, int type) : CGameObject(x, y) 
@@ -31,7 +30,6 @@ public:
 		{
 			this->SetState(BOX_STATE_MUSHROOM);
 		}
-		mushroom = nullptr;
 	}
 	void Render();
 	void Update(DWORD dt) {}
@@ -39,5 +37,4 @@ public:
 
 	void SetState(int state);
 	void SpawnMushroom();
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 };

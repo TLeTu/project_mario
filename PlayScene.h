@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "Textures.h"
 #include "Scene.h"
-#include "GameObject.h"
+#include "Collision.h"
 #include "Brick.h"
 #include "Mario.h"
 #include "Goomba.h"
@@ -32,6 +32,7 @@ public:
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
+	virtual void AddGameObject(LPGAMEOBJECT obj);
 
 	LPGAMEOBJECT GetPlayer() { return player; }
 

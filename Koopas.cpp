@@ -8,7 +8,8 @@ CKoopas::CKoopas(float x, float y) :CGameObject(x, y)
 	this->ax = 0;
 	this->ay = KOOPAS_GRAVITY;
 	this->detecting = 0;
-	this->edgeDetector = new CEdgeDetector();
+	this->edgeDetector = new CEdgeDetector(x - 18, y);
+	CGame::GetInstance()->GetCurrentScene()->AddGameObject(edgeDetector);
 	this->spinDirection = -1;
 	restore_start = -1;
 	SetState(KOOPAS_STATE_WALKING);
@@ -59,10 +60,18 @@ void CKoopas::OnCollisionWithBox(LPCOLLISIONEVENT e)
 	CBox* box = dynamic_cast<CBox*>(e->obj);
 	if (e->ny == 0)
 	{
-		if (box->GetState() == BOX_STATE_MUSHROOM && this->GetState() == KOOPAS_STATE_SPIN)
+		if (box->GetState() != BOX_STATE_EMPTY)
 		{
-			box->SpawnMushroom();
-			box->SetState(BOX_STATE_EMPTY);
+			if (box->GetState() == BOX_STATE_MUSHROOM)
+			{
+				//box->SpawnMushroom();
+				box->SetState(BOX_STATE_EMPTY);
+			}
+			else
+			{
+				box->SetState(BOX_STATE_EMPTY);
+				//coin++;
+			}
 		}
 	}
 	else return;
@@ -86,13 +95,13 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (vx > 0)
 		{
 			edgeDetector->SetPosition(x + 16, y);
-			edgeDetector->SetSpeed(vx, vy);
+			edgeDetector->SetSpeed(vx, 0);
 			detecting = 1;
 		}
 		else 
 		{
 			edgeDetector->SetPosition(x - 16, y);
-			edgeDetector->SetSpeed(vx, vy);
+			edgeDetector->SetSpeed(vx, 0);
 			detecting = 1;
 		}
 	}
@@ -100,6 +109,7 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (state == KOOPAS_STATE_SHELL && detecting) 
 	{
 		detecting = 0;
+		edgeDetector->SetSpeed(0, 0);
 	}
 
 	if ((state == KOOPAS_STATE_SHELL) && (GetTickCount64() - restore_start > KOOPAS_RESTORE_TIMEOUT))
@@ -109,13 +119,13 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (state == KOOPAS_STATE_WALKING && detecting)
 	{
-		edgeDetector->Update(dt, coObjects);
 		float edt_vx, edt_vy;
 		edgeDetector->GetSpeed(edt_vx, edt_vy);
-		if (edt_vy > 0) 
+		if (edt_vy != 0) 
 		{
 			detecting = 0;
 			vx = -vx;
+			edgeDetector->SetSpeed(vx, 0);
 		}
 	}
 
@@ -147,10 +157,6 @@ void CKoopas::Render()
 
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	//RenderBoundingBox();
-	if (edgeDetector != NULL)
-	{
-		edgeDetector->Render();
-	}
 }
 
 void CKoopas::SetState(int state)
