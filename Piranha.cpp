@@ -3,6 +3,8 @@
 
 #include "Collision.h"
 
+#include <cmath>
+
 
 CPiranha::CPiranha(float x, float y) :CGameObject(x, y)
 {
@@ -48,7 +50,7 @@ void CPiranha::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	float mx, my;
 	CGame::GetInstance()->GetCurrentScene()->GetPlayerPosition(mx, my);
 
-	if (x - mx <= 48) 
+	if (abs(x - mx) <= 80) 
 	{
 		marioIsNear = true;
 	}
@@ -60,6 +62,39 @@ void CPiranha::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (marioIsNear && fireball == NULL && !isReloading)
 	{
 		fireball = new CFireball(x, y);
+		float fx, fy;
+		fireball->GetSpeed(fx, fy);
+		if (x < mx)
+		{
+			if (y - my <= -16)
+			{
+				fireball->SetSpeed(-fx, -fx);
+			}
+			else if (y - my >= 16)
+			{
+				fireball->SetSpeed(-fx, fx);
+			}
+			else
+			{
+				fireball->SetSpeed(fx, 0);
+			}
+		}
+		else
+		{
+			if (y - my <= -16)
+			{
+				fireball->SetSpeed(fx, -fx);
+			}
+			else if (y - my >= 16)
+			{
+				fireball->SetSpeed(fx, fx);
+			}
+			else
+			{
+				fireball->SetSpeed(fx, 0);
+			}
+
+		}
 		CGame::GetInstance()->GetCurrentScene()->AddGameObject(fireball);
 		isReloading = true;
 		reload_start = GetTickCount64();
@@ -68,6 +103,39 @@ void CPiranha::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (marioIsNear && !isReloading)
 	{
 		fireball->SetPosition(x, y);
+		float fx, fy;
+		fireball->GetSpeed(fx, fy);
+		if (x < mx)
+		{
+			if (y - my <= -16)
+			{
+				fireball->SetSpeed(-fx, -fx);
+			}
+			else if (y - my >= 16)
+			{
+				fireball->SetSpeed(-fx, fx);
+			}
+			else
+			{
+				fireball->SetSpeed(fx, 0);
+			}
+		}
+		else
+		{
+			if (y - my <= -16)
+			{
+				fireball->SetSpeed(fx, -fx);
+			}
+			else if (y - my >= 16)
+			{
+				fireball->SetSpeed(fx, fx);
+			}
+			else
+			{
+				fireball->SetSpeed(fx, 0);
+			}
+
+		}
 		isReloading = true;
 		reload_start = GetTickCount64();
 	}
