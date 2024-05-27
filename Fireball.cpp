@@ -3,7 +3,7 @@
 CFireball::CFireball(float x, float y) :CGameObject(x, y)
 {
 	vx = -FIREBALL_FLYING_SPEED;
-	vy = FIREBALL_FLYING_SPEED;
+	vy = 0;
 }
 
 void CFireball::GetBoundingBox(float& left, float& top, float& right, float& bottom)
