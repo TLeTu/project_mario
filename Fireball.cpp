@@ -1,6 +1,6 @@
 #include "Fireball.h"
 
-CFireball::CFireball(float x, float y) :CGameObject(x, y)
+CFireball::CFireball(float x, float y):CGameObject(x, y)
 {
 	vx = -FIREBALL_FLYING_SPEED;
 	vy = 0;
@@ -32,6 +32,13 @@ void CFireball::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//vx += ax * dt;
 	x += vx * dt;
 	y += vy * dt;
+
+	//if (GetTickCount64() - die_start > FIREBALL_DIE_TIMEOUT)
+	//{
+	//	isDeleted = true;
+	//	return;
+	//}
+
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);

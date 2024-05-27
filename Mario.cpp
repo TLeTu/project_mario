@@ -101,24 +101,17 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithPiranha(LPCOLLISIONEVENT e)
 {
 	CPiranha* piranha = dynamic_cast<CPiranha*>(e->obj);
-	if (e->ny < 0)
+	if (untouchable == 0)
 	{
-		vy = -MARIO_JUMP_DEFLECT_SPEED;
-	}
-	else
-	{
-		if (untouchable == 0)
+		if (level > MARIO_LEVEL_SMALL)
 		{
-			if (level > MARIO_LEVEL_SMALL)
-			{
-				level = MARIO_LEVEL_SMALL;
-				StartUntouchable();
-			}
-			else
-			{
-				DebugOut(L">>> Mario DIE >>> \n");
-				SetState(MARIO_STATE_DIE);
-			}
+			level = MARIO_LEVEL_SMALL;
+			StartUntouchable();
+		}
+		else
+		{
+			DebugOut(L">>> Mario DIE >>> \n");
+			SetState(MARIO_STATE_DIE);
 		}
 	}
 }

@@ -34,7 +34,3 @@ fireball.txt
 
 # PIRANHA
 11	200	160
-
-# FIREBALL
-12	200	160
-
