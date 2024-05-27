@@ -17,6 +17,7 @@
 #include "Fireball.h"
 
 #include "Piranha.h"
+#include "SceneLoader.h"
 
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -96,6 +97,16 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithFireball(e);
 	else if (dynamic_cast<CPiranha*>(e->obj))
 		OnCollisionWithPiranha(e);
+	else if (dynamic_cast<CSceneLoader*>(e->obj))
+		OnCollisionWithSceneLoader(e);
+}
+
+void CMario::OnCollisionWithSceneLoader(LPCOLLISIONEVENT e)
+{
+	DebugOut(L">>> LOAD >>> \n");
+	CSceneLoader* sl = dynamic_cast<CSceneLoader*>(e->obj);
+	int part = sl->GetPart();
+	CGame::GetInstance()->GetCurrentScene()->SetScenePart(part);
 }
 
 void CMario::OnCollisionWithPiranha(LPCOLLISIONEVENT e)

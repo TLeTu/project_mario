@@ -9,21 +9,20 @@ box.txt
 koopas.txt
 floor.txt
 mushroom.txt
+piranha.txt
+fireball.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
 # type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas
 # See OBJECT_TYPE constants in AssetIDs.h
 
-# _
-1	0	500
-
 # BOX
 6	176	132	0
 6	192	132	0
 
 6	224	84	0
-6	240	84	0
+6	240	84	1
 
 6	416	100	0
 
@@ -81,6 +80,10 @@ mushroom.txt
 1	352	148
 1	368	148
 
+
+# PIRANHA
+11	360	128
+
 # GOOMBA
 2	224	180
 
@@ -96,6 +99,9 @@ mushroom.txt
 # KOOPAs
 3	586	116
 
+# SCENELOADER
+100	720	180	1
+100	1072	180	2
 
 # FLOOR
 9	0	196	16	16	39	90000	91000	92000

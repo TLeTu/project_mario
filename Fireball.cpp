@@ -48,5 +48,5 @@ void CFireball::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CFireball::Render()
 {
 	CAnimations::GetInstance()->Get(ID_ANI_FIREBALL_FLYING)->Render(x, y);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }

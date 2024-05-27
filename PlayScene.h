@@ -6,8 +6,10 @@
 #include "Brick.h"
 #include "Mario.h"
 #include "Goomba.h"
+#include "SceneLoader.h"
 //#include "Koopas.h"
 
+typedef CSceneLoader* LPSCENELOADER;
 
 class CPlayScene: public CScene
 {
@@ -16,6 +18,11 @@ protected:
 	LPGAMEOBJECT player;					
 
 	vector<LPGAMEOBJECT> objects;
+	vector<LPGAMEOBJECT> enemies;
+	vector<LPSCENELOADER> sceneLoaders;
+
+	int ScenePart = 0;
+	float loadPositionX, loadPositionY;
 
 	void _ParseSection_SPRITES(string line);
 	void _ParseSection_ANIMATIONS(string line);
@@ -34,6 +41,7 @@ public:
 	virtual void Unload();
 	virtual void AddGameObject(LPGAMEOBJECT obj);
 	virtual void GetPlayerPosition(float& x, float& y);
+	virtual void SetScenePart(int part);
 
 	LPGAMEOBJECT GetPlayer() { return player; }
 
@@ -44,4 +52,5 @@ public:
 };
 
 typedef CPlayScene* LPPLAYSCENE;
+
 

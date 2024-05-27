@@ -21,6 +21,7 @@
 #include "Collision.h"
 #include "Piranha.h"
 #include "Fireball.h"
+#include "SceneLoader.h"
 
 
 #include "SampleKeyEventHandler.h"
@@ -115,6 +116,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	float y = (float)atof(tokens[2].c_str());
 
 	CGameObject *obj = NULL;
+	CGameObject* enemy = NULL;
+	CSceneLoader* sceneLoader = NULL;
 
 	switch (object_type)
 	{
@@ -129,14 +132,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 		DebugOut(L"[INFO] Player object has been created!\n");
 		break;
-	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x,y); break;
+	case OBJECT_TYPE_GOOMBA: enemy = new CGoomba(x,y); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x,y); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
-	case OBJECT_TYPE_KOOPAS: obj = new CKoopas(x, y); break;
-	case OBJECT_TYPE_EDGEDETECTOR: obj = new CEdgeDetector(x, y); break;
+	case OBJECT_TYPE_KOOPAS: enemy = new CKoopas(x, y); break;
+	case OBJECT_TYPE_EDGEDETECTOR: enemy = new CEdgeDetector(x, y); break;
 	case OBJECT_TYPE_MUSHROOM: obj = new CMushroom(x, y); break;
-	case OBJECT_TYPE_PIRANHA: obj = new CPiranha(x, y); break;
-	case OBJECT_TYPE_FIREBALL: obj = new CFireball(x, y); break;
+	case OBJECT_TYPE_PIRANHA: enemy = new CPiranha(x, y); break;
+	case OBJECT_TYPE_FIREBALL: enemy = new CFireball(x, y); break;
 	case OBJECT_TYPE_DECORATION: 
 	{
 
@@ -206,8 +209,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	{
 		int type = atoi(tokens[3].c_str());
 		obj = new CBox(x, y, type);
+		break;
 	}
-	break;
+	case OBJECT_TYPE_SCENELOADER:
+	{
+		int part = atoi(tokens[3].c_str());
+		sceneLoader = new CSceneLoader(x, y, part);
+		break;
+	}
 
 
 	default:
@@ -216,10 +225,21 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	}
 
 	// General object setup
-	obj->SetPosition(x, y);
-
-
-	objects.push_back(obj);
+	if (obj != NULL) 
+	{
+		obj->SetPosition(x, y);
+		objects.push_back(obj);
+	}
+	if (sceneLoader != NULL)
+	{
+		sceneLoader->SetPosition(x, y);
+		sceneLoaders.push_back(sceneLoader);
+	}
+	if (enemy != NULL)
+	{
+		enemy->SetPosition(x, y);
+		enemies.push_back(enemy);
+	}
 }
 
 void CPlayScene::LoadAssets(LPCWSTR assetFile)
@@ -306,11 +326,37 @@ void CPlayScene::Update(DWORD dt)
 		}
 	}
 
+	for (size_t i = 0; i < sceneLoaders.size(); i++)
+	{
+		coObjects.push_back(sceneLoaders[i]);
+	}
+
+	for (size_t i = 0; i < enemies.size(); i++)
+	{
+		coObjects.push_back(enemies[i]);
+	}
+
 	for (size_t i = 0; i < objects.size(); i++)
 	{
 		objects[i]->Update(dt, &coObjects);
 	}
 
+	for (size_t i = 0; i < sceneLoaders.size(); i++)
+	{
+		if (sceneLoaders[i]->GetPart() == ScenePart + 1)
+		{
+			sceneLoaders[i]->GetPosition(loadPositionX, loadPositionY);
+		}
+	}
+	for (size_t i = 0; i < enemies.size(); i++)
+	{
+		float ox, oy;
+		enemies[i]->GetPosition(ox, oy);
+		if (ox <= loadPositionX)
+		{
+			enemies[i]->Update(dt, &coObjects);
+		}
+	}
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
 	if (player == NULL) return; 
 
@@ -331,8 +377,25 @@ void CPlayScene::Update(DWORD dt)
 
 void CPlayScene::Render()
 {
-	for (int i = 0; i < objects.size(); i++)
+	for (size_t i = 0; i < sceneLoaders.size(); i++)
+	{
+		sceneLoaders[i]->Render();
+	}
+
+	for (size_t i = 0; i < objects.size(); i++)
+	{
 		objects[i]->Render();
+	}
+
+	for (size_t i = 0; i < enemies.size(); i++)
+	{
+		float ox, oy;
+		enemies[i]->GetPosition(ox, oy);
+		if (ox <= loadPositionX)
+		{
+			enemies[i]->Render();
+		}
+	}
 }
 
 /*
@@ -346,6 +409,19 @@ void CPlayScene::Clear()
 		delete (*it);
 	}
 	objects.clear();
+
+	for (it = enemies.begin(); it != enemies.end(); it++)
+	{
+		delete (*it);
+	}
+	enemies.clear();
+
+	vector<LPSCENELOADER>::iterator lt;
+	for (lt = sceneLoaders.begin(); lt != sceneLoaders.end(); it++)
+	{
+		delete (*lt);
+	}
+	sceneLoaders.clear();
 }
 
 /*
@@ -360,6 +436,16 @@ void CPlayScene::Unload()
 		delete objects[i];
 
 	objects.clear();
+
+	for (int i = 0; i < enemies.size(); i++)
+		delete enemies[i];
+
+	enemies.clear();
+
+	for (int i = 0; i < sceneLoaders.size(); i++)
+		delete sceneLoaders[i];
+
+	sceneLoaders.clear();
 	player = NULL;
 
 	DebugOut(L"[INFO] Scene %d unloaded! \n", id);
@@ -380,11 +466,40 @@ void CPlayScene::PurgeDeletedObjects()
 		}
 	}
 
+	for (it = enemies.begin(); it != enemies.end(); it++)
+	{
+		LPGAMEOBJECT o = *it;
+		if (o->IsDeleted())
+		{
+			delete o;
+			*it = NULL;
+		}
+	}
+
+	vector<LPSCENELOADER>::iterator lt;
+	for (lt = sceneLoaders.begin(); lt != sceneLoaders.end(); lt++)
+	{
+		LPSCENELOADER o = *lt;
+		if (o->IsDeleted())
+		{
+			delete o;
+			*lt = NULL;
+		}
+	}
+
 	// NOTE: remove_if will swap all deleted items to the end of the vector
 	// then simply trim the vector, this is much more efficient than deleting individual items
 	objects.erase(
 		std::remove_if(objects.begin(), objects.end(), CPlayScene::IsGameObjectDeleted),
 		objects.end());
+
+	enemies.erase(
+		std::remove_if(enemies.begin(), enemies.end(), CPlayScene::IsGameObjectDeleted),
+		enemies.end());
+
+	sceneLoaders.erase(
+		std::remove_if(sceneLoaders.begin(), sceneLoaders.end(), CPlayScene::IsGameObjectDeleted),
+		sceneLoaders.end());
 }
 
 void CPlayScene::AddGameObject(LPGAMEOBJECT obj)
@@ -395,4 +510,10 @@ void CPlayScene::AddGameObject(LPGAMEOBJECT obj)
 void CPlayScene::GetPlayerPosition(float& x, float& y)
 {
 	player->GetPosition(x, y);
+}
+
+void CPlayScene::SetScenePart(int part)
+{
+	ScenePart = part;
+	Render();
 }

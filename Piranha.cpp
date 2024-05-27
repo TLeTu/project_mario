@@ -157,7 +157,7 @@ void CPiranha::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CPiranha::Render()
 {
 	CAnimations::GetInstance()->Get(ID_ANI_PIRANHA_SHOOTING)->Render(x, y);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CPiranha::SetState(int state)

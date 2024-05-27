@@ -25,6 +25,7 @@ public:
 	virtual void Unload() = 0;
 	virtual void Update(DWORD dt) = 0;
 	virtual void Render() = 0; 
+	virtual void SetScenePart(int part) = 0;
 
 	virtual void AddGameObject(LPGAMEOBJECT obj) = 0;
 	virtual void GetPlayerPosition(float& x, float& y) = 0;
