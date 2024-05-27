@@ -174,7 +174,12 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 		}
 		else 
 		{
-			koopas->SetSpinDirection(nx);
+			float kx, ky;
+			koopas->GetPosition(kx, ky);
+			if (x < kx)
+				koopas->SetSpinDirection(1);
+			else
+				koopas->SetSpinDirection(0);
 			koopas->SetState(KOOPAS_STATE_SPIN);
 		}
 	}
