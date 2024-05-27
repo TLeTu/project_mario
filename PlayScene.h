@@ -33,6 +33,7 @@ public:
 	virtual void Render();
 	virtual void Unload();
 	virtual void AddGameObject(LPGAMEOBJECT obj);
+	virtual void GetPlayerPosition(float& x, float& y);
 
 	LPGAMEOBJECT GetPlayer() { return player; }
 

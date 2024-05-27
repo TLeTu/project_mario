@@ -1,4 +1,6 @@
 #include "Piranha.h"
+#include "debug.h"
+
 
 CPiranha::CPiranha(float x, float y) :CGameObject(x, y)
 {
@@ -38,6 +40,10 @@ void CPiranha::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CPiranha::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	float mx, my;
+	CGame::GetInstance()->GetCurrentScene()->GetPlayerPosition(mx, my);
+
+	DebugOut(L"mx: %f\n", mx);
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);

@@ -20,6 +20,7 @@
 #include "Mushroom.h"
 #include "Collision.h"
 #include "Piranha.h"
+#include "Fireball.h"
 
 
 #include "SampleKeyEventHandler.h"
@@ -135,6 +136,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_EDGEDETECTOR: obj = new CEdgeDetector(x, y); break;
 	case OBJECT_TYPE_MUSHROOM: obj = new CMushroom(x, y); break;
 	case OBJECT_TYPE_PIRANHA: obj = new CPiranha(x, y); break;
+	case OBJECT_TYPE_FIREBALL: obj = new CFireball(x, y); break;
 	case OBJECT_TYPE_DECORATION: 
 	{
 
@@ -388,4 +390,9 @@ void CPlayScene::PurgeDeletedObjects()
 void CPlayScene::AddGameObject(LPGAMEOBJECT obj)
 {
 	objects.push_back(obj);
+}
+
+void CPlayScene::GetPlayerPosition(float& x, float& y)
+{
+	player->GetPosition(x, y);
 }

@@ -141,6 +141,7 @@
     <ClCompile Include="Decoration.cpp" />
     <ClCompile Include="EdgeDetector.cpp" />
     <ClCompile Include="EdgeDetector.h" />
+    <ClCompile Include="Fireball.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="Decoration.h" />
+    <ClInclude Include="Fireball.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
@@ -196,6 +198,7 @@
     <Text Include="brick.txt" />
     <Text Include="colorbox.txt" />
     <Text Include="coin.txt" />
+    <Text Include="fireball.txt" />
     <Text Include="floor.txt" />
     <Text Include="goomba.txt" />
     <Text Include="koopas.txt" />

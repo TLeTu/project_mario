@@ -10,6 +10,7 @@ koopas.txt
 floor.txt
 mushroom.txt
 piranha.txt
+fireball.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -33,4 +34,7 @@ piranha.txt
 
 # PIRANHA
 11	200	160
+
+# FIREBALL
+12	200	160
 

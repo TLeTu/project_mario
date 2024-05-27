@@ -102,6 +102,9 @@
     <ClCompile Include="Piranha.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Fireball.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -191,6 +194,9 @@
     <ClInclude Include="Piranha.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Fireball.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="brick.txt">
@@ -242,6 +248,9 @@
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="tube.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="fireball.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
