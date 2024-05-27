@@ -27,6 +27,7 @@ public:
 	virtual void Render() = 0; 
 
 	virtual void AddGameObject(LPGAMEOBJECT obj) = 0;
+	virtual void GetPlayerPosition(float& x, float& y) = 0;
 };
 typedef CScene * LPSCENE;
 

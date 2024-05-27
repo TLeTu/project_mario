@@ -9,6 +9,7 @@ box.txt
 koopas.txt
 floor.txt
 mushroom.txt
+piranha.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -30,6 +31,6 @@ mushroom.txt
 1	230	180
 1	246	180
 
-# KOOPA
-3	200	148
+# PIRANHA
+11	200	160
 
