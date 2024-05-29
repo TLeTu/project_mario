@@ -8,13 +8,12 @@
 
 CPiranha::CPiranha(float x, float y) :CGameObject(x, y)
 {
-	vx = 0;
-	vy = 0;
 	this->marioIsNear = false;
-	this->isReloading = false;
 	this->fireball = NULL;
+	this->isReloading = true;
 	this->shootingY = y;
-	this->hidingY = y + 16;
+	this->hidingY = y + 50;
+	reload_start = -1;
 	SetState(PIRANHA_STATE_DESCENDING);
 }
 
@@ -50,45 +49,99 @@ void CPiranha::GetBoundingBox(float& left, float& top, float& right, float& bott
 
 void CPiranha::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	x += vx * dt;
 	y += vy * dt;
 
-	CGame::GetInstance()->GetCurrentScene()->GetPlayerPosition(mx, my);
+    CGame::GetInstance()->GetCurrentScene()->GetPlayerPosition(mx, my);
 
-	marioIsNear = abs(x - mx) <= 80;
+    marioIsNear = abs(x - mx) <= 80;
 
-	if (marioIsNear && GetState() == PIRANHA_STATE_HIDING)
+	if (GetState() == PIRANHA_STATE_HIDING && marioIsNear)
 	{
 		SetState(PIRANHA_STATE_ASCENDING);
 	}
-
-	switch (GetState())
+	if (GetState() == PIRANHA_STATE_DESCENDING)
 	{
-	case PIRANHA_STATE_ASCENDING:
-		if (!marioIsNear)
+		if (y < hidingY)
+		{
+			vy = 0.03f;
+		}
+		else
+		{
+			SetState(PIRANHA_STATE_HIDING);
+		}
+	}
+	if (GetState() == PIRANHA_STATE_ASCENDING)
+	{
+		if (y > shootingY)
+		{
+			vy = -0.03f;
+		}
+		else
+		{
+			SetState(PIRANHA_STATE_SHOOTING);
+		}
+	}
+	if (GetState() == PIRANHA_STATE_SHOOTING)
+	{
+		if (GetTickCount64() - reload_start > 1000)
+		{
+				if (x > mx)
+				{
+					SetState(PIRANHA_STATE_SHOOTING_LEFT);
+				}
+				else
+				{
+					SetState(PIRANHA_STATE_SHOOTING_RIGHT);
+				}
+		}
+	}
+	if (GetState() == PIRANHA_STATE_SHOOTING_RIGHT || GetState() == PIRANHA_STATE_SHOOTING_LEFT)
+	{
+		fireball = new CFireball(x, y);
+		CGame::GetInstance()->GetCurrentScene()->AddGameObject(fireball);
+		if (GetState() == PIRANHA_STATE_SHOOTING_LEFT)
+		{
+			if (my > y && my - y >= 16)
+			{
+				fireball->SetState(FIREBALL_STATE_FLYING_DOWNLEFT);
+			}
+			else if (my < y && y - my >= 16)
+			{
+				fireball->SetState(FIREBALL_STATE_FLYING_UPLEFT);
+			}
+			else
+			{
+				fireball->SetState(FIREBALL_STATE_FLYING_LEFT);
+			}
+		}
+		else
+		{
+			if (my > y && my - y >= 16)
+			{
+				fireball->SetState(FIREBALL_STATE_FLYING_DOWNRIGHT);
+			}
+			else if (my < y && y - my >= 16)
+			{
+				fireball->SetState(FIREBALL_STATE_FLYING_UPRIGHT);
+			}
+			else
+			{
+				fireball->SetState(FIREBALL_STATE_FLYING_RIGHT);
+			}
+		}
+	}
+	if (GetState() == PIRANHA_STATE_IDLE)
+	{
+		if (GetTickCount64() - reload_start > 1000)
 		{
 			SetState(PIRANHA_STATE_DESCENDING);
 		}
-		else if (y > shootingY)
-		{
-			vy = -0.05f;
-		}
-		else
-		{
-			vy = 0;
-			SetState(mx < x ? PIRANHA_STATE_SHOOTING_LEFT : PIRANHA_STATE_SHOOTING_RIGHT);
-		}
-		break;
+	}
 
-	case PIRANHA_STATE_DESCENDING:
-		if (y < hidingY)
-		{
-			vy = 0.05f;
-		}
-		else
-		{
-			vy = 0;
-			SetState(PIRANHA_STATE
+    // Update other properties and process collisions
+    CGameObject::Update(dt, coObjects);
+    CCollision::GetInstance()->Process(this, dt, coObjects);
+}
 
 
 
@@ -138,6 +191,13 @@ void CPiranha::SetState(int state)
 	case PIRANHA_STATE_ASCENDING:
 		break;
 	case PIRANHA_STATE_DESCENDING:
+		break;
+	case PIRANHA_STATE_SHOOTING:
+		vy = 0;
+		reload_start = GetTickCount64();
+		break;
+	case PIRANHA_STATE_IDLE:
+		reload_start = GetTickCount64();
 		break;
 	}
 

@@ -18,7 +18,7 @@ fireball.txt
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # MARIO
-0	20	10
+0	20	180
 
 # FLOOR
 9	0	196	16	16	39	90000	91000	92000
