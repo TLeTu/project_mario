@@ -112,7 +112,11 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		edgeDetector->SetSpeed(0, 0);
 	}
 
-	if ((state == KOOPAS_STATE_SHELL) && (GetTickCount64() - restore_start > KOOPAS_RESTORE_TIMEOUT))
+	if ((state == KOOPAS_STATE_SHELL) && (GetTickCount64() - restore_start > KOOPAS_SHELL_TIMEOUT))
+	{
+		SetState(KOOPAS_STATE_RESTORE);
+	}
+	if ((state == KOOPAS_STATE_RESTORE) && (GetTickCount64() - restore_start > KOOPAS_RESTORE_TIMEOUT))
 	{
 		SetState(KOOPAS_STATE_WALKING);
 	}
@@ -154,6 +158,10 @@ void CKoopas::Render()
 	{
 		aniId = ID_ANI_KOOPAS_SHELL;
 	}
+	if (state == KOOPAS_STATE_RESTORE)
+	{
+		aniId = ID_ANI_KOOPAS_RESTORING;
+	}
 
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	//RenderBoundingBox();
@@ -188,6 +196,9 @@ void CKoopas::SetState(int state)
 			vx = KOOPAS_SPINNING_SPEED;
 		else
 			vx = -KOOPAS_SPINNING_SPEED;
+		break;
+	case KOOPAS_STATE_RESTORE:
+		restore_start = GetTickCount64();
 		break;
 	}
 }
