@@ -434,7 +434,10 @@ void CMario::Render()
 void CMario::SetState(int state)
 {
 	// DIE is the end state, cannot be changed! 
-	if (this->state == MARIO_STATE_DIE) return; 
+	if (this->state == MARIO_STATE_DIE)
+	{
+		return;
+	}
 
 	switch (state)
 	{

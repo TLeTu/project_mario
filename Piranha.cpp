@@ -154,30 +154,14 @@ void CPiranha::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CPiranha::Render()
 {
-	int aniId = ID_ANI_PIRANHA_SHOOTING_LEFT;
-	if (GetState() == PIRANHA_STATE_SHOOTING_LEFT)
+	int aniId = -1;
+	if (x > mx)
 	{
 		aniId = ID_ANI_PIRANHA_SHOOTING_LEFT;
 	}
-	else if (GetState() == PIRANHA_STATE_SHOOTING_RIGHT)
+	else
 	{
 		aniId = ID_ANI_PIRANHA_SHOOTING_RIGHT;
-	}
-	else if (GetState() == PIRANHA_STATE_HIDING)
-	{
-		aniId = ID_ANI_PIRANHA_SHOOTING_LEFT;
-	}
-	else if (GetState() == PIRANHA_STATE_ASCENDING)
-	{
-		aniId = ID_ANI_PIRANHA_SHOOTING_LEFT;
-	}
-	else if (GetState() == PIRANHA_STATE_DESCENDING)
-	{
-		aniId = ID_ANI_PIRANHA_SHOOTING_LEFT;
-	}
-	else if (GetState() == PIRANHA_STATE_SHOOTING)
-	{
-		aniId = ID_ANI_PIRANHA_SHOOTING_LEFT;
 	}
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	//RenderBoundingBox();
