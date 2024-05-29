@@ -27,6 +27,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	vy += ay * dt;
 	vx += ax * dt;
 
+	//debug out mario y
+	/*DebugOut(L"mario y: %f\n", y);*/
+
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 
 	// reset untouchable timer if untouchable time has passed
@@ -36,11 +39,11 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable = 0;
 	}
 
-	if (isCarryingKoopas && carriedKoopas) {
+	/*if (isCarryingKoopas && carriedKoopas) {
 		if (nx > 0)
-			carriedKoopas->SetPosition(x + 16, y);
+			carriedKoopas->SetPosition(x + 20, y - 10);
 		else 
-			carriedKoopas->SetPosition(x - 16, y);
+			carriedKoopas->SetPosition(x - 20, y - 10);
 		if (carriedKoopas->GetState() == KOOPAS_STATE_WALKING) {
 			if (this->level == MARIO_LEVEL_SMALL)
 			{
@@ -57,7 +60,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			isCarryingKoopas = false;
 			carriedKoopas = nullptr;
 		}
-	}
+	}*/
 
 	isOnPlatform = false;
 
@@ -257,12 +260,18 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 					SetState(MARIO_STATE_DIE);
 				}
 			}
-			else if (koopas->GetState() == KOOPAS_STATE_SHELL) {
-				//isCarryingKoopas = true;
-				//carriedKoopas = koopas;
-				//koopas->SetCarried(true);
-				koopas->SetSpinDirection(nx);
-				koopas->SetState(KOOPAS_STATE_SPIN);
+			else if (koopas->GetState() == KOOPAS_STATE_SHELL) 
+			{
+				//if (GetState() == MARIO_STATE_RUNNING_LEFT || GetState() == MARIO_STATE_RUNNING_RIGHT)
+				//{
+				//	isCarryingKoopas = true;
+				//	carriedKoopas = koopas;
+				//}
+				//else 
+				//{
+					koopas->SetSpinDirection(nx);
+					koopas->SetState(KOOPAS_STATE_SPIN);
+				//}
 			}
 			else if (koopas->GetState() == KOOPAS_STATE_SPIN) {
 				if (level > MARIO_LEVEL_SMALL)
