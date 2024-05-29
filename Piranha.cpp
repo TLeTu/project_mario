@@ -14,6 +14,7 @@ CPiranha::CPiranha(float x, float y) :CGameObject(x, y)
 	this->shootingY = y;
 	this->hidingY = y + 50;
 	reload_start = -1;
+	type = "piranha";
 	SetState(PIRANHA_STATE_DESCENDING);
 }
 

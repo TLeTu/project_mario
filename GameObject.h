@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include <d3dx10.h>
 #include <vector>
+#include <string>
 
 #include "Animation.h"
 #include "Animations.h"
@@ -30,11 +31,14 @@ protected:
 
 	bool isDeleted; 
 
+	string type;
+
 public: 
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
+	string GetType() { return this->type; }
 
 	int GetState() { return this->state; }
 	virtual void Delete() { isDeleted = true;  }
@@ -50,6 +54,7 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL) {};
 	virtual void Render() = 0;
 	virtual void SetState(int state) { this->state = state; }
+	
 
 	//
 	// Collision ON or OFF ? This can change depending on object's state. For example: die

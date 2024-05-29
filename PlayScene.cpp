@@ -402,6 +402,15 @@ void CPlayScene::Render()
 		sceneLoaders[i]->Render();
 	}
 
+	for (size_t i = 0; i < enemies.size(); i++)
+	{
+		float ox, oy;
+		enemies[i]->GetPosition(ox, oy);
+		if (ox <= loadPositionX && enemies[i]->GetType() == "piranha")
+		{
+			enemies[i]->Render();
+		}
+	}
 	for (size_t i = 0; i < objects.size(); i++)
 	{
 		objects[i]->Render();
@@ -411,11 +420,12 @@ void CPlayScene::Render()
 	{
 		float ox, oy;
 		enemies[i]->GetPosition(ox, oy);
-		if (ox <= loadPositionX)
+		if (ox <= loadPositionX && enemies[i]->GetType() != "piranha")
 		{
 			enemies[i]->Render();
 		}
 	}
+
 }
 
 /*
