@@ -17,7 +17,10 @@
 
 #define PIRANHA_STATE_SHOOTING_LEFT 100
 #define PIRANHA_STATE_SHOOTING_RIGHT 200
-#define PIRANHA_STATE_IDLE 300
+#define PIRANHA_STATE_HIDING 300
+#define PIRANHA_STATE_ASCENDING 400
+#define PIRANHA_STATE_DESCENDING 500
+#define PIRANHA_STATE_SHOOTING 600
 
 class CPiranha : public CGameObject
 {
@@ -25,6 +28,7 @@ protected:
 	bool marioIsNear;
 	bool isReloading;
 	float mx, my;
+	float shootingY, hidingY;
 
 	ULONGLONG reload_start;
 
@@ -34,9 +38,9 @@ protected:
 
 	virtual int IsCollidable() { return 1; };
 	virtual int IsBlocking() { return 0; }
-	virtual void OnNoCollision(DWORD dt);
+	//virtual void OnNoCollision(DWORD dt);
 
-	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
+	//virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 
 public:
 	CPiranha(float x, float y);
