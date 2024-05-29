@@ -12,7 +12,7 @@ CPiranha::CPiranha(float x, float y) :CGameObject(x, y)
 	this->fireball = NULL;
 	this->isReloading = true;
 	this->shootingY = y;
-	this->hidingY = y + 50;
+	this->hidingY = y + 25;
 	reload_start = -1;
 	type = "piranha";
 	SetState(PIRANHA_STATE_DESCENDING);
@@ -56,9 +56,14 @@ void CPiranha::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
     marioIsNear = abs(x - mx) <= 80;
 
+	marioIsAbove = y - my <= 20;
+
 	if (GetState() == PIRANHA_STATE_HIDING && marioIsNear)
 	{
-		SetState(PIRANHA_STATE_ASCENDING);
+		if (GetTickCount64() - reload_start > PIRANHA_RELOAD_TIME)
+		{
+			SetState(PIRANHA_STATE_ASCENDING);
+		}
 	}
 	if (GetState() == PIRANHA_STATE_DESCENDING)
 	{
@@ -185,6 +190,7 @@ void CPiranha::SetState(int state)
 	{
 	case PIRANHA_STATE_HIDING:
 		vy = 0;
+		reload_start = GetTickCount64();
 		break;
 	case PIRANHA_STATE_SHOOTING_LEFT:
 		break;

@@ -27,6 +27,7 @@ class CPiranha : public CGameObject
 {
 protected:
 	bool marioIsNear;
+	bool marioIsAbove;
 	bool isReloading;
 	float mx, my;
 	float shootingY, hidingY;
