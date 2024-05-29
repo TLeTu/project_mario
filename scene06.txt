@@ -11,6 +11,7 @@ floor.txt
 mushroom.txt
 piranha.txt
 fireball.txt
+tube.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -73,13 +74,9 @@ fireball.txt
 
 
 # TUBE
-1	352	180
-1	368	180
-1	352	164
-1	368	164
-1	352	148
-1	368	148
-
+13	352	148	16	16	2	300000	300001	300001
+13	352	164	16	16	2	300002	300003	300003
+13	352	180	16	16	2	300002	300003	300003
 
 # PIRANHA
 11	360	128
@@ -87,7 +84,7 @@ fireball.txt
 # GOOMBA
 2	224	180
 
-2	368	180
+2	586	180
 
 2	1008	164
 2	1040	164
