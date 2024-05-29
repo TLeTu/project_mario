@@ -193,6 +193,7 @@
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Textures.h" />
+    <ClInclude Include="Tube.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>

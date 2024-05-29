@@ -14,11 +14,16 @@
 #define ID_ANI_PIRANHA_SHOOTING 210000
 //#define ID_ANI_PIRANHA_DIE 5001
 
+#define PIRANHA_STATE_SHOOTING_LEFT 100
+#define PIRANHA_STATE_SHOOTING_RIGHT 200
+#define PIRANHA_STATE_IDLE 300
+
 class CPiranha : public CGameObject
 {
 protected:
 	bool marioIsNear;
 	bool isReloading;
+	float mx, my;
 
 	ULONGLONG reload_start;
 

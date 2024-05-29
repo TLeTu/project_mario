@@ -47,7 +47,6 @@ void CPiranha::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CPiranha::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	float mx, my;
 	CGame::GetInstance()->GetCurrentScene()->GetPlayerPosition(mx, my);
 
 	if (abs(x - mx) <= 80) 
@@ -59,86 +58,92 @@ void CPiranha::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		marioIsNear = false;
 	}
 
+	if (marioIsNear) {
+		if (mx < x)
+		{
+			SetState(PIRANHA_STATE_SHOOTING_LEFT);
+		}
+		else
+		{
+			SetState(PIRANHA_STATE_SHOOTING_RIGHT);
+		}
+	}
+
 	if (marioIsNear && fireball == NULL && !isReloading)
 	{
 		fireball = new CFireball(x, y);
-		float fx, fy;
-		fireball->GetSpeed(fx, fy);
-		if (x < mx)
-		{
-			if (y - my <= -16)
-			{
-				fireball->SetSpeed(-fx, -fx);
-			}
-			else if (y - my >= 16)
-			{
-				fireball->SetSpeed(-fx, fx);
-			}
-			else
-			{
-				fireball->SetSpeed(fx, 0);
-			}
-		}
-		else
-		{
-			if (y - my <= -16)
-			{
-				fireball->SetSpeed(fx, -fx);
-			}
-			else if (y - my >= 16)
-			{
-				fireball->SetSpeed(fx, fx);
-			}
-			else
-			{
-				fireball->SetSpeed(fx, 0);
-			}
-
-		}
 		CGame::GetInstance()->GetCurrentScene()->AddGameObject(fireball);
-		isReloading = true;
-		reload_start = GetTickCount64();
-	}
-
-	if (marioIsNear && !isReloading)
-	{
-		fireball->SetPosition(x, y);
-		float fx, fy;
-		fireball->GetSpeed(fx, fy);
-		if (x < mx)
+		if (GetState() == PIRANHA_STATE_SHOOTING_LEFT)
 		{
-			if (y - my <= -16)
+			if (my > y && my - y >= 16)
 			{
-				fireball->SetSpeed(-fx, -fx);
+				fireball->SetState(FIREBALL_STATE_FLYING_DOWNLEFT);
 			}
-			else if (y - my >= 16)
+			else if (my < y && y - my >= 16)
 			{
-				fireball->SetSpeed(-fx, fx);
+				fireball->SetState(FIREBALL_STATE_FLYING_UPLEFT);
 			}
 			else
 			{
-				fireball->SetSpeed(fx, 0);
+				fireball->SetState(FIREBALL_STATE_FLYING_LEFT);
 			}
 		}
-		else
+		else if (GetState() == PIRANHA_STATE_SHOOTING_RIGHT)
 		{
-			if (y - my <= -16)
+			if (my > y && my - y >= 16)
 			{
-				fireball->SetSpeed(fx, -fx);
+				fireball->SetState(FIREBALL_STATE_FLYING_DOWNRIGHT);
 			}
-			else if (y - my >= 16)
+			else if (my < y && y - my >= 16)
 			{
-				fireball->SetSpeed(fx, fx);
+				fireball->SetState(FIREBALL_STATE_FLYING_UPRIGHT);
 			}
 			else
 			{
-				fireball->SetSpeed(fx, 0);
+				fireball->SetState(FIREBALL_STATE_FLYING_RIGHT);
 			}
-
 		}
 		isReloading = true;
 		reload_start = GetTickCount64();
+		fireball = NULL;
 	}
+
+	//if (marioIsNear && !isReloading)
+	//{
+	//	fireball->SetPosition(x, y);
+	//	if (GetState() == PIRANHA_STATE_SHOOTING_LEFT)
+	//	{
+	//		if (my > y && my - y >= 16)
+	//		{
+	//			fireball->SetState(FIREBALL_STATE_FLYING_DOWNLEFT);
+	//		}
+	//		else if (my < y && y - my >= 16)
+	//		{
+	//			fireball->SetState(FIREBALL_STATE_FLYING_UPLEFT);
+	//		}
+	//		else
+	//		{
+	//			fireball->SetState(FIREBALL_STATE_FLYING_LEFT);
+	//		}
+	//	}
+	//	else if (GetState() == PIRANHA_STATE_SHOOTING_RIGHT)
+	//	{
+	//		if (my > y && my - y >= 16)
+	//		{
+	//			fireball->SetState(FIREBALL_STATE_FLYING_DOWNRIGHT);
+	//		}
+	//		else if (my < y && y - my >= 16)
+	//		{
+	//			fireball->SetState(FIREBALL_STATE_FLYING_UPRIGHT);
+	//		}
+	//		else
+	//		{
+	//			fireball->SetState(FIREBALL_STATE_FLYING_RIGHT);
+	//		}
+	//	}
+	//	isReloading = true;
+	//	reload_start = GetTickCount64();
+	//}
 
 	if (isReloading)
 	{
@@ -162,18 +167,15 @@ void CPiranha::Render()
 
 void CPiranha::SetState(int state)
 {
-	//CGameObject::SetState(state);
-	//switch (state)
-	//{
-	//case PIRANHA_STATE_DIE:
-	//	die_start = GetTickCount64();
-	//	y += (PIRANHA_BBOX_HEIGHT - PIRANHA_BBOX_HEIGHT_DIE) / 2;
-	//	vx = 0;
-	//	vy = 0;
-	//	ay = 0;
-	//	break;
-	//case PIRANHA_STATE_WALKING:
-	//	vx = -PIRANHA_WALKING_SPEED;
-	//	break;
-	//}
+	CGameObject::SetState(state);
+	switch (state)
+	{
+	case PIRANHA_STATE_IDLE:
+		break;
+	case PIRANHA_STATE_SHOOTING_LEFT:
+		break;
+	case PIRANHA_STATE_SHOOTING_RIGHT:
+		break;
+	}
+
 }

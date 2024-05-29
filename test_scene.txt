@@ -34,3 +34,6 @@ fireball.txt
 
 # PIRANHA
 11	200	160
+
+# SCENELOADER
+100	250	180	1
