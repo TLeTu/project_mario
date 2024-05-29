@@ -21,6 +21,10 @@
 
 #define ID_ANI_GOOMBA_WALKING 5000
 #define ID_ANI_GOOMBA_DIE 5001
+#define ID_ANI_GOOMBA_TAKEOFF 5002
+#define ID_ANI_GOOMBA_JUMP 5003
+#define ID_ANI_GOOMBA_WALKING_RED 5004
+#define ID_ANI_GOOMBA_DIE_RED 5005
 
 class CGoomba : public CGameObject
 {
@@ -44,6 +48,7 @@ protected:
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 
 public: 	
-	CGoomba(float x, float y);
+	CGoomba(float x, float y, int type);
 	virtual void SetState(int state);
+	virtual int GetGoombaType() { return this->goombaType; };
 };
