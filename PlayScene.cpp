@@ -33,6 +33,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 	CScene(id, filePath)
 {
 	player = NULL;
+	ScenePart = 0;
 	key_handler = new CSampleKeyHandler(this);
 }
 
@@ -136,7 +137,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_GOOMBA:
 	{
 		int type = atoi(tokens[3].c_str());
-		obj = new CGoomba(x, y, type);
+		enemy = new CGoomba(x, y, type);
 		break;
 	}
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x,y); break;

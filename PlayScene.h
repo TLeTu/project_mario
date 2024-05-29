@@ -21,7 +21,7 @@ protected:
 	vector<LPGAMEOBJECT> enemies;
 	vector<LPSCENELOADER> sceneLoaders;
 
-	int ScenePart = 0;
+	int ScenePart;
 	float loadPositionX, loadPositionY;
 
 	void _ParseSection_SPRITES(string line);
