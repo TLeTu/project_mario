@@ -83,7 +83,7 @@ void CPiranha::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (GetState() == PIRANHA_STATE_SHOOTING)
 	{
-		if (GetTickCount64() - reload_start > 1000)
+		if (GetTickCount64() - reload_start > PIRANHA_RELOAD_TIME)
 		{
 				if (x > mx)
 				{
@@ -129,10 +129,11 @@ void CPiranha::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				fireball->SetState(FIREBALL_STATE_FLYING_RIGHT);
 			}
 		}
+		SetState(PIRANHA_STATE_IDLE);
 	}
 	if (GetState() == PIRANHA_STATE_IDLE)
 	{
-		if (GetTickCount64() - reload_start > 1000)
+		if (GetTickCount64() - reload_start > PIRANHA_RELOAD_TIME)
 		{
 			SetState(PIRANHA_STATE_DESCENDING);
 		}
