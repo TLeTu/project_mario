@@ -5,10 +5,13 @@
 
 #include <cmath>
 
+#include "Mario.h"
+
 
 CPiranha::CPiranha(float x, float y) :CGameObject(x, y)
 {
 	this->marioIsNear = false;
+	this->marioIsAbove = false;
 	this->fireball = NULL;
 	this->isReloading = true;
 	this->shootingY = y;
@@ -27,26 +30,16 @@ void CPiranha::GetBoundingBox(float& left, float& top, float& right, float& bott
 	bottom = top + PIRANHA_BBOX_HEIGHT;
 }
 
-//void CPiranha::OnNoCollision(DWORD dt)
-//{
-//	//x += vx * dt;
-//	//y += vy * dt;
-//};
+void CPiranha::OnNoCollision(DWORD dt)
+{
+	//x += vx * dt;
+	//y += vy * dt;
+};
 
-//void CPiranha::OnCollisionWith(LPCOLLISIONEVENT e)
-//{
-//	//if (!e->obj->IsBlocking()) return;
-//	//if (dynamic_cast<CPiranha*>(e->obj)) return;
-//
-//	//if (e->ny != 0)
-//	//{
-//	//	vy = 0;
-//	//}
-//	//else if (e->nx != 0)
-//	//{
-//	//	vx = -vx;
-//	//}
-//}
+void CPiranha::OnCollisionWith(LPCOLLISIONEVENT e)
+{
+	
+}
 
 void CPiranha::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -54,13 +47,16 @@ void CPiranha::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
     CGame::GetInstance()->GetCurrentScene()->GetPlayerPosition(mx, my);
 
+	//debug out mario mx my
+	DebugOut(L"mx: %f, my: %f\n", mx, my);
+
     marioIsNear = abs(x - mx) <= 80;
 
-	marioIsAbove = y - my <= 20;
+	marioIsAbove = y > my && abs(x-mx) <= 16;
 
-	if (GetState() == PIRANHA_STATE_HIDING && marioIsNear)
+	if (GetState() == PIRANHA_STATE_HIDING && marioIsNear && !marioIsAbove)
 	{
-		if (GetTickCount64() - reload_start > PIRANHA_RELOAD_TIME)
+		if (GetTickCount64() - reload_start > PIRANHA_MOVING_TIME)
 		{
 			SetState(PIRANHA_STATE_ASCENDING);
 		}
@@ -139,7 +135,7 @@ void CPiranha::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (GetState() == PIRANHA_STATE_IDLE)
 	{
-		if (GetTickCount64() - reload_start > PIRANHA_RELOAD_TIME)
+		if (GetTickCount64() - reload_start > PIRANHA_MOVING_TIME)
 		{
 			SetState(PIRANHA_STATE_DESCENDING);
 		}

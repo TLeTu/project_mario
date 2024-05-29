@@ -7,9 +7,10 @@
 #define PIRANHA_WALKING_SPEED 0.05f
 
 #define PIRANHA_RELOAD_TIME 2000
+#define PIRANHA_MOVING_TIME 3000
 
 #define PIRANHA_BBOX_WIDTH 16
-#define PIRANHA_BBOX_HEIGHT 23
+#define PIRANHA_BBOX_HEIGHT 20
 
 #define ID_ANI_PIRANHA_SHOOTING_LEFT 210000
 #define ID_ANI_PIRANHA_SHOOTING_RIGHT 220000
@@ -40,9 +41,9 @@ protected:
 
 	virtual int IsCollidable() { return 1; };
 	virtual int IsBlocking() { return 0; }
-	//virtual void OnNoCollision(DWORD dt);
+	virtual void OnNoCollision(DWORD dt);
 
-	//virtual void OnCollisionWith(LPCOLLISIONEVENT e);
+	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 
 public:
 	CPiranha(float x, float y);

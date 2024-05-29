@@ -19,6 +19,8 @@
 #include "Piranha.h"
 #include "SceneLoader.h"
 
+#include "Floor.h"
+
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -121,8 +123,9 @@ void CMario::OnCollisionWithPiranha(LPCOLLISIONEVENT e)
 		}
 		else
 		{
-			DebugOut(L">>> Mario DIE >>> \n");
-			SetState(MARIO_STATE_DIE);
+				DebugOut(L">>> Mario DIE >>> \n");
+				SetState(MARIO_STATE_DIE);
+
 		}
 	}
 }
