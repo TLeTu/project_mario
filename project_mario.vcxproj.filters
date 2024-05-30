@@ -37,6 +37,18 @@
     <Filter Include="Source Files\Player">
       <UniqueIdentifier>{58428e8e-8b09-4462-9f01-fb4901061526}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Enemies">
+      <UniqueIdentifier>{25e8d303-835d-4613-bf1d-ee724e7f765b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Items">
+      <UniqueIdentifier>{89f869cc-815b-445d-a558-195478a43075}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Objects">
+      <UniqueIdentifier>{87bc4b8d-ed4b-47fd-886e-bbe9a7a4db53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Scenes">
+      <UniqueIdentifier>{b62a6eb6-3d97-49c7-8d02-02cdfb40ce06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -235,62 +247,62 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="brick.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="colorbox.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="coin.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="goomba.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="mario.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="mario-sample.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="scene01.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="scene02.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="scene0005.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="scene06.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="box.txt">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Objects</Filter>
     </Text>
-    <Text Include="koopas.txt">
-      <Filter>Resource Files</Filter>
+    <Text Include="brick.txt">
+      <Filter>Resource Files\Objects</Filter>
     </Text>
-    <Text Include="test_scene.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="floor.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="mushroom.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="piranha.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="tube.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="fireball.txt">
-      <Filter>Resource Files</Filter>
+    <Text Include="colorbox.txt">
+      <Filter>Resource Files\Objects</Filter>
     </Text>
     <Text Include="decoration.txt">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Objects</Filter>
+    </Text>
+    <Text Include="floor.txt">
+      <Filter>Resource Files\Objects</Filter>
+    </Text>
+    <Text Include="tube.txt">
+      <Filter>Resource Files\Objects</Filter>
+    </Text>
+    <Text Include="coin.txt">
+      <Filter>Resource Files\Items</Filter>
+    </Text>
+    <Text Include="mushroom.txt">
+      <Filter>Resource Files\Items</Filter>
+    </Text>
+    <Text Include="fireball.txt">
+      <Filter>Resource Files\Enemies</Filter>
+    </Text>
+    <Text Include="goomba.txt">
+      <Filter>Resource Files\Enemies</Filter>
+    </Text>
+    <Text Include="koopas.txt">
+      <Filter>Resource Files\Enemies</Filter>
+    </Text>
+    <Text Include="piranha.txt">
+      <Filter>Resource Files\Enemies</Filter>
+    </Text>
+    <Text Include="mario-sample.txt">
+      <Filter>Resource Files\Scenes</Filter>
+    </Text>
+    <Text Include="scene01.txt">
+      <Filter>Resource Files\Scenes</Filter>
+    </Text>
+    <Text Include="scene02.txt">
+      <Filter>Resource Files\Scenes</Filter>
+    </Text>
+    <Text Include="scene0005.txt">
+      <Filter>Resource Files\Scenes</Filter>
+    </Text>
+    <Text Include="scene06.txt">
+      <Filter>Resource Files\Scenes</Filter>
+    </Text>
+    <Text Include="test_scene.txt">
+      <Filter>Resource Files\Scenes</Filter>
     </Text>
   </ItemGroup>
 </Project>
