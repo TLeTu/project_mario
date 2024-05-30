@@ -202,6 +202,7 @@
     <Text Include="brick.txt" />
     <Text Include="colorbox.txt" />
     <Text Include="coin.txt" />
+    <Text Include="decoration.txt" />
     <Text Include="fireball.txt" />
     <Text Include="floor.txt" />
     <Text Include="goomba.txt" />
