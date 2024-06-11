@@ -143,5 +143,5 @@ decoration.txt
 
 
 # MARIO
-0	1152	10
+0	20	10
 
