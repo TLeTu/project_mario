@@ -111,6 +111,7 @@ public:
 	void Load(LPCWSTR gameFile);
 	void SwitchScene();
 	void InitiateSwitchScene(int scene_id);
+	void ReloadScene();
 
 	void _ParseSection_TEXTURES(string line);
 

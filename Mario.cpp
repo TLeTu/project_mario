@@ -41,7 +41,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	if (isCarryingKoopas && carriedKoopas)
 	{
-		if (isRunning)
+		if (isHolding)
 		{
 			if (nx > 0)
 				carriedKoopas->SetPosition(x + 20, y - 5);
@@ -295,7 +295,7 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 			}
 			else if (koopas->GetState() == KOOPAS_STATE_SHELL) 
 			{
-				if (isRunning)
+				if (isHolding)
 				{
 					isCarryingKoopas = true;
 					carriedKoopas = koopas;
