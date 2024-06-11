@@ -82,7 +82,7 @@ void CSampleKeyHandler::KeyState(BYTE *states)
 	{
 		mario->SetState(MARIO_STATE_IDLE);
 	}
-	if (game->IsKeyDown(DIK_Q))
+	if (game->IsKeyDown(DIK_A))
 	{
 		mario->SetHolding(true);
 	}
