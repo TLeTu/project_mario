@@ -15,7 +15,7 @@ CPiranha::CPiranha(float x, float y) :CGameObject(x, y)
 	this->fireball = NULL;
 	this->isReloading = true;
 	this->shootingY = y;
-	this->hidingY = y + 25;
+	this->hidingY = y + 32;
 	reload_start = -1;
 	type = "piranha";
 	SetState(PIRANHA_STATE_DESCENDING);

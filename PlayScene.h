@@ -42,6 +42,7 @@ public:
 	virtual void AddGameObject(LPGAMEOBJECT obj);
 	virtual void GetPlayerPosition(float& x, float& y);
 	virtual void SetScenePart(int part);
+	virtual void ResetScenePart() { ScenePart = 0; }
 
 	LPGAMEOBJECT GetPlayer() { return player; }
 

@@ -528,7 +528,12 @@ void CGame::SwitchScene()
 void CGame::ReloadScene()
 {
 	scenes[current_scene]->Unload();
-	scenes[current_scene]->Load();
+	CSprites::GetInstance()->Clear();
+	CAnimations::GetInstance()->Clear();
+	LPSCENE s = scenes[current_scene];
+	this->SetKeyHandler(s->GetKeyEventHandler());
+	s->ResetScenePart();
+	s->Load();
 }
 
 void CGame::InitiateSwitchScene(int scene_id)
