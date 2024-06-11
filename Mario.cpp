@@ -71,12 +71,12 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			carriedKoopas->GetPosition(kx, ky);
 			if (x < kx)
 			{
-				carriedKoopas->SetPosition(kx + 5, y);
+				carriedKoopas->SetPosition(kx + 10, y);
 				carriedKoopas->SetSpinDirection(1);
 			}
 			else
 			{
-				carriedKoopas->SetPosition(kx - 5, y);
+				carriedKoopas->SetPosition(kx - 10, y);
 				carriedKoopas->SetSpinDirection(0);
 			}
 			carriedKoopas->SetState(KOOPAS_STATE_SPIN);
@@ -197,16 +197,26 @@ void CMario::OnCollisionWithBox(LPCOLLISIONEVENT e)
 	{
 		if (box->GetState() != BOX_STATE_EMPTY)
 		{
+			float _, by;
+			box->GetPosition(_, by);
+			box->SetPosition(_, by - 8);
 			if (box->GetState() == BOX_STATE_MUSHROOM)
 			{
 				box->SpawnMushroom();
-				box->SetState(BOX_STATE_EMPTY);
+				box->SetState(BOX_STATE_ANI);
 			}
 			else
 			{
-				box->SetState(BOX_STATE_EMPTY);
+				box->SetState(BOX_STATE_ANI);
 				coin++;
 			}
+		}
+		else
+		{
+			float _, by;
+			box->GetPosition(_, by);
+			box->SetPosition(_, by - 8);
+			box->SetState(BOX_STATE_ANI);
 		}
 	}
 }

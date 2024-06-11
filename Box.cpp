@@ -5,7 +5,7 @@
 void CBox::Render()
 {
 	int aniId = ID_ANI_BOX;
-	if (state == BOX_STATE_EMPTY)
+	if (state == BOX_STATE_EMPTY || state == BOX_STATE_ANI)
 		aniId = ID_ANI_BOX_EMPTY;
 	else
 		aniId = ID_ANI_BOX;
@@ -31,6 +31,9 @@ void CBox::SetState(int state)
 		break;
 	case BOX_STATE_EMPTY:
 		break;
+	case BOX_STATE_ANI:
+		down_start = GetTickCount64();
+		break;
 	}
 }
 
@@ -38,4 +41,18 @@ void CBox::SpawnMushroom() {
 	LPGAMEOBJECT mushroom = new CMushroom(x, y - 17);
 	mushroom->SetPosition(x, y - 17);
 	CGame::GetInstance()->GetCurrentScene()->AddGameObject(mushroom);
+}
+
+void CBox::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
+	if (y != initY)
+	{
+		if (GetTickCount64() - down_start > 100)
+		{
+			SetPosition(x, initY);
+			SetState(BOX_STATE_EMPTY);
+		}
+	}
+	CGameObject::Update(dt, coObjects);
+	CCollision::GetInstance()->Process(this, dt, coObjects);
 }

@@ -14,10 +14,13 @@
 #define BOX_STATE_NORMAL 100
 #define BOX_STATE_EMPTY 200
 #define BOX_STATE_MUSHROOM 300
+#define BOX_STATE_ANI 400
 
 class CBox : public CGameObject {
 protected:
 	int type;
+	float initY;
+	float down_start;
 
 public:
 	CBox(float x, float y, int type) : CGameObject(x, y) 
@@ -30,9 +33,10 @@ public:
 		{
 			this->SetState(BOX_STATE_MUSHROOM);
 		}
+		initY = y;
 	}
 	void Render();
-	void Update(DWORD dt) {}
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 
 	void SetState(int state);
