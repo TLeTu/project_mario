@@ -32,6 +32,7 @@ protected:
 	float vx_temp;
 	int detecting;
 	int spinDirection;
+	int isCarried;
 
 	ULONGLONG restore_start;
 
@@ -53,4 +54,5 @@ public:
 	CKoopas(float x, float y);
 	virtual void SetState(int state);
 	virtual void SetSpinDirection(int direction) { spinDirection = direction; }	
+	void SetCarried(int is) { this->isCarried = is; };
 };

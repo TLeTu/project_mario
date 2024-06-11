@@ -39,28 +39,52 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable = 0;
 	}
 
-	/*if (isCarryingKoopas && carriedKoopas) {
-		if (nx > 0)
-			carriedKoopas->SetPosition(x + 20, y - 10);
-		else 
-			carriedKoopas->SetPosition(x - 20, y - 10);
-		if (carriedKoopas->GetState() == KOOPAS_STATE_WALKING) {
-			if (this->level == MARIO_LEVEL_SMALL)
-			{
-				carriedKoopas->SetPosition(x, y - (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2);
-				DebugOut(L">>> Mario DIE >>> \n");
-				SetState(MARIO_STATE_DIE);
+	if (isCarryingKoopas && carriedKoopas)
+	{
+		if (isRunning)
+		{
+			if (nx > 0)
+				carriedKoopas->SetPosition(x + 20, y - 5);
+			else
+				carriedKoopas->SetPosition(x - 20, y - 5);
+			if (carriedKoopas->GetState() == KOOPAS_STATE_WALKING) {
+				if (this->level == MARIO_LEVEL_SMALL)
+				{
+					carriedKoopas->SetPosition(x, y - (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2);
+					DebugOut(L">>> Mario DIE >>> \n");
+					SetState(MARIO_STATE_DIE);
+				}
+				else
+				{
+					carriedKoopas->SetPosition(x, y);
+					level = MARIO_LEVEL_SMALL;
+					StartUntouchable();
+				}
+				isCarryingKoopas = false;
+				carriedKoopas->SetCarried(0);
+				carriedKoopas = nullptr;
 			}
-			else 
+		}
+		else
+		{
+			float kx, ky;
+			carriedKoopas->GetPosition(kx, ky);
+			if (x < kx)
 			{
-				carriedKoopas->SetPosition(x, y);
-				level = MARIO_LEVEL_SMALL;
-				StartUntouchable();
+				carriedKoopas->SetPosition(kx + 5, y);
+				carriedKoopas->SetSpinDirection(1);
 			}
+			else
+			{
+				carriedKoopas->SetPosition(kx - 5, y);
+				carriedKoopas->SetSpinDirection(0);
+			}
+			carriedKoopas->SetState(KOOPAS_STATE_SPIN);
 			isCarryingKoopas = false;
+			carriedKoopas->SetCarried(0);
 			carriedKoopas = nullptr;
 		}
-	}*/
+	}
 
 	isOnPlatform = false;
 
@@ -267,16 +291,17 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 			}
 			else if (koopas->GetState() == KOOPAS_STATE_SHELL) 
 			{
-				//if (GetState() == MARIO_STATE_RUNNING_LEFT || GetState() == MARIO_STATE_RUNNING_RIGHT)
-				//{
-				//	isCarryingKoopas = true;
-				//	carriedKoopas = koopas;
-				//}
-				//else 
-				//{
+				if (isRunning)
+				{
+					isCarryingKoopas = true;
+					carriedKoopas = koopas;
+					koopas->SetCarried(1);
+				}
+				else 
+				{
 					koopas->SetSpinDirection(nx);
 					koopas->SetState(KOOPAS_STATE_SPIN);
-				//}
+				}
 			}
 			else if (koopas->GetState() == KOOPAS_STATE_SPIN) {
 				if (level > MARIO_LEVEL_SMALL)

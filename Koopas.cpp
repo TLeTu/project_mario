@@ -92,6 +92,13 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vy += ay * dt;
 	vx += ax * dt;
 
+
+	if (isCarried)
+	{
+		ay = 0;
+	}
+
+
 	//debug out y
 	//DebugOut(L"y: %f\n", y);
 
@@ -136,8 +143,6 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			edgeDetector->SetSpeed(vx, 0);
 		}
 	}
-
-
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 
@@ -193,9 +198,11 @@ void CKoopas::SetState(int state)
 		else {
 			vx = -KOOPAS_WALKING_SPEED;
 		}
+		ay = KOOPAS_GRAVITY;
 		break;
 	case KOOPAS_STATE_SPIN:
 		y -= (KOOPAS_BBOX_HEIGHT_SHELL) / 2;
+		ay = KOOPAS_GRAVITY;
 		if (spinDirection > 0)
 			vx = KOOPAS_SPINNING_SPEED;
 		else

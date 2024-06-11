@@ -119,6 +119,7 @@ class CMario : public CGameObject
 
 	CKoopas* carriedKoopas;
 	bool isCarryingKoopas;
+	bool isRunning;
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
@@ -150,6 +151,8 @@ public:
 
 		isCarryingKoopas = false;
 		carriedKoopas = nullptr;
+
+		isRunning = false;
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
@@ -169,4 +172,6 @@ public:
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+
+	void SetRunning(bool r) { isRunning = r; }
 };
