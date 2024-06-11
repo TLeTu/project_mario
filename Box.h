@@ -4,6 +4,7 @@
 #include "Animation.h"
 #include "Animations.h"
 #include "Mushroom.h"
+#include "Coin.h"
 
 #define ID_ANI_BOX 61000
 #define ID_ANI_BOX_EMPTY 62000
@@ -41,4 +42,5 @@ public:
 
 	void SetState(int state);
 	void SpawnMushroom();
+	void SpawnCoin();
 };

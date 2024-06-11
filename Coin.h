@@ -10,11 +10,19 @@
 #define COIN_BBOX_WIDTH 10
 #define COIN_BBOX_HEIGHT 16
 
+#define COIN_STATE_NORMAL 100
+#define COIN_STATE_FAKE_UP 200
+#define COIN_STATE_FAKE_DOWN 300
+
 class CCoin : public CGameObject {
+protected:
+	float initY;
+
 public:
-	CCoin(float x, float y) : CGameObject(x, y) {}
+	CCoin(float x, float y);
 	void Render();
-	void Update(DWORD dt) {}
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 	int IsBlocking() { return 0; }
+	void SetState(int state);
 };

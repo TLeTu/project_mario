@@ -37,6 +37,13 @@ void CBox::SetState(int state)
 	}
 }
 
+void CBox::SpawnCoin() {
+	LPGAMEOBJECT coin = new CCoin(x, y - 17);
+	coin->SetPosition(x, y - 17);
+	coin->SetState(COIN_STATE_FAKE_UP);
+	CGame::GetInstance()->GetCurrentScene()->AddGameObject(coin);
+}
+
 void CBox::SpawnMushroom() {
 	LPGAMEOBJECT mushroom = new CMushroom(x, y - 17);
 	mushroom->SetPosition(x, y - 17);

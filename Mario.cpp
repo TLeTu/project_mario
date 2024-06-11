@@ -207,16 +207,10 @@ void CMario::OnCollisionWithBox(LPCOLLISIONEVENT e)
 			}
 			else
 			{
+				box->SpawnCoin();
 				box->SetState(BOX_STATE_ANI);
 				coin++;
 			}
-		}
-		else
-		{
-			float _, by;
-			box->GetPosition(_, by);
-			box->SetPosition(_, by - 8);
-			box->SetState(BOX_STATE_ANI);
 		}
 	}
 }
@@ -331,8 +325,13 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
-	e->obj->Delete();
-	coin++;
+	CCoin* coin = dynamic_cast<CCoin*>(e->obj);
+	if (coin->GetState() == COIN_STATE_NORMAL)
+	{
+		coin->Delete();
+		coin++;
+	}
+	else return;
 }
 
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
