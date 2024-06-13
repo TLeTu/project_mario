@@ -56,7 +56,7 @@ void CMushroom::SetState(int state)
 	switch (state)
 	{
 	case MUSHROOM_STATE_WALKING:
-		vx = MUSHROOM_WALKING_SPEED;
+		vx = -MUSHROOM_WALKING_SPEED;
 		break;
 	}
 }

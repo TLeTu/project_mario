@@ -111,6 +111,7 @@ void CGoomba::SetState(int state)
 			break;
 		case GOOMBA_STATE_WALKING: 
 			vx = -GOOMBA_WALKING_SPEED;
+			ay = GOOMBA_GRAVITY;
 			vy = 0;
 			break;
 		case GOOMBA_STATE_TAKEOFF:
@@ -120,6 +121,7 @@ void CGoomba::SetState(int state)
 		case GOOMBA_STATE_JUMPING:
 			vx = -GOOMBA_WALKING_SPEED;
 			vy = -GOOMBA_JUMP_SPEED;
+			ay = GOOMBA_GRAVITY - 0.0015f;
 			break;
 	}
 }

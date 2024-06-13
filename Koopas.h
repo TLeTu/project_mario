@@ -5,6 +5,7 @@
 #define KOOPAS_GRAVITY 0.002f
 #define KOOPAS_WALKING_SPEED 0.05f
 #define KOOPAS_SPINNING_SPEED 0.2f
+#define KOOPAS_JUMP_SPEED 0.17f
 
 
 #define KOOPAS_BBOX_WIDTH 15
@@ -18,11 +19,22 @@
 #define KOOPAS_STATE_SHELL 200
 #define KOOPAS_STATE_SPIN 300
 #define KOOPAS_STATE_RESTORE 400
+#define KOOPAS_STATE_JUMP 500
+#define KOOPAS_STATE_TAKEOFF 600
+#define KOOPAS_STATE_IDLE 700
 
 #define ID_ANI_KOOPAS_WALKING 7000
 #define ID_ANI_KOOPAS_FLIP 7002
 #define ID_ANI_KOOPAS_SHELL 7001
 #define ID_ANI_KOOPAS_RESTORING 7003
+
+#define ID_ANI_KOOPAS_GREEN_WALKING 7100
+#define ID_ANI_KOOPAS_GREEN_FLIP 7102
+#define ID_ANI_KOOPAS_GREEN_SHELL 7101
+#define ID_ANI_KOOPAS_GREEN_RESTORING 7103
+
+#define ID_ANI_KOOPAS_JUMP 7200
+#define ID_ANI_KOOPAS_JUMP_FLIP 7201
 
 class CKoopas : public CGameObject
 {
@@ -33,8 +45,12 @@ protected:
 	int detecting;
 	int spinDirection;
 	int isCarried;
+	int koopaType;
+	int koopaColor;
+	bool isOnPlatform;
 
 	ULONGLONG restore_start;
+	ULONGLONG walk_start;
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -51,7 +67,7 @@ protected:
 public:
 	CEdgeDetector* edgeDetector;
 
-	CKoopas(float x, float y);
+	CKoopas(float x, float y, int type, int color);
 	virtual void SetState(int state);
 	virtual void SetSpinDirection(int direction) { spinDirection = direction; }	
 	void SetCarried(int is) { this->isCarried = is; };

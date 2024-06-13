@@ -71,12 +71,12 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			carriedKoopas->GetPosition(kx, ky);
 			if (x < kx)
 			{
-				carriedKoopas->SetPosition(kx + 10, y);
+				carriedKoopas->SetPosition(kx + 16, y);
 				carriedKoopas->SetSpinDirection(1);
 			}
 			else
 			{
-				carriedKoopas->SetPosition(kx - 10, y);
+				carriedKoopas->SetPosition(kx - 16, y);
 				carriedKoopas->SetSpinDirection(0);
 			}
 			carriedKoopas->SetState(KOOPAS_STATE_SPIN);
@@ -178,7 +178,7 @@ void CMario::OnCollisionWithFireball(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 {
 	CMushroom* mushroom = dynamic_cast<CMushroom*>(e->obj);
-	if (level == MARIO_LEVEL_SMALL )
+	if (level == MARIO_LEVEL_SMALL)
 	{
 		SetLevel(MARIO_LEVEL_BIG);
 		StartUntouchable();
@@ -265,6 +265,11 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 			koopas->SetState(KOOPAS_STATE_SHELL);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
 		}
+		else if (koopas->GetState() == KOOPAS_STATE_JUMP)
+		{
+			koopas->SetState(KOOPAS_STATE_IDLE);
+			vy = -MARIO_JUMP_DEFLECT_SPEED;
+		}
 		else 
 		{
 			float kx, ky;
@@ -280,7 +285,7 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 	{
 		if (untouchable == 0)
 		{
-			if (koopas->GetState() == KOOPAS_STATE_WALKING)
+			if (koopas->GetState() == KOOPAS_STATE_WALKING || koopas->GetState() == KOOPAS_STATE_JUMP)
 			{
 				if (level > MARIO_LEVEL_SMALL)
 				{

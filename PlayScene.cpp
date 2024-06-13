@@ -142,7 +142,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	}
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x,y); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
-	case OBJECT_TYPE_KOOPAS: enemy = new CKoopas(x, y); break;
+	case OBJECT_TYPE_KOOPAS:
+	{
+		int type = atoi(tokens[3].c_str());
+		int color = atoi(tokens[4].c_str());
+		enemy = new CKoopas(x, y, type, color);
+		break;
+
+	}
 	case OBJECT_TYPE_EDGEDETECTOR: enemy = new CEdgeDetector(x, y); break;
 	case OBJECT_TYPE_MUSHROOM: obj = new CMushroom(x, y); break;
 	case OBJECT_TYPE_PIRANHA: enemy = new CPiranha(x, y); break;

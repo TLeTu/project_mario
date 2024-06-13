@@ -54,7 +54,7 @@ void CBox::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (y != initY)
 	{
-		if (GetTickCount64() - down_start > 100)
+		if (GetTickCount64() - down_start > 50)
 		{
 			SetPosition(x, initY);
 			SetState(BOX_STATE_EMPTY);
