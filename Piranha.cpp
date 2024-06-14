@@ -10,6 +10,7 @@
 
 CPiranha::CPiranha(float x, float y, int type) :CGameObject(x, y)
 {
+	//23 if red, 19 if green (tube-y in scene)
 	this->marioIsNear = false;
 	this->marioIsAbove = false;
 	this->fireball = NULL;
