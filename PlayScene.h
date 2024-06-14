@@ -20,6 +20,7 @@ protected:
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> enemies;
 	vector<LPSCENELOADER> sceneLoaders;
+	vector<LPGAMEOBJECT> coinBricks;
 
 	int ScenePart;
 	float loadPositionX, loadPositionY;
@@ -40,6 +41,7 @@ public:
 	virtual void Render();
 	virtual void Unload();
 	virtual void AddGameObject(LPGAMEOBJECT obj);
+	virtual void BrickToCoin();
 	virtual void GetPlayerPosition(float& x, float& y);
 	virtual void SetScenePart(int part);
 	virtual void ResetScenePart() { ScenePart = 0; }

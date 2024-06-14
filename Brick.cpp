@@ -1,9 +1,10 @@
 #include "Brick.h"
 
-CBrick::CBrick(float x, float y, int type) : CGameObject(x, y)
+CBrick::CBrick(float x, float y, int type, int isCoin) : CGameObject(x, y)
 {
 	break_start = -1; 
 	brickType = type;
+	this->isCoin = isCoin;
 	if (brickType)
 	{
 		SetState(BRICK_STATE_WOOD);

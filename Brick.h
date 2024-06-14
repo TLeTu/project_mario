@@ -19,8 +19,9 @@ class CBrick : public CGameObject {
 protected:
 	ULONGLONG break_start;
 	int brickType;
+	int isCoin;
 public:
-	CBrick(float x, float y, int type);
+	CBrick(float x, float y, int type, int isCoin);
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);

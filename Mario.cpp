@@ -141,6 +141,7 @@ void CMario::OnCollisionWithButton(LPCOLLISIONEVENT e)
 	CButton* btn = dynamic_cast<CButton*>(e->obj);
 	if (btn->GetState() == BUTTON_STATE_NORMAL && e->ny != 0)
 	{
+		vy = -MARIO_JUMP_DEFLECT_SPEED;
 		btn->SetState(BUTTON_STATE_PRESSED);
 	}
 	else return;

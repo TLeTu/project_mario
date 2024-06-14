@@ -121,6 +121,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	CGameObject *obj = NULL;
 	CGameObject* enemy = NULL;
+	CGameObject* coinBrick = NULL;
 	CSceneLoader* sceneLoader = NULL;
 
 	switch (object_type)
@@ -145,7 +146,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_BRICK:
 	{
 		int type = atoi(tokens[3].c_str());
-		obj = new CBrick(x, y, type); 
+		int isCoin = atoi(tokens[4].c_str());
+		if (isCoin)
+		{
+			coinBrick = new CBrick(x, y, type, isCoin);
+		}
+		else obj = new CBrick(x, y, type, isCoin); 
 		break;
 	}
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
@@ -288,6 +294,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		enemy->SetPosition(x, y);
 		enemies.push_back(enemy);
 	}
+	if (coinBrick != NULL)
+	{
+		coinBrick->SetPosition(x, y);
+		coinBricks.push_back(coinBrick);
+	}
 }
 
 void CPlayScene::LoadAssets(LPCWSTR assetFile)
@@ -384,9 +395,19 @@ void CPlayScene::Update(DWORD dt)
 		coObjects.push_back(enemies[i]);
 	}
 
+	for (size_t i = 0; i < coinBricks.size(); i++)
+	{
+		coObjects.push_back(coinBricks[i]);
+	}
+
 	for (size_t i = 0; i < objects.size(); i++)
 	{
 		objects[i]->Update(dt, &coObjects);
+	}
+
+	for (size_t i = 0; i < coinBricks.size(); i++)
+	{
+		coinBricks[i]->Update(dt, &coObjects);
 	}
 
 	for (size_t i = 0; i < sceneLoaders.size(); i++)
@@ -444,6 +465,12 @@ void CPlayScene::Render()
 		objects[i]->Render();
 	}
 
+	for (size_t i = 0; i < coinBricks.size(); i++)
+	{
+		coinBricks[i]->Render();
+	}
+
+
 	for (size_t i = 0; i < enemies.size(); i++)
 	{
 		float ox, oy;
@@ -467,6 +494,12 @@ void CPlayScene::Clear()
 		delete (*it);
 	}
 	objects.clear();
+
+	for (it = coinBricks.begin(); it != coinBricks.end(); it++)
+	{
+		delete (*it);
+	}
+	coinBricks.clear();
 
 	for (it = enemies.begin(); it != enemies.end(); it++)
 	{
@@ -500,6 +533,11 @@ void CPlayScene::Unload()
 
 	enemies.clear();
 
+	for (int i = 0; i < coinBricks.size(); i++)
+		delete coinBricks[i];
+
+	objects.clear();
+
 	for (int i = 0; i < sceneLoaders.size(); i++)
 		delete sceneLoaders[i];
 
@@ -515,6 +553,16 @@ void CPlayScene::PurgeDeletedObjects()
 {
 	vector<LPGAMEOBJECT>::iterator it;
 	for (it = objects.begin(); it != objects.end(); it++)
+	{
+		LPGAMEOBJECT o = *it;
+		if (o->IsDeleted())
+		{
+			delete o;
+			*it = NULL;
+		}
+	}
+
+	for (it = coinBricks.begin(); it != coinBricks.end(); it++)
 	{
 		LPGAMEOBJECT o = *it;
 		if (o->IsDeleted())
@@ -551,6 +599,11 @@ void CPlayScene::PurgeDeletedObjects()
 		std::remove_if(objects.begin(), objects.end(), CPlayScene::IsGameObjectDeleted),
 		objects.end());
 
+	coinBricks.erase(
+		std::remove_if(coinBricks.begin(), coinBricks.end(), CPlayScene::IsGameObjectDeleted),
+		coinBricks.end());
+
+
 	enemies.erase(
 		std::remove_if(enemies.begin(), enemies.end(), CPlayScene::IsGameObjectDeleted),
 		enemies.end());
@@ -574,4 +627,21 @@ void CPlayScene::SetScenePart(int part)
 {
 	ScenePart = part;
 	Render();
+}
+
+void CPlayScene::BrickToCoin()
+{
+	float bx, by;
+	if (coinBricks.size() > 0)
+	{
+		for (int i = 0; i < coinBricks.size(); i++)
+		{
+			coinBricks[i]->GetPosition(bx, by);
+			LPGAMEOBJECT coin = new CCoin(bx, by);
+			coin->SetPosition(bx, by);
+			AddGameObject(coin);
+			coinBricks[i]->Delete();
+		}
+	}
+	else return;
 }

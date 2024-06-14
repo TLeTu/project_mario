@@ -51,6 +51,7 @@ void CButton::SetState(int state)
 		return;
 	case BUTTON_STATE_PRESSED:
 		y += (BUTTON_BBOX_HEIGHT - BUTTON_BBOX_HEIGHT_PRESSED) / 2;
+		CGame::GetInstance()->GetCurrentScene()->BrickToCoin();
 		return;
 	}
 }

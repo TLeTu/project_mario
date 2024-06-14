@@ -21,7 +21,7 @@ class CBox : public CGameObject {
 protected:
 	int type;
 	float initY;
-	float down_start;
+	ULONGLONG down_start;
 
 public:
 	CBox(float x, float y, int type) : CGameObject(x, y) 
