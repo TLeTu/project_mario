@@ -1,4 +1,5 @@
 #include "Brick.h"
+#include "Button.h"
 
 CBrick::CBrick(float x, float y, int type, int isCoin) : CGameObject(x, y)
 {
@@ -57,6 +58,7 @@ void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			SetPosition(x, initY);
 			if (brickType == 2)
 			{
+				SpawnButton();
 				SetState(BRICK_STATE_EMPTY);
 			}
 			else SetState(BRICK_STATE_NORMAL);
@@ -96,4 +98,11 @@ int CBrick::IsCollidable()
 		return 1;
 	}
 	else return 0;
+}
+
+void CBrick::SpawnButton()
+{
+	LPGAMEOBJECT btn = new CButton(x, y - 17);
+	btn->SetPosition(x, y - 17);
+	CGame::GetInstance()->GetCurrentScene()->AddGameObject(btn);
 }
