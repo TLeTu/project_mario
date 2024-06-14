@@ -83,7 +83,11 @@ void CKoopas::OnCollisionWithBrick(LPCOLLISIONEVENT e)
 	CBrick* brick = dynamic_cast<CBrick*>(e->obj);
 	if (e->ny == 0 && GetState() == KOOPAS_STATE_SPIN)
 	{
-		brick->SetState(BRICK_STATE_BREAK);
+		if (brick->GetState() == BRICK_STATE_NORMAL)
+		{
+			brick->SetState(BRICK_STATE_BREAK);
+		}
+		else return;
 	}
 	else return;
 }

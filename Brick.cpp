@@ -23,7 +23,7 @@ void CBrick::GetBoundingBox(float &l, float &t, float &r, float &b)
 
 void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if ((state == BRICK_STATE_BREAK) && (GetTickCount64() - break_start > 100))
+	if ((state == BRICK_STATE_BREAK) && (GetTickCount64() - break_start > 99))
 	{
 		isDeleted = true;
 		return;
@@ -41,5 +41,16 @@ void CBrick::SetState(int state)
 	case BRICK_STATE_BREAK:
 		break_start = GetTickCount64();
 		return;
+	case BRICK_STATE_NORMAL:
+		return;
 	}
+}
+
+int CBrick::IsCollidable()
+{
+	if (this->GetState() != BRICK_STATE_BREAK)
+	{
+		return 1;
+	}
+	else return 0;
 }
