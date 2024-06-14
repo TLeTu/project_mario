@@ -15,10 +15,17 @@ CPiranha::CPiranha(float x, float y, int type) :CGameObject(x, y)
 	this->fireball = NULL;
 	this->isReloading = true;
 	this->shootingY = y;
-	this->hidingY = y + 32;
 	this->piranhaType = type;
 	reload_start = -1;
 	this->type = "piranha";
+	if (piranhaType)
+	{
+		this->hidingY = y + 32;
+	}
+	else
+	{
+		this->hidingY = y + 38;
+	}
 	SetState(PIRANHA_STATE_DESCENDING);
 }
 
@@ -26,9 +33,17 @@ void CPiranha::GetBoundingBox(float& left, float& top, float& right, float& bott
 {
 
 	left = x - PIRANHA_BBOX_WIDTH / 2;
-	top = y - PIRANHA_BBOX_HEIGHT / 2;
 	right = left + PIRANHA_BBOX_WIDTH;
-	bottom = top + PIRANHA_BBOX_HEIGHT;
+	if (piranhaType)
+	{
+		top = y - PIRANHA_BBOX_GREEN_HEIGHT / 2;
+		bottom = top + PIRANHA_BBOX_GREEN_HEIGHT;
+	}
+	else
+	{
+		top = y - PIRANHA_BBOX_RED_HEIGHT / 2;
+		bottom = top + PIRANHA_BBOX_RED_HEIGHT;
+	}
 }
 
 void CPiranha::OnNoCollision(DWORD dt)
@@ -75,7 +90,7 @@ void CPiranha::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (y < hidingY)
 		{
-			vy = 0.03f;
+			vy = 0.05f;
 		}
 		else
 		{
@@ -86,7 +101,7 @@ void CPiranha::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (y > shootingY)
 		{
-			vy = -0.03f;
+			vy = -0.05f;
 		}
 		else
 		{

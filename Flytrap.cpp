@@ -62,7 +62,7 @@ void CFlytrap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (y < hidingY)
 		{
-			vy = 0.03f;
+			vy = 0.05f;
 		}
 		else
 		{
@@ -73,7 +73,7 @@ void CFlytrap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (y > shootingY)
 		{
-			vy = -0.03f;
+			vy = -0.05f;
 		}
 		else
 		{
@@ -82,7 +82,7 @@ void CFlytrap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (GetState() == FLYTRAP_STATE_IDLE)
 	{
-			if (GetTickCount64() - reload_start > 3000)
+			if (GetTickCount64() - reload_start > 1400)
 			{
 				SetState(FLYTRAP_STATE_DESCENDING);
 			}

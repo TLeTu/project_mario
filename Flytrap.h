@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "Fireball.h"
 
-#define FLYTRAP_MOVING_TIME 1500
+#define FLYTRAP_MOVING_TIME 700
 
 #define FLYTRAP_BBOX_WIDTH 16
 #define FLYTRAP_BBOX_HEIGHT 16
