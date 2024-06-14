@@ -50,6 +50,7 @@ void CButton::SetState(int state)
 	case BUTTON_STATE_NORMAL:
 		return;
 	case BUTTON_STATE_PRESSED:
+		y += (BUTTON_BBOX_HEIGHT - BUTTON_BBOX_HEIGHT_PRESSED) / 2;
 		return;
 	}
 }

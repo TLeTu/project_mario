@@ -19,6 +19,7 @@
 #include "Piranha.h"
 #include "SceneLoader.h"
 #include "Flytrap.h"
+#include "Button.h"
 
 #include "Floor.h"
 
@@ -131,6 +132,18 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithSceneLoader(e);
 	else if (dynamic_cast<CFlytrap*>(e->obj))
 		OnCollisionWithFlytrap(e);
+	else if (dynamic_cast<CButton*>(e->obj))
+		OnCollisionWithButton(e);
+}
+
+void CMario::OnCollisionWithButton(LPCOLLISIONEVENT e)
+{
+	CButton* btn = dynamic_cast<CButton*>(e->obj);
+	if (btn->GetState() == BUTTON_STATE_NORMAL && e->ny != 0)
+	{
+		btn->SetState(BUTTON_STATE_PRESSED);
+	}
+	else return;
 }
 
 void CMario::OnCollisionWithSceneLoader(LPCOLLISIONEVENT e)
