@@ -23,6 +23,7 @@
 #include "Fireball.h"
 #include "SceneLoader.h"
 #include "Tube.h"
+#include "Flytrap.h"
 
 
 #include "SampleKeyEventHandler.h"
@@ -152,6 +153,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	}
 	case OBJECT_TYPE_EDGEDETECTOR: enemy = new CEdgeDetector(x, y); break;
 	case OBJECT_TYPE_MUSHROOM: obj = new CMushroom(x, y); break;
+	case OBJECT_TYPE_FLYTRAP: enemy = new CFlytrap(x, y); break;
 	case OBJECT_TYPE_PIRANHA:
 	{
 		int type = atoi(tokens[3].c_str());

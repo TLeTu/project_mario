@@ -143,6 +143,7 @@
     <ClCompile Include="EdgeDetector.h" />
     <ClCompile Include="Fireball.cpp" />
     <ClCompile Include="Floor.cpp" />
+    <ClCompile Include="Flytrap.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Goomba.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="Decoration.h" />
     <ClInclude Include="Fireball.h" />
     <ClInclude Include="Floor.h" />
+    <ClInclude Include="Flytrap.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Goomba.h" />
