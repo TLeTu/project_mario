@@ -152,7 +152,13 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	}
 	case OBJECT_TYPE_EDGEDETECTOR: enemy = new CEdgeDetector(x, y); break;
 	case OBJECT_TYPE_MUSHROOM: obj = new CMushroom(x, y); break;
-	case OBJECT_TYPE_PIRANHA: enemy = new CPiranha(x, y); break;
+	case OBJECT_TYPE_PIRANHA:
+	{
+		int type = atoi(tokens[3].c_str());
+		enemy = new CPiranha(x, y, type);
+		break;
+
+	}
 	case OBJECT_TYPE_FIREBALL: enemy = new CFireball(x, y); break;
 	case OBJECT_TYPE_DECORATION: 
 	{

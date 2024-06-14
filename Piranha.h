@@ -8,13 +8,17 @@
 
 #define PIRANHA_RELOAD_TIME 2000
 #define PIRANHA_MOVING_TIME 3000
+#define PIRANHA_GREEN_RELOAD_TIME 1000
+#define PIRANHA_GREEN_MOVING_TIME 1500
 
 #define PIRANHA_BBOX_WIDTH 16
 #define PIRANHA_BBOX_HEIGHT 16
 
 #define ID_ANI_PIRANHA_SHOOTING_LEFT 210000
 #define ID_ANI_PIRANHA_SHOOTING_RIGHT 220000
-//#define ID_ANI_PIRANHA_DIE 5001
+
+#define ID_ANI_PIRANHA_GREEN_SHOOTING_LEFT 210001
+#define ID_ANI_PIRANHA_GREEN_SHOOTING_RIGHT 210002
 
 #define PIRANHA_STATE_SHOOTING_LEFT 100
 #define PIRANHA_STATE_SHOOTING_RIGHT 200
@@ -32,6 +36,7 @@ protected:
 	bool isReloading;
 	float mx, my;
 	float shootingY, hidingY;
+	int piranhaType;
 
 	ULONGLONG reload_start;
 
@@ -46,7 +51,7 @@ protected:
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 
 public:
-	CPiranha(float x, float y);
+	CPiranha(float x, float y, int type);
 	CFireball* fireball;
 	virtual void SetState(int state);
 };

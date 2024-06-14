@@ -8,7 +8,7 @@
 #include "Mario.h"
 
 
-CPiranha::CPiranha(float x, float y) :CGameObject(x, y)
+CPiranha::CPiranha(float x, float y, int type) :CGameObject(x, y)
 {
 	this->marioIsNear = false;
 	this->marioIsAbove = false;
@@ -16,8 +16,9 @@ CPiranha::CPiranha(float x, float y) :CGameObject(x, y)
 	this->isReloading = true;
 	this->shootingY = y;
 	this->hidingY = y + 32;
+	this->piranhaType = type;
 	reload_start = -1;
-	type = "piranha";
+	this->type = "piranha";
 	SetState(PIRANHA_STATE_DESCENDING);
 }
 
@@ -56,10 +57,21 @@ void CPiranha::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (GetState() == PIRANHA_STATE_HIDING && marioIsNear && !marioIsAbove)
 	{
-		if (GetTickCount64() - reload_start > PIRANHA_MOVING_TIME)
+		if (piranhaType)
 		{
-			SetState(PIRANHA_STATE_ASCENDING);
+			if (GetTickCount64() - reload_start > PIRANHA_GREEN_MOVING_TIME)
+			{
+				SetState(PIRANHA_STATE_ASCENDING);
+			}
 		}
+		else
+		{
+			if (GetTickCount64() - reload_start > PIRANHA_MOVING_TIME)
+			{
+				SetState(PIRANHA_STATE_ASCENDING);
+			}
+		}
+
 	}
 	if (GetState() == PIRANHA_STATE_DESCENDING)
 	{
@@ -85,8 +97,10 @@ void CPiranha::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (GetState() == PIRANHA_STATE_SHOOTING)
 	{
-		if (GetTickCount64() - reload_start > PIRANHA_RELOAD_TIME)
+		if (piranhaType)
 		{
+			if (GetTickCount64() - reload_start > PIRANHA_GREEN_RELOAD_TIME)
+			{
 				if (x > mx)
 				{
 					SetState(PIRANHA_STATE_SHOOTING_LEFT);
@@ -95,6 +109,21 @@ void CPiranha::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					SetState(PIRANHA_STATE_SHOOTING_RIGHT);
 				}
+			}
+		}
+		else
+		{
+			if (GetTickCount64() - reload_start > PIRANHA_RELOAD_TIME)
+			{
+				if (x > mx)
+				{
+					SetState(PIRANHA_STATE_SHOOTING_LEFT);
+				}
+				else
+				{
+					SetState(PIRANHA_STATE_SHOOTING_RIGHT);
+				}
+			}
 		}
 	}
 	if (GetState() == PIRANHA_STATE_SHOOTING_RIGHT || GetState() == PIRANHA_STATE_SHOOTING_LEFT)
@@ -135,9 +164,19 @@ void CPiranha::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (GetState() == PIRANHA_STATE_IDLE)
 	{
-		if (GetTickCount64() - reload_start > PIRANHA_MOVING_TIME)
+		if (piranhaType)
 		{
-			SetState(PIRANHA_STATE_DESCENDING);
+			if (GetTickCount64() - reload_start > PIRANHA_GREEN_MOVING_TIME)
+			{
+				SetState(PIRANHA_STATE_DESCENDING);
+			}
+		}
+		else
+		{
+			if (GetTickCount64() - reload_start > PIRANHA_MOVING_TIME)
+			{
+				SetState(PIRANHA_STATE_DESCENDING);
+			}
 		}
 	}
 
@@ -151,13 +190,27 @@ void CPiranha::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CPiranha::Render()
 {
 	int aniId = -1;
-	if (x > mx)
+	if (piranhaType)
 	{
-		aniId = ID_ANI_PIRANHA_SHOOTING_LEFT;
+		if (x > mx)
+		{
+			aniId = ID_ANI_PIRANHA_GREEN_SHOOTING_LEFT;
+		}
+		else
+		{
+			aniId = ID_ANI_PIRANHA_GREEN_SHOOTING_RIGHT;
+		}
 	}
 	else
 	{
-		aniId = ID_ANI_PIRANHA_SHOOTING_RIGHT;
+		if (x > mx)
+		{
+			aniId = ID_ANI_PIRANHA_SHOOTING_LEFT;
+		}
+		else
+		{
+			aniId = ID_ANI_PIRANHA_SHOOTING_RIGHT;
+		}
 	}
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	//RenderBoundingBox();
