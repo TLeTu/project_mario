@@ -98,7 +98,7 @@ void CFlytrap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CFlytrap::Render()
 {
 	CAnimations::GetInstance()->Get(ID_ANI_FLYTRAP)->Render(x, y);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CFlytrap::SetState(int state)

@@ -145,7 +145,7 @@ void CMario::OnCollisionWithBrick(LPCOLLISIONEVENT e)
 	CBrick* brick = dynamic_cast<CBrick*>(e->obj);
 	if (e->ny > 0)
 	{
-		if (brick->GetState() != BRICK_STATE_EMPTY)
+		if (brick->GetState() == BRICK_STATE_NORMAL || brick->GetState() == BRICK_STATE_BUTTON)
 		{
 			float _, by;
 			brick->GetPosition(_, by);
@@ -388,7 +388,7 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 	if (coin->GetState() == COIN_STATE_NORMAL)
 	{
 		coin->Delete();
-		coin++;
+		this->coin++;
 	}
 	else return;
 }
