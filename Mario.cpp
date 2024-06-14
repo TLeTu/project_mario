@@ -18,6 +18,7 @@
 
 #include "Piranha.h"
 #include "SceneLoader.h"
+#include "Flytrap.h"
 
 #include "Floor.h"
 
@@ -128,6 +129,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPiranha(e);
 	else if (dynamic_cast<CSceneLoader*>(e->obj))
 		OnCollisionWithSceneLoader(e);
+	else if (dynamic_cast<CFlytrap*>(e->obj))
+		OnCollisionWithFlytrap(e);
 }
 
 void CMario::OnCollisionWithSceneLoader(LPCOLLISIONEVENT e)
@@ -153,6 +156,24 @@ void CMario::OnCollisionWithPiranha(LPCOLLISIONEVENT e)
 				DebugOut(L">>> Mario DIE >>> \n");
 				SetState(MARIO_STATE_DIE);
 
+		}
+	}
+}
+
+void CMario::OnCollisionWithFlytrap(LPCOLLISIONEVENT e)
+{
+	CFlytrap* flytrap = dynamic_cast<CFlytrap*>(e->obj);
+	if (untouchable == 0)
+	{
+		if (level > MARIO_LEVEL_SMALL)
+		{
+			level = MARIO_LEVEL_SMALL;
+			StartUntouchable();
+		}
+		else
+		{
+			DebugOut(L">>> Mario DIE >>> \n");
+			SetState(MARIO_STATE_DIE);
 		}
 	}
 }

@@ -46,9 +46,6 @@ void CFlytrap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	CGame::GetInstance()->GetCurrentScene()->GetPlayerPosition(mx, my);
 
-	//debug out mario mx my
-	DebugOut(L"mx: %f, my: %f\n", mx, my);
-
 	marioIsNear = abs(x - mx) <= 80;
 
 	marioIsAbove = y > my && abs(x - mx) <= 16;
@@ -101,7 +98,7 @@ void CFlytrap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CFlytrap::Render()
 {
 	CAnimations::GetInstance()->Get(ID_ANI_FLYTRAP)->Render(x, y);
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 void CFlytrap::SetState(int state)
