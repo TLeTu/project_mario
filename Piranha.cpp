@@ -65,7 +65,7 @@ void CPiranha::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
     CGame::GetInstance()->GetCurrentScene()->GetPlayerPosition(mx, my);
 
 
-    marioIsNear = abs(x - mx) <= 80;
+    marioIsNear = abs(x - mx) <= 128;
 
 	marioIsAbove = y > my && abs(x-mx) <= 16;
 
