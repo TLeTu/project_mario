@@ -20,6 +20,7 @@
 #include "SceneLoader.h"
 #include "Flytrap.h"
 #include "Button.h"
+#include "Brick.h"
 
 #include "Floor.h"
 
@@ -134,6 +135,24 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithFlytrap(e);
 	else if (dynamic_cast<CButton*>(e->obj))
 		OnCollisionWithButton(e);
+	else if (dynamic_cast<CBrick*>(e->obj))
+		OnCollisionWithBrick(e);
+}
+
+void CMario::OnCollisionWithBrick(LPCOLLISIONEVENT e)
+{
+
+	CBrick* brick = dynamic_cast<CBrick*>(e->obj);
+	if (e->ny > 0)
+	{
+		if (brick->GetState() != BRICK_STATE_EMPTY)
+		{
+			float _, by;
+			brick->GetPosition(_, by);
+			brick->SetPosition(_, by - 8);
+			brick->SetState(BRICK_STATE_ANI);
+		}
+	}
 }
 
 void CMario::OnCollisionWithButton(LPCOLLISIONEVENT e)

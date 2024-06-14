@@ -14,11 +14,16 @@
 #define BRICK_STATE_BREAK 100
 #define BRICK_STATE_NORMAL 200
 #define BRICK_STATE_WOOD 300
+#define BRICK_STATE_BUTTON 400
+#define BRICK_STATE_ANI 500
+#define BRICK_STATE_EMPTY 600
 
 class CBrick : public CGameObject {
 protected:
 	ULONGLONG break_start;
+	ULONGLONG down_start;
 	int brickType;
+	float initY;
 	int isCoin;
 public:
 	CBrick(float x, float y, int type, int isCoin);
@@ -28,4 +33,5 @@ public:
 
 	virtual void SetState(int state);
 	virtual int IsCollidable();
+	void SpawnButton();
 };

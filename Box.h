@@ -34,6 +34,7 @@ public:
 		{
 			this->SetState(BOX_STATE_MUSHROOM);
 		}
+		down_start = -1;
 		initY = y;
 	}
 	void Render();

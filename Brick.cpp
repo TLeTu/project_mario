@@ -4,10 +4,16 @@ CBrick::CBrick(float x, float y, int type, int isCoin) : CGameObject(x, y)
 {
 	break_start = -1; 
 	brickType = type;
+	initY = y;
 	this->isCoin = isCoin;
-	if (brickType)
+	down_start = -1;
+	if (brickType == 1)
 	{
 		SetState(BRICK_STATE_WOOD);
+	}
+	else if (brickType == 2)
+	{
+		SetState(BRICK_STATE_BUTTON);
 	}
 	else SetState(BRICK_STATE_NORMAL);
 }
@@ -44,6 +50,18 @@ void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		isDeleted = true;
 		return;
 	}
+	if (y != initY)
+	{
+		if (GetTickCount64() - down_start > 50)
+		{
+			SetPosition(x, initY);
+			if (brickType == 2)
+			{
+				SetState(BRICK_STATE_EMPTY);
+			}
+			else SetState(BRICK_STATE_NORMAL);
+		}
+	}
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -60,6 +78,13 @@ void CBrick::SetState(int state)
 	case BRICK_STATE_NORMAL:
 		return;
 	case BRICK_STATE_WOOD:
+		return;
+	case BRICK_STATE_BUTTON:
+		return;
+	case BRICK_STATE_ANI:
+		down_start = GetTickCount64();
+		return;
+	case BRICK_STATE_EMPTY:
 		return;
 	}
 }
