@@ -536,7 +536,7 @@ void CPlayScene::Unload()
 	for (int i = 0; i < coinBricks.size(); i++)
 		delete coinBricks[i];
 
-	objects.clear();
+	coinBricks.clear();
 
 	for (int i = 0; i < sceneLoaders.size(); i++)
 		delete sceneLoaders[i];

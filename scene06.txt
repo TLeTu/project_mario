@@ -13,6 +13,7 @@ piranha.txt
 fireball.txt
 tube.txt
 decoration.txt
+button.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -212,7 +213,7 @@ decoration.txt
 1	1984	148	0	1
 1	2000	148	0	1
 1	2016	148	0	1
-1	2032	148	0	1
+1	2032	148	2	0
 
 1	2096	180	0	1
 1	2112	180	0	1
@@ -225,5 +226,5 @@ decoration.txt
 3	1456	10	1	0
 
 # MARIO
-0	1664	10
+0	1152	10
 
