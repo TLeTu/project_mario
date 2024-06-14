@@ -85,7 +85,7 @@ void CFlytrap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (GetState() == FLYTRAP_STATE_IDLE)
 	{
-			if (GetTickCount64() - reload_start > FLYTRAP_MOVING_TIME)
+			if (GetTickCount64() - reload_start > 3000)
 			{
 				SetState(FLYTRAP_STATE_DESCENDING);
 			}
@@ -118,6 +118,7 @@ void CFlytrap::SetState(int state)
 	case FLYTRAP_STATE_DESCENDING:
 		break;
 	case FLYTRAP_STATE_IDLE:
+		vy = 0;
 		reload_start = GetTickCount64();
 		break;
 	}
