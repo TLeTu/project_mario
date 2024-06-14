@@ -24,6 +24,7 @@
 #include "SceneLoader.h"
 #include "Tube.h"
 #include "Flytrap.h"
+#include "Button.h"
 
 
 #include "SampleKeyEventHandler.h"
@@ -263,6 +264,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		sceneLoader = new CSceneLoader(x, y, part);
 		break;
 	}
+	case OBJECT_TYPE_BUTTON: obj = new CButton(x, y); break;
 
 
 	default:

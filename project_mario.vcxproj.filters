@@ -150,6 +150,9 @@
     <ClCompile Include="Flytrap.cpp">
       <Filter>Source Files\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -251,6 +254,9 @@
     <ClInclude Include="Flytrap.h">
       <Filter>Header Files\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="mario.txt">
@@ -309,6 +315,9 @@
     </Text>
     <Text Include="test_scene.txt">
       <Filter>Resource Files\Scenes</Filter>
+    </Text>
+    <Text Include="button.txt">
+      <Filter>Resource Files\Objects</Filter>
     </Text>
   </ItemGroup>
 </Project>
