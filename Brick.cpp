@@ -1,11 +1,26 @@
 #include "Brick.h"
 
+CBrick::CBrick(float x, float y, int type) : CGameObject(x, y)
+{
+	break_start = -1; 
+	brickType = type;
+	if (brickType)
+	{
+		SetState(BRICK_STATE_WOOD);
+	}
+	else SetState(BRICK_STATE_NORMAL);
+}
+
 void CBrick::Render()
 {
 	int ani_id = -1;
 	if (GetState() == BRICK_STATE_BREAK)
 	{
 		ani_id = ID_ANI_BREAK;
+	}
+	else if (GetState() == BRICK_STATE_WOOD)
+	{
+		ani_id = ID_ANI_WOOD;
 	}
 	else ani_id = ID_ANI_BRICK;
 	CAnimations* animations = CAnimations::GetInstance();
@@ -42,6 +57,8 @@ void CBrick::SetState(int state)
 		break_start = GetTickCount64();
 		return;
 	case BRICK_STATE_NORMAL:
+		return;
+	case BRICK_STATE_WOOD:
 		return;
 	}
 }

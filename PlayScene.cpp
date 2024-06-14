@@ -141,7 +141,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		enemy = new CGoomba(x, y, type);
 		break;
 	}
-	case OBJECT_TYPE_BRICK: obj = new CBrick(x,y); break;
+	case OBJECT_TYPE_BRICK:
+	{
+		int type = atoi(tokens[3].c_str());
+		obj = new CBrick(x, y, type); 
+		break;
+	}
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
 	case OBJECT_TYPE_KOOPAS:
 	{
