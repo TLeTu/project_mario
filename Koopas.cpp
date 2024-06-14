@@ -3,6 +3,7 @@
 #include "Goomba.h"
 #include "Box.h"
 #include "debug.h"
+#include "Brick.h"
 
 CKoopas::CKoopas(float x, float y, int type, int color) :CGameObject(x, y)
 {
@@ -73,6 +74,18 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithGoomba(e);
 	if (dynamic_cast<CBox*>(e->obj))
 		OnCollisionWithBox(e);
+	if (dynamic_cast<CBrick*>(e->obj))
+		OnCollisionWithBrick(e);
+}
+
+void CKoopas::OnCollisionWithBrick(LPCOLLISIONEVENT e)
+{
+	CBrick* brick = dynamic_cast<CBrick*>(e->obj);
+	if (e->ny == 0 && GetState() == KOOPAS_STATE_SPIN)
+	{
+		brick->Delete();
+	}
+	else return;
 }
 
 void CKoopas::OnCollisionWithBox(LPCOLLISIONEVENT e)
