@@ -87,6 +87,13 @@ void CKoopas::OnCollisionWithBrick(LPCOLLISIONEVENT e)
 		{
 			brick->SetState(BRICK_STATE_BREAK);
 		}
+		else if (brick->GetState() == BRICK_STATE_BUTTON)
+		{
+			float _, by;
+			brick->GetPosition(_, by);
+			brick->SetPosition(_, by - 8);
+			brick->SetState(BRICK_STATE_ANI);
+		}
 		else return;
 	}
 	else return;

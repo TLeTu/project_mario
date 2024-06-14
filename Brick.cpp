@@ -30,6 +30,10 @@ void CBrick::Render()
 	{
 		ani_id = ID_ANI_WOOD;
 	}
+	else if (GetState() == BRICK_STATE_EMPTY)
+	{
+		ani_id = ID_ANI_EMPTY;
+	}
 	else ani_id = ID_ANI_BRICK;
 	CAnimations* animations = CAnimations::GetInstance();
 	animations->Get(ani_id)->Render(x, y);
@@ -102,7 +106,7 @@ int CBrick::IsCollidable()
 
 void CBrick::SpawnButton()
 {
-	LPGAMEOBJECT btn = new CButton(x, y - 17);
+	LPGAMEOBJECT btn = new CButton(x, y - 16);
 	btn->SetPosition(x, y - 17);
 	CGame::GetInstance()->GetCurrentScene()->AddGameObject(btn);
 }
