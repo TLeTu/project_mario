@@ -385,7 +385,7 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
 	CCoin* coin = dynamic_cast<CCoin*>(e->obj);
-	if (coin->GetState() == COIN_STATE_NORMAL)
+	if (coin->GetState() == COIN_STATE_NORMAL || coin->GetState() == COIN_STATE_TOBRICK)
 	{
 		coin->Delete();
 		this->coin++;
