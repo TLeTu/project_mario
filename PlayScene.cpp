@@ -638,10 +638,15 @@ void CPlayScene::BrickToCoin()
 		{
 			coinBricks[i]->GetPosition(bx, by);
 			LPGAMEOBJECT coin = new CCoin(bx, by);
-			coin->SetPosition(bx, by);
-			AddGameObject(coin);
 			coinBricks[i]->Delete();
+			coin->SetState(COIN_STATE_TOBRICK);
+			AddGameObject(coin);
 		}
 	}
 	else return;
+}
+
+void CPlayScene::CoinToBrick(LPGAMEOBJECT obj)
+{
+	coinBricks.push_back(obj);
 }

@@ -13,11 +13,12 @@
 #define COIN_STATE_NORMAL 100
 #define COIN_STATE_FAKE_UP 200
 #define COIN_STATE_FAKE_DOWN 300
+#define COIN_STATE_TOBRICK 400
 
 class CCoin : public CGameObject {
 protected:
 	float initY;
-
+	ULONGLONG to_brick_start;
 public:
 	CCoin(float x, float y);
 	void Render();

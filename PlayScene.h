@@ -42,6 +42,7 @@ public:
 	virtual void Unload();
 	virtual void AddGameObject(LPGAMEOBJECT obj);
 	virtual void BrickToCoin();
+	virtual void CoinToBrick(LPGAMEOBJECT obj);
 	virtual void GetPlayerPosition(float& x, float& y);
 	virtual void SetScenePart(int part);
 	virtual void ResetScenePart() { ScenePart = 0; }

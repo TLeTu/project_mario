@@ -1,9 +1,11 @@
 #include "Coin.h"
+#include "Brick.h"
 
 CCoin::CCoin(float x, float y) : CGameObject(x, y)
 {
 	initY = y;
 	SetState(COIN_STATE_NORMAL);
+	to_brick_start = -1;
 }
 
 void CCoin::SetState(int state)
@@ -19,6 +21,9 @@ void CCoin::SetState(int state)
 		break;
 	case COIN_STATE_FAKE_DOWN:
 		vy = 0.3f;
+		break;
+	case COIN_STATE_TOBRICK:
+		to_brick_start = GetTickCount64();
 		break;
 	}
 }
@@ -49,6 +54,13 @@ void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (GetState() == COIN_STATE_FAKE_DOWN && y > initY)
 	{
 		isDeleted = true;
+		return;
+	}
+	if (GetState() == COIN_STATE_TOBRICK && GetTickCount64() - to_brick_start > 10000)
+	{
+		isDeleted = true;
+		CBrick* brick = new CBrick(x, y, 0, 1);
+		CGame::GetInstance()->GetCurrentScene()->CoinToBrick(brick);
 		return;
 	}
 	CGameObject::Update(dt, coObjects);

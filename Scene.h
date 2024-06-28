@@ -32,6 +32,7 @@ public:
 	virtual void GetPlayerPosition(float& x, float& y) = 0;
 
 	virtual void BrickToCoin() = 0;
+	virtual void CoinToBrick(LPGAMEOBJECT obj) = 0;
 };
 typedef CScene * LPSCENE;
 
