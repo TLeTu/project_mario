@@ -1,5 +1,5 @@
 [SETTINGS]
-start	7
+start	6
 width	320
 height	240
 
@@ -24,3 +24,4 @@ height	240
 31	textures\misc-3.png
 32	textures\misc_trans.png
 33	textures\misc_trans_2.png
+34	textures\map.png

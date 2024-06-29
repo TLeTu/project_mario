@@ -25,5 +25,5 @@ void CSceneLoader::GetBoundingBox(float& left, float& top, float& right, float& 
 
 void CSceneLoader::Render()
 {
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
