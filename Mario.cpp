@@ -21,6 +21,7 @@
 #include "Flytrap.h"
 #include "Button.h"
 #include "Brick.h"
+#include "LuckyBox.h"
 
 #include "Floor.h"
 
@@ -137,6 +138,20 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithButton(e);
 	else if (dynamic_cast<CBrick*>(e->obj))
 		OnCollisionWithBrick(e);
+	else if (dynamic_cast<CLuckyBox*>(e->obj))
+		OnCollisionWithLuckyBox(e);
+}
+
+void CMario::OnCollisionWithLuckyBox(LPCOLLISIONEVENT e)
+{
+	CLuckyBox* luckyBox = dynamic_cast<CLuckyBox*>(e->obj);
+	if (luckyBox->GetState() != LUCKYBOX_STATE_EMPTY)
+	{
+		luckyBox->SetRolling(false);
+		luckyBox->SpawnCoin();
+		luckyBox->SetState(LUCKYBOX_STATE_EMPTY);
+	}
+	else return;
 }
 
 void CMario::OnCollisionWithBrick(LPCOLLISIONEVENT e)

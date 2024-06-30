@@ -25,13 +25,39 @@ void CCoin::SetState(int state)
 	case COIN_STATE_TOBRICK:
 		to_brick_start = GetTickCount64();
 		break;
+	case COIN_STATE_FAKE_STAR:
+		vy = -0.2f;
+		break;
+	case COIN_STATE_FAKE_MUSHROOM:
+		vy = -0.2f;
+		break;
+	case COIN_STATE_FAKE_FLOWER:
+		vy = -0.2f;
+		break;
 	}
 }
 
 void CCoin::Render()
 {
+	int aniID = -1;
+	if (GetState() == COIN_STATE_FAKE_MUSHROOM)
+	{
+		aniID = ID_ANI_COIN_MUSHROOM;
+	}
+	else if (GetState() == COIN_STATE_FAKE_STAR)
+	{
+		aniID = ID_ANI_COIN_STAR;
+	}
+	else if (GetState() == COIN_STATE_FAKE_FLOWER)
+	{
+		aniID = ID_ANI_COIN_FLOWER;
+	}
+	else
+	{
+		aniID = ID_ANI_COIN;
+	}
 	CAnimations* animations = CAnimations::GetInstance();
-	animations->Get(ID_ANI_COIN)->Render(x, y);
+	animations->Get(aniID)->Render(x, y);
 
 	//RenderBoundingBox();
 }
@@ -52,6 +78,21 @@ void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		SetState(COIN_STATE_FAKE_DOWN);
 	}
 	if (GetState() == COIN_STATE_FAKE_DOWN && y > initY)
+	{
+		isDeleted = true;
+		return;
+	}
+	if (GetState() == COIN_STATE_FAKE_STAR && y<=0)
+	{
+		isDeleted = true;
+		return;
+	}
+	if (GetState() == COIN_STATE_FAKE_MUSHROOM && y <= 0)
+	{
+		isDeleted = true;
+		return;
+	}
+	if (GetState() == COIN_STATE_FAKE_FLOWER && y <= 0)
 	{
 		isDeleted = true;
 		return;

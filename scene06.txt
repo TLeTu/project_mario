@@ -14,6 +14,7 @@ fireball.txt
 tube.txt
 decoration.txt
 button.txt
+luckybox.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -59,8 +60,8 @@ button.txt
 
 
 #WHITEBUSH
-8	2584	139	80	98	1	760010	760010	760010
-8	2736	163	48	50	1	760011	760011	760011
+8	2536	139	80	98	1	760010	760010	760010
+8	2720	163	48	50	1	760011	760011	760011
 
 # CLOUD
 8	112	64	15	22	4	711010	711020	711030
@@ -280,6 +281,11 @@ button.txt
 3	1328	30	1	0
 3	1392	20	1	0
 3	1456	10	1	0
+#LUCKYBOX
+16	2640	110
+
+#CAMERAPOINTS
+200	2640	36
 
 # MARIO
 0	2448	10

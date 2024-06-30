@@ -142,8 +142,6 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	//isOnPlatform = false;
 
-	DebugOut(L"Koopa: %d\n", isOnPlatform);
-
 	if (state == KOOPAS_STATE_WALKING && !detecting && isOnPlatform) 
 	{
 		if (vx > 0)

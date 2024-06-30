@@ -153,6 +153,12 @@
     <ClCompile Include="Button.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="LuckyBox.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraPoint.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -257,6 +263,12 @@
     <ClInclude Include="Button.h">
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="LuckyBox.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraPoint.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="mario.txt">
@@ -317,6 +329,9 @@
       <Filter>Resource Files\Scenes</Filter>
     </Text>
     <Text Include="button.txt">
+      <Filter>Resource Files\Objects</Filter>
+    </Text>
+    <Text Include="luckybox.txt">
       <Filter>Resource Files\Objects</Filter>
     </Text>
   </ItemGroup>

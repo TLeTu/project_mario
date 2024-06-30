@@ -25,6 +25,8 @@
 #include "Tube.h"
 #include "Flytrap.h"
 #include "Button.h"
+#include "LuckyBox.h"
+#include "CameraPoint.h"
 
 
 #include "SampleKeyEventHandler.h"
@@ -123,6 +125,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	CGameObject* enemy = NULL;
 	CGameObject* coinBrick = NULL;
 	CSceneLoader* sceneLoader = NULL;
+	CCameraPoint* cameraPoint = NULL;
 
 	switch (object_type)
 	{
@@ -152,6 +155,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			coinBrick = new CBrick(x, y, type, isCoin);
 		}
 		else obj = new CBrick(x, y, type, isCoin); 
+		break;
+	}
+	case OBJECT_TYPE_LUCKYBOX:
+	{
+		obj = new CLuckyBox(x, y);
 		break;
 	}
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
@@ -271,6 +279,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	}
 	case OBJECT_TYPE_BUTTON: obj = new CButton(x, y); break;
+	case OBJECT_TYPE_CAMERAPOINT:
+	{
+
+		cameraPoint = new CCameraPoint(x, y);
+		break;
+	}
 
 
 	default:
@@ -298,6 +312,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	{
 		coinBrick->SetPosition(x, y);
 		coinBricks.push_back(coinBrick);
+	}
+	if (cameraPoint != NULL)
+	{
+		cameraPoint->SetPosition(x, y);
+		cameraPoints.push_back(cameraPoint);
 	}
 }
 
@@ -426,20 +445,27 @@ void CPlayScene::Update(DWORD dt)
 			enemies[i]->Update(dt, &coObjects);
 		}
 	}
+	for (size_t i = 0; i < cameraPoints.size(); i++)
+	{
+		cameraPoints[i]->Update(dt, &coObjects);
+	}
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
 	if (player == NULL) return; 
 
 	// Update camera to follow mario
 	float cx, cy;
+	CGame* game = CGame::GetInstance();
 	player->GetPosition(cx, cy);
-
-	CGame *game = CGame::GetInstance();
+	DebugOut(L"CX: %d\n", cx);
+	
 	cx -= game->GetBackBufferWidth() / 2;
-	cy -= game->GetBackBufferHeight() / 2;
-
 	if (cx < 0) cx = 0;
+	if (cy > 0) cy = 0;
+	else cy -= game->GetBackBufferHeight() / 4;
+	//camera stop at the end of the map
 
-	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+
+	CGame::GetInstance()->SetCamPos(cx, cy);
 
 	PurgeDeletedObjects();
 }
@@ -481,6 +507,11 @@ void CPlayScene::Render()
 		}
 	}
 
+	for (size_t i = 0; i < cameraPoints.size(); i++)
+	{
+		cameraPoints[i]->Render();
+	}
+
 }
 
 /*
@@ -513,6 +544,11 @@ void CPlayScene::Clear()
 		delete (*lt);
 	}
 	sceneLoaders.clear();
+
+	for (it = cameraPoints.begin(); it != cameraPoints.end(); it++)
+	{
+		delete (*it);
+	}
 }
 
 /*
@@ -542,6 +578,12 @@ void CPlayScene::Unload()
 		delete sceneLoaders[i];
 
 	sceneLoaders.clear();
+
+	for (int i = 0; i < cameraPoints.size(); i++)
+		delete cameraPoints[i];
+
+	cameraPoints.clear();
+
 	player = NULL;
 
 	DebugOut(L"[INFO] Scene %d unloaded! \n", id);
@@ -593,6 +635,16 @@ void CPlayScene::PurgeDeletedObjects()
 		}
 	}
 
+	for (it = cameraPoints.begin(); it != cameraPoints.end(); it++)
+	{
+		LPGAMEOBJECT o = *it;
+		if (o->IsDeleted())
+		{
+			delete o;
+			*it = NULL;
+		}
+	}
+
 	// NOTE: remove_if will swap all deleted items to the end of the vector
 	// then simply trim the vector, this is much more efficient than deleting individual items
 	objects.erase(
@@ -611,6 +663,10 @@ void CPlayScene::PurgeDeletedObjects()
 	sceneLoaders.erase(
 		std::remove_if(sceneLoaders.begin(), sceneLoaders.end(), CPlayScene::IsGameObjectDeleted),
 		sceneLoaders.end());
+
+	cameraPoints.erase(
+		std::remove_if(cameraPoints.begin(), cameraPoints.end(), CPlayScene::IsGameObjectDeleted),
+		cameraPoints.end());
 }
 
 void CPlayScene::AddGameObject(LPGAMEOBJECT obj)

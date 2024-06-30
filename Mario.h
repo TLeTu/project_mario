@@ -133,6 +133,7 @@ class CMario : public CGameObject
 	void OnCollisionWithFlytrap(LPCOLLISIONEVENT e);
 	void OnCollisionWithButton(LPCOLLISIONEVENT e);
 	void OnCollisionWithBrick(LPCOLLISIONEVENT e);
+	void OnCollisionWithLuckyBox(LPCOLLISIONEVENT e);
 
 	int GetAniIdBig();
 	int GetAniIdSmall();

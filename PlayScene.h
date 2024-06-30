@@ -21,6 +21,7 @@ protected:
 	vector<LPGAMEOBJECT> enemies;
 	vector<LPSCENELOADER> sceneLoaders;
 	vector<LPGAMEOBJECT> coinBricks;
+	vector<LPGAMEOBJECT> cameraPoints;
 
 	int ScenePart;
 	float loadPositionX, loadPositionY;
