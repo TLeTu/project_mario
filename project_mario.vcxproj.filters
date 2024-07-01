@@ -49,6 +49,9 @@
     <Filter Include="Resource Files\Scenes">
       <UniqueIdentifier>{b62a6eb6-3d97-49c7-8d02-02cdfb40ce06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Player">
+      <UniqueIdentifier>{8b639cb4-6512-4289-aab8-c8f6ea8a8a16}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -271,9 +274,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="mario.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="box.txt">
       <Filter>Resource Files\Objects</Filter>
     </Text>
@@ -333,6 +333,18 @@
     </Text>
     <Text Include="luckybox.txt">
       <Filter>Resource Files\Objects</Filter>
+    </Text>
+    <Text Include="mario.txt">
+      <Filter>Resource Files\Player</Filter>
+    </Text>
+    <Text Include="mario_big.txt">
+      <Filter>Resource Files\Player</Filter>
+    </Text>
+    <Text Include="mario_racoon.txt">
+      <Filter>Resource Files\Player</Filter>
+    </Text>
+    <Text Include="mario_small.txt">
+      <Filter>Resource Files\Player</Filter>
     </Text>
   </ItemGroup>
 </Project>

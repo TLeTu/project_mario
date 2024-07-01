@@ -14,6 +14,9 @@ fireball.txt
 tube.txt
 button.txt
 luckybox.txt
+mario_big.txt
+mario_small.txt
+mario_racoon.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -21,7 +24,7 @@ luckybox.txt
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # MARIO
-0	20	180
+0	20	20
 
 # FLOOR
 9	0	196	16	16	39	90000	91000	92000

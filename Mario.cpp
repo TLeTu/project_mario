@@ -33,6 +33,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	//debug out mario y
 	/*DebugOut(L"mario y: %f\n", y);*/
+	if (inPortal)
+	{
+		DebugOut(L">>> IN PORTAL >>> \n");
+	}
 
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 
@@ -90,7 +94,20 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 	}
 
+	if (isSitting && inPortal)
+	{
+		if (portalId != -1)
+		{
+			CGame::GetInstance()->InitiateSwitchScene(portalId);
+		}
+	}
+
 	isOnPlatform = false;
+	inPortal = false;
+	portalId = -1;
+
+	
+
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -99,6 +116,7 @@ void CMario::OnNoCollision(DWORD dt)
 {
 	x += vx * dt;
 	y += vy * dt;
+
 }
 
 void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
@@ -113,6 +131,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 	{
 		vx = 0;
 	}
+	if (dynamic_cast<CLuckyBox*>(e->obj))
+		OnCollisionWithLuckyBox(e);
 
 	if (dynamic_cast<CGoomba*>(e->obj))
 		OnCollisionWithGoomba(e);
@@ -138,8 +158,7 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithButton(e);
 	else if (dynamic_cast<CBrick*>(e->obj))
 		OnCollisionWithBrick(e);
-	else if (dynamic_cast<CLuckyBox*>(e->obj))
-		OnCollisionWithLuckyBox(e);
+
 }
 
 void CMario::OnCollisionWithLuckyBox(LPCOLLISIONEVENT e)
@@ -410,8 +429,8 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 {
-	CPortal* p = (CPortal*)e->obj;
-	CGame::GetInstance()->InitiateSwitchScene(p->GetSceneId());
+	this->inPortal = true;
+	portalId = dynamic_cast<CPortal*>(e->obj)->GetSceneId();
 }
 
 //

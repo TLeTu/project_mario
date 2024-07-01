@@ -15,6 +15,9 @@ tube.txt
 decoration.txt
 button.txt
 luckybox.txt
+mario_big.txt
+mario_small.txt
+mario_racoon.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -317,6 +320,11 @@ luckybox.txt
 1	-16	4	1	0
 1	-16	-12	1	0
 
+
+#portal
+300	2328	163	7
+
 # MARIO
-0	0	10
+0	2448	10
+
 

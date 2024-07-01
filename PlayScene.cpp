@@ -261,10 +261,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	case OBJECT_TYPE_PORTAL:
 	{
-		float r = (float)atof(tokens[3].c_str());
-		float b = (float)atof(tokens[4].c_str());
-		int scene_id = atoi(tokens[5].c_str());
-		obj = new CPortal(x, y, r, b, scene_id);
+		int scene_id = atoi(tokens[3].c_str());
+		obj = new CPortal(x, y, scene_id);
+		break;
 	}
 	case OBJECT_TYPE_BOX: 
 	{
@@ -455,10 +454,15 @@ void CPlayScene::Update(DWORD dt)
 	// Update camera to follow mario
 	float cx, cy;
 	float cmx, _;
-	cameraPoints[0]->GetPosition(cmx, _);
+	if (cameraPoints.size() != 0)
+	{
+		cameraPoints[0]->GetPosition(cmx, _);
+	}
+	else cmx = -1;
+
 	CGame* game = CGame::GetInstance();
 	player->GetPosition(cx, cy);
-	if (cx < cmx)
+	if (cx < cmx || cmx == -1)
 	{
 		cx -= game->GetBackBufferWidth() / 2;
 		if (cx < 0) cx = 0;
