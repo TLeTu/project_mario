@@ -104,6 +104,15 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 	}
 
+	if (vx == MARIO_RUNNING_SPEED || vx == -MARIO_RUNNING_SPEED)
+	{
+		chargedFlying = true;
+	}
+	if (chargedFlying && vy > 0 && GetTickCount64() - fall_start > 100)
+	{
+		chargedFlying = false;
+	}
+
 	isOnPlatform = false;
 	inPortal = false;
 	portalId = -1;
@@ -613,7 +622,13 @@ int CMario::GetAniIdRacoon()
 			}
 
 	if (aniId == -1) aniId = ID_ANI_MARIO_RACOON_IDLE_RIGHT;
-
+	if (GetState() == MARIO_STATE_FLY)
+	{
+		if (nx > 0)
+			aniId = ID_ANI_MARIO_RACOON_FLY_RIGHT;
+		else
+			aniId = ID_ANI_MARIO_RACOON_FLY_LEFT;
+	}
 	return aniId;
 }
 
@@ -674,17 +689,6 @@ void CMario::SetState(int state)
 		break;
 	case MARIO_STATE_JUMP:
 		if (isSitting) break;
-		if (GetLevel() == MARIO_LEVEL_RACOON)
-		{
-			if (this->ax >= maxVx)
-			{
-				vy = -MARIO_JUMP_RUN_SPEED_Y;
-			}
-			else
-				if (isOnPlatform) vy = -MARIO_JUMP_SPEED_Y;
-		}
-		else 
-		{
 			if (isOnPlatform)
 			{
 				if (abs(this->vx) == MARIO_RUNNING_SPEED)
@@ -694,13 +698,27 @@ void CMario::SetState(int state)
 				else
 					vy = -MARIO_JUMP_SPEED_Y;
 			}
+
+		break;
+	case MARIO_STATE_FLY:
+		if (chargedFlying)
+		{
+			vy = float(-MARIO_JUMP_RUN_SPEED_Y / 1.5);
+			fall_start = -1;
 		}
 
 		break;
+		
 	case MARIO_STATE_RELEASE_JUMP:
-		if (vy < 0) vy += MARIO_JUMP_SPEED_Y / 2;
+		ay = MARIO_GRAVITY;
 		break;
-
+	case MARIO_STATE_RELEASE_FLY:
+		fall_start = GetTickCount64();
+		ay = MARIO_GRAVITY;
+		break;
+	case MARIO_STATE_FLAP:
+		ay = 0.0003f;
+		break;
 	case MARIO_STATE_SIT:
 		if (isOnPlatform && level != MARIO_LEVEL_SMALL)
 		{

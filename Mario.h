@@ -37,6 +37,9 @@
 #define MARIO_STATE_CARRYING_SHELL	700
 
 #define MARIO_STATE_FLY 800
+#define MARIO_STATE_RELEASE_FLY 801
+
+#define MARIO_STATE_FLAP 900
 
 
 #pragma region ANIMATION_ID
@@ -108,6 +111,9 @@
 #define ID_ANI_MARIO_RACOON_FLY_RIGHT	122200
 #define ID_ANI_MARIO_RACOON_FLY_LEFT	122210
 
+#define ID_ANI_MARIO_RACOON_FLAP_RIGHT	122100
+#define ID_ANI_MARIO_RACOON_FLAP_LEFT	122110
+
 #define ID_ANI_MARIO_RACOON_GLIDE_RIGHT	122300
 #define ID_ANI_MARIO_RACOON_GLIDE_LEFT	122310
 
@@ -144,10 +150,12 @@ class CMario : public CGameObject
 	float maxVx;
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
+	float runningCharge;	// charge for flying
 
 	int level; 
 	int untouchable; 
 	ULONGLONG untouchable_start;
+	ULONGLONG fall_start;
 	BOOLEAN isOnPlatform;
 	int coin; 
 
@@ -156,6 +164,7 @@ class CMario : public CGameObject
 	bool isHolding;
 	bool inPortal;
 	int portalId;
+	bool chargedFlying;
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
@@ -196,6 +205,10 @@ public:
 		isHolding = false;
 		inPortal = false;
 		portalId = -1;
+
+		runningCharge = 0.0f;
+		chargedFlying = false;
+		fall_start = -1;
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
@@ -213,6 +226,7 @@ public:
 
 	void SetLevel(int l);
 	int GetLevel() { return level; }
+	bool ChargedFlying() { return chargedFlying; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
