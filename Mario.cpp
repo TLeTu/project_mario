@@ -33,6 +33,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	//debug out mario y
 	/*DebugOut(L"mario y: %f\n", y);*/
+	//debug out mario ax
+	DebugOut(L"mario ax: %f\n", ax);
 	if (inPortal)
 	{
 		DebugOut(L">>> IN PORTAL >>> \n");
@@ -674,28 +676,27 @@ void CMario::SetState(int state)
 		if (isSitting) break;
 		if (GetLevel() == MARIO_LEVEL_RACOON)
 		{
-			if (abs(this->vx) == MARIO_RUNNING_SPEED)
-				vy = -MARIO_JUMP_RUN_SPEED_Y;
-			else
+			if (this->ax >= maxVx)
 			{
-				if (isOnPlatform)
-					vy = -MARIO_JUMP_SPEED_Y;
-				else return;
+				vy = -MARIO_JUMP_RUN_SPEED_Y;
 			}
-
+			else
+				if (isOnPlatform) vy = -MARIO_JUMP_SPEED_Y;
 		}
-		else
+		else 
 		{
 			if (isOnPlatform)
 			{
 				if (abs(this->vx) == MARIO_RUNNING_SPEED)
+				{
 					vy = -MARIO_JUMP_RUN_SPEED_Y;
+				}
 				else
 					vy = -MARIO_JUMP_SPEED_Y;
 			}
 		}
-		break;
 
+		break;
 	case MARIO_STATE_RELEASE_JUMP:
 		if (vy < 0) vy += MARIO_JUMP_SPEED_Y / 2;
 		break;
