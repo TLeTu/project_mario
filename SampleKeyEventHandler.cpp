@@ -37,6 +37,13 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 	case DIK_R: // reset
 		CGame::GetInstance()->ReloadScene();
 		break;
+	case DIK_Q:
+		if (mario->GetLevel() == MARIO_LEVEL_RACOON)
+		{
+			mario->SetState(MARIO_STATE_ATTACK);
+			break;
+		}
+		else break;
 	}
 }
 
@@ -91,17 +98,17 @@ void CSampleKeyHandler::KeyState(BYTE *states)
 	{
 		mario->SetState(MARIO_STATE_IDLE);
 	}
-	if (game->IsKeyDown(DIK_F))
+	float _, vy;
+	mario->GetSpeed(_, vy);
+	if (mario->GetLevel() == MARIO_LEVEL_RACOON && vy > 0)
 	{
-		float _, vy;
-		mario->GetSpeed(_, vy);
-		if (vy > 0)
+		if (game->IsKeyDown(DIK_F))
 		{
-			mario->SetState(MARIO_STATE_FLAP);
+				mario->SetState(MARIO_STATE_FLAP);
 		}
-	}
-	else
-	{
-		mario->SetState(MARIO_STATE_RELEASE_JUMP);
+		else
+		{
+			mario->SetState(MARIO_STATE_RELEASE_JUMP);
+		}
 	}
 }

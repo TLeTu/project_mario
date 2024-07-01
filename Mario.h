@@ -41,6 +41,8 @@
 
 #define MARIO_STATE_FLAP 900
 
+#define MARIO_STATE_ATTACK 1000
+
 
 #pragma region ANIMATION_ID
 
@@ -156,6 +158,7 @@ class CMario : public CGameObject
 	int untouchable; 
 	ULONGLONG untouchable_start;
 	ULONGLONG fall_start;
+	ULONGLONG attack_start;
 	BOOLEAN isOnPlatform;
 	int coin; 
 
@@ -209,6 +212,7 @@ public:
 		runningCharge = 0.0f;
 		chargedFlying = false;
 		fall_start = -1;
+		attack_start = -1;
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();

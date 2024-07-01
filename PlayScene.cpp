@@ -713,3 +713,17 @@ void CPlayScene::CoinToBrick(LPGAMEOBJECT obj)
 {
 	coinBricks.push_back(obj);
 }
+
+LPGAMEOBJECT CPlayScene::GetEnemiesInRange(float x, float y)
+{
+	for (int i = 0; i < enemies.size(); i++)
+	{
+		float ex, ey;
+		enemies[i]->GetPosition(ex, ey);
+		if (abs(ex - x) <= 8 && abs(ey - y) <= 8)
+		{
+			return enemies[i];
+		}
+	}
+	return NULL;
+}

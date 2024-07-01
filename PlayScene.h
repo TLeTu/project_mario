@@ -47,6 +47,7 @@ public:
 	virtual void GetPlayerPosition(float& x, float& y);
 	virtual void SetScenePart(int part);
 	virtual void ResetScenePart() { ScenePart = 0; }
+	virtual LPGAMEOBJECT GetEnemiesInRange(float x, float y);
 
 	LPGAMEOBJECT GetPlayer() { return player; }
 

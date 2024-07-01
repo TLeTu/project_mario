@@ -25,7 +25,6 @@
 
 #include "Floor.h"
 
-
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	vy += ay * dt;
@@ -34,11 +33,11 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	//debug out mario y
 	/*DebugOut(L"mario y: %f\n", y);*/
 	//debug out mario ax
-	DebugOut(L"mario ax: %f\n", ax);
-	if (inPortal)
-	{
-		DebugOut(L">>> IN PORTAL >>> \n");
-	}
+	//DebugOut(L"mario ax: %f\n", ax);
+	//if (inPortal)
+	//{
+	//	//DebugOut(L">>> IN PORTAL >>> \n");
+	//}
 
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 
@@ -117,7 +116,28 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	inPortal = false;
 	portalId = -1;
 
-	
+	if (GetState() == MARIO_STATE_ATTACK)
+	{
+
+		LPGAMEOBJECT obj;
+		if (nx > 0)
+			obj = CGame::GetInstance()->GetCurrentScene()->GetEnemiesInRange(x+22, y);
+		else
+			obj = CGame::GetInstance()->GetCurrentScene()->GetEnemiesInRange(x- 22, y);
+		if (obj != NULL)
+		{
+			if (dynamic_cast<CGoomba*>(obj))
+			{
+				obj->SetState(GOOMBA_STATE_DIE);
+			}
+			else if (dynamic_cast<CKoopas*>(obj))
+			{
+				obj->SetState(KOOPAS_STATE_SHELL);
+			}
+		}
+		if (GetTickCount64() - attack_start > 400)
+			SetState(MARIO_STATE_IDLE);
+	}
 
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -629,6 +649,20 @@ int CMario::GetAniIdRacoon()
 		else
 			aniId = ID_ANI_MARIO_RACOON_FLY_LEFT;
 	}
+	if (GetState() == MARIO_STATE_FLAP)
+		{
+		if (nx > 0)
+			aniId = ID_ANI_MARIO_RACOON_FLAP_RIGHT;
+		else
+			aniId = ID_ANI_MARIO_RACOON_FLAP_LEFT;
+		}
+	if (GetState() == MARIO_STATE_ATTACK)
+	{
+		if (nx > 0)
+			aniId = ID_ANI_MARIO_RACOON_SPIN_RIGHT;
+		else
+			aniId = ID_ANI_MARIO_RACOON_SPIN_LEFT;
+	}
 	return aniId;
 }
 
@@ -747,6 +781,9 @@ void CMario::SetState(int state)
 		vy = -MARIO_JUMP_DEFLECT_SPEED;
 		vx = 0;
 		ax = 0;
+		break;
+	case MARIO_STATE_ATTACK:
+		attack_start = GetTickCount64();
 		break;
 	}
 
