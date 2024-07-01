@@ -64,7 +64,10 @@ void CSampleKeyHandler::KeyState(BYTE *states)
 		}
 		else
 		{
-			mario->SetState(MARIO_STATE_WALKING_RIGHT);
+			float _, vy;
+			mario->GetSpeed(_, vy);
+			if (vy == 0)
+				mario->SetState(MARIO_STATE_WALKING_RIGHT);
 		}
 
 	}
@@ -76,7 +79,10 @@ void CSampleKeyHandler::KeyState(BYTE *states)
 		}
 		else
 		{
-			mario->SetState(MARIO_STATE_WALKING_LEFT);
+			float _, vy;
+			mario->GetSpeed(_, vy);
+			if (vy == 0)
+				mario->SetState(MARIO_STATE_WALKING_LEFT);
 		}
 	}
 	else
