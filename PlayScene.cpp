@@ -503,29 +503,30 @@ void CPlayScene::Update(DWORD dt)
 	}
 
 
-	if (player == NULL) return; 
+	if (player == NULL) return;
 
-
-	float cx, cy;
-	float cmx, _;
-	if (cameraPoints.size() != 0)
+	if (CGame::GetInstance()->GetCurrentSceneId() != 1)
 	{
-		cameraPoints[0]->GetPosition(cmx, _);
+		float cx, cy;
+		float cmx, _;
+		if (cameraPoints.size() != 0)
+		{
+			cameraPoints[0]->GetPosition(cmx, _);
+		}
+		else cmx = -1;
+
+		CGame* game = CGame::GetInstance();
+		player->GetPosition(cx, cy);
+		if (cx < cmx || cmx == -1)
+		{
+			cx -= game->GetBackBufferWidth() / 2;
+			if (cx < 0) cx = 0;
+
+			if (cy > 0) cy = 0;
+			else cy -= game->GetBackBufferHeight() / 4;
+			CGame::GetInstance()->SetCamPos(cx, cy);
+		}
 	}
-	else cmx = -1;
-
-	CGame* game = CGame::GetInstance();
-	player->GetPosition(cx, cy);
-	if (cx < cmx || cmx == -1)
-	{
-		cx -= game->GetBackBufferWidth() / 2;
-		if (cx < 0) cx = 0;
-
-		if (cy > 0) cy = 0;
-		else cy -= game->GetBackBufferHeight() / 4;
-		CGame::GetInstance()->SetCamPos(cx, cy);
-	}
-
 
 
 	PurgeDeletedObjects();
