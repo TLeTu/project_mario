@@ -165,6 +165,9 @@
     <ClCompile Include="Wall.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="WorldMario.cpp">
+      <Filter>Source Files\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -278,6 +281,9 @@
     <ClInclude Include="Wall.h">
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="WorldMario.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="box.txt">
@@ -343,6 +349,14 @@
     <Text Include="mario_small.txt">
       <Filter>Resource Files\Player</Filter>
     </Text>
-    <Text Include="world1-1-under.txt" />
+    <Text Include="world1-1-under.txt">
+      <Filter>Resource Files\Scenes</Filter>
+    </Text>
+    <Text Include="world-map.txt">
+      <Filter>Resource Files\Scenes</Filter>
+    </Text>
+    <Text Include="world-mario.txt">
+      <Filter>Resource Files\Player</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -167,6 +167,7 @@
     <ClCompile Include="Tube.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Wall.cpp" />
+    <ClCompile Include="WorldMario.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -206,6 +207,7 @@
     <ClInclude Include="Tube.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Wall.h" />
+    <ClInclude Include="WorldMario.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="box.txt" />
@@ -226,6 +228,8 @@
     <Text Include="mario_small.txt" />
     <Text Include="mushroom.txt" />
     <Text Include="piranha.txt" />
+    <Text Include="world-map.txt" />
+    <Text Include="world-mario.txt" />
     <Text Include="world1-1-under.txt" />
     <Text Include="world1-1.txt" />
     <Text Include="test_scene.txt" />

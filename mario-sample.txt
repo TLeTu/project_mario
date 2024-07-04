@@ -1,5 +1,5 @@
 [SETTINGS]
-start	3
+start	1
 width	320
 height	240
 
@@ -7,6 +7,7 @@ height	240
 # type: 0: intro, 1: play scene 
 [SCENES]
 0	intro.txt
+1	world-map.txt
 2	world1-1.txt
 3	world1-1-under.txt
 10	test_scene.txt
@@ -24,3 +25,5 @@ height	240
 32	textures\misc_trans.png
 33	textures\misc_trans_2.png
 34	textures\map.png
+35	textures\world-1.png
+36	textures\world-2.png

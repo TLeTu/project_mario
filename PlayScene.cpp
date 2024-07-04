@@ -28,6 +28,7 @@
 #include "LuckyBox.h"
 #include "CameraPoint.h"
 #include "Wall.h"
+#include "WorldMario.h"
 
 
 #include "SampleKeyEventHandler.h"
@@ -131,16 +132,27 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	switch (object_type)
 	{
 	case OBJECT_TYPE_MARIO:
-		if (player!=NULL) 
+	{
+		if (player != NULL)
 		{
 			DebugOut(L"[ERROR] MARIO object was created before!\n");
 			return;
 		}
-		obj = new CMario(x,y); 
-		player = (CMario*)obj;  
+		int mtype = atoi(tokens[3].c_str());
+		if (mtype)
+		{
+			obj = new CMario(x, y);
+			player = (CMario*)obj;
+		}
+		else
+		{
+			obj = new CWorldMario(x, y);
+			player = (CWorldMario*)obj;
+		}
 
 		DebugOut(L"[INFO] Player object has been created!\n");
 		break;
+	}
 	case OBJECT_TYPE_GOOMBA:
 	{
 		int type = atoi(tokens[3].c_str());
@@ -469,10 +481,10 @@ void CPlayScene::Update(DWORD dt)
 	{
 		cameraPoints[i]->Update(dt, &coObjects);
 	}
-	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
+
 	if (player == NULL) return; 
 
-	// Update camera to follow mario
+
 	float cx, cy;
 	float cmx, _;
 	if (cameraPoints.size() != 0)
@@ -492,7 +504,7 @@ void CPlayScene::Update(DWORD dt)
 		else cy -= game->GetBackBufferHeight() / 4;
 		CGame::GetInstance()->SetCamPos(cx, cy);
 	}
-	//camera stop at the end of the map
+
 
 
 	PurgeDeletedObjects();

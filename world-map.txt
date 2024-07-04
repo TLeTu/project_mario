@@ -1,0 +1,26 @@
+[ASSETS]
+mario.txt
+brick.txt
+coin.txt
+goomba.txt
+colorbox.txt
+box.txt
+koopas.txt
+floor.txt
+mushroom.txt
+piranha.txt
+fireball.txt
+tube.txt
+decoration.txt
+button.txt
+luckybox.txt
+mario_big.txt
+mario_small.txt
+mario_racoon.txt
+world-mario.txt
+
+[OBJECTS]
+
+#MARIO
+0	16	180	0
+
