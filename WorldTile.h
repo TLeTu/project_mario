@@ -8,29 +8,25 @@
 class CWorldTile : public CGameObject
 {
 protected:
-	int length;				// Unit: cell 
 	float cellWidth;
 	float cellHeight;
-	int spriteIdBegin, spriteIdMiddle, spriteIdEnd;
+	int spriteId;
+	int sceneID;
 	int isPath;
 
 public:
-	CWorldTile(float x, float y, int isPath,
-		float cell_width, float cell_height, int length,
-		int sprite_id_begin, int sprite_id_middle, int sprite_id_end) :CGameObject(x, y)
+	CWorldTile(float x, float y, int isPath, int sceneID, int spriteId) :CGameObject(x, y)
 	{
-		this->length = length;
-		this->cellWidth = cell_width;
-		this->cellHeight = cell_height;
-		this->spriteIdBegin = sprite_id_begin;
-		this->spriteIdMiddle = sprite_id_middle;
-		this->spriteIdEnd = sprite_id_end;
+		this->cellWidth = 16;
+		this->cellHeight = 16;
+		this->spriteId = spriteId;
+		this->sceneID = sceneID;
 		this->isPath = isPath;
 	}
 
 	void Render();
 	void Update(DWORD dt) {};
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
-	void RenderBoundingBox();
 	int IsPath() { return isPath; }
+	int GetSceneID() { return sceneID; }
 };
