@@ -196,7 +196,7 @@ public:
 		ax = 0.0f;
 		ay = MARIO_GRAVITY; 
 
-		level = MARIO_LEVEL_RACOON;
+		level = MARIO_LEVEL_BIG;
 		untouchable = 0;
 		untouchable_start = -1;
 		isOnPlatform = false;

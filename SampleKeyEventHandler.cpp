@@ -111,4 +111,12 @@ void CSampleKeyHandler::KeyState(BYTE *states)
 			mario->SetState(MARIO_STATE_RELEASE_JUMP);
 		}
 	}
+	if (game->IsKeyDown(DIK_A))
+	{
+		mario->SetHolding(true);
+	}
+	else
+	{
+		mario->SetHolding(false);
+	}
 }

@@ -224,10 +224,7 @@
     <Text Include="mario_small.txt" />
     <Text Include="mushroom.txt" />
     <Text Include="piranha.txt" />
-    <Text Include="scene0005.txt" />
-    <Text Include="scene01.txt" />
-    <Text Include="scene02.txt" />
-    <Text Include="scene06.txt" />
+    <Text Include="world1-1.txt" />
     <Text Include="test_scene.txt" />
     <Text Include="tube.txt" />
   </ItemGroup>

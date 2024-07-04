@@ -313,16 +313,7 @@
     <Text Include="mario-sample.txt">
       <Filter>Resource Files\Scenes</Filter>
     </Text>
-    <Text Include="scene01.txt">
-      <Filter>Resource Files\Scenes</Filter>
-    </Text>
-    <Text Include="scene02.txt">
-      <Filter>Resource Files\Scenes</Filter>
-    </Text>
-    <Text Include="scene0005.txt">
-      <Filter>Resource Files\Scenes</Filter>
-    </Text>
-    <Text Include="scene06.txt">
+    <Text Include="world1-1.txt">
       <Filter>Resource Files\Scenes</Filter>
     </Text>
     <Text Include="test_scene.txt">
