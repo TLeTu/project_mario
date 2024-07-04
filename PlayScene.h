@@ -6,10 +6,12 @@
 #include "Brick.h"
 #include "Mario.h"
 #include "Goomba.h"
+#include "WorldTile.h"
 #include "SceneLoader.h"
 //#include "Koopas.h"
 
 typedef CSceneLoader* LPSCENELOADER;
+typedef CWorldTile* LPWORLDTILE;
 
 class CPlayScene: public CScene
 {
@@ -22,6 +24,7 @@ protected:
 	vector<LPSCENELOADER> sceneLoaders;
 	vector<LPGAMEOBJECT> coinBricks;
 	vector<LPGAMEOBJECT> cameraPoints;
+	vector<LPWORLDTILE> tiles;
 
 	int ScenePart;
 	float loadPositionX, loadPositionY;
@@ -56,6 +59,8 @@ public:
 	void PurgeDeletedObjects();
 
 	static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);
+
+	virtual bool CheckTile(float mx, float my);
 };
 
 typedef CPlayScene* LPPLAYSCENE;

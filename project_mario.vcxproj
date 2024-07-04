@@ -164,10 +164,12 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
+    <ClCompile Include="tiles.txt" />
     <ClCompile Include="Tube.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Wall.cpp" />
     <ClCompile Include="WorldMario.cpp" />
+    <ClCompile Include="WorldTile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -208,6 +210,7 @@
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="WorldMario.h" />
+    <ClInclude Include="WorldTile.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="box.txt" />

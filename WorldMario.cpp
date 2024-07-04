@@ -28,3 +28,8 @@ void CWorldMario::Move(float mx, float my)
 	x += mx;
 	y += my;
 }
+
+bool CWorldMario::CheckMoveDirection(float mx, float my)
+{
+	return CGame::GetInstance()->GetCurrentScene()->CheckTile(x + mx, y + my);
+}

@@ -29,6 +29,7 @@
 #include "CameraPoint.h"
 #include "Wall.h"
 #include "WorldMario.h"
+#include "WorldTile.h"
 
 
 #include "SampleKeyEventHandler.h"
@@ -126,6 +127,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	CGameObject *obj = NULL;
 	CGameObject* enemy = NULL;
 	CGameObject* coinBrick = NULL;
+	CWorldTile* tile = NULL;
 	CSceneLoader* sceneLoader = NULL;
 	CCameraPoint* cameraPoint = NULL;
 
@@ -270,6 +272,25 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 		break;
 	}
+
+	case OBJECT_TYPE_WORLD_TILE:
+	{
+		float cell_width = (float)atof(tokens[3].c_str());
+		float cell_height = (float)atof(tokens[4].c_str());
+		int length = atoi(tokens[5].c_str());
+		int sprite_begin = atoi(tokens[6].c_str());
+		int sprite_middle = atoi(tokens[7].c_str());
+		int sprite_end = atoi(tokens[8].c_str());
+		int isPath = atoi(tokens[9].c_str());
+
+		tile = new CWorldTile(
+			x, y, isPath,
+			cell_width, cell_height, length,
+			sprite_begin, sprite_middle, sprite_end
+		);
+
+		break;
+	}
 	
 	case OBJECT_TYPE_FLOOR:
 	{
@@ -349,6 +370,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	{
 		cameraPoint->SetPosition(x, y);
 		cameraPoints.push_back(cameraPoint);
+	}
+	if (tile != NULL)
+	{
+		tile->SetPosition(x, y);
+		tiles.push_back(tile);
 	}
 }
 
@@ -482,6 +508,7 @@ void CPlayScene::Update(DWORD dt)
 		cameraPoints[i]->Update(dt, &coObjects);
 	}
 
+
 	if (player == NULL) return; 
 
 
@@ -515,6 +542,10 @@ void CPlayScene::Render()
 	for (size_t i = 0; i < sceneLoaders.size(); i++)
 	{
 		sceneLoaders[i]->Render();
+	}
+	for (size_t i = 0; i < tiles.size(); i++)
+	{
+		tiles[i]->Render();
 	}
 
 	for (size_t i = 0; i < enemies.size(); i++)
@@ -551,6 +582,8 @@ void CPlayScene::Render()
 	{
 		cameraPoints[i]->Render();
 	}
+
+
 
 }
 
@@ -589,6 +622,16 @@ void CPlayScene::Clear()
 	{
 		delete (*it);
 	}
+
+	cameraPoints.clear();
+
+	vector<LPWORLDTILE>::iterator wt;
+	for (wt = tiles.begin(); wt != tiles.end(); wt++)
+	{
+		delete (*wt);
+	}
+
+	tiles.clear();
 }
 
 /*
@@ -623,6 +666,11 @@ void CPlayScene::Unload()
 		delete cameraPoints[i];
 
 	cameraPoints.clear();
+
+	for (int i = 0; i < tiles.size(); i++)
+		delete tiles[i];
+
+	tiles.clear();
 
 	player = NULL;
 
@@ -685,6 +733,17 @@ void CPlayScene::PurgeDeletedObjects()
 		}
 	}
 
+	vector<LPWORLDTILE>::iterator wt;
+	for (wt = tiles.begin(); wt != tiles.end(); wt++)
+	{
+		LPWORLDTILE o = *wt;
+		if (o->IsDeleted())
+		{
+			delete o;
+			*wt = NULL;
+		}
+	}
+
 	// NOTE: remove_if will swap all deleted items to the end of the vector
 	// then simply trim the vector, this is much more efficient than deleting individual items
 	objects.erase(
@@ -707,6 +766,11 @@ void CPlayScene::PurgeDeletedObjects()
 	cameraPoints.erase(
 		std::remove_if(cameraPoints.begin(), cameraPoints.end(), CPlayScene::IsGameObjectDeleted),
 		cameraPoints.end());
+
+	tiles.erase(
+		std::remove_if(tiles.begin(), tiles.end(), CPlayScene::IsGameObjectDeleted),
+		tiles.end());
+
 }
 
 void CPlayScene::AddGameObject(LPGAMEOBJECT obj)
@@ -764,4 +828,18 @@ LPGAMEOBJECT CPlayScene::GetEnemiesInRange(float x, float y)
 void CPlayScene::SetPlayerPosition(float x, float y)
 {
 	player->SetPosition(x, y);
+}
+
+bool CPlayScene::CheckTile(float mx, float my)
+{
+	for (int i = 0; i < tiles.size(); i++)
+	{
+		float tx, ty;
+		tiles[i]->GetPosition(tx, ty);
+		if (tx == mx && ty == my)
+		{
+			return tiles[i]->IsPath();
+		}
+	}
+	return false;
 }
