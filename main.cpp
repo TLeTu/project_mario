@@ -48,6 +48,7 @@ HOW TO INSTALL Microsoft.DXSDK.D3DX
 #define WINDOW_ICON_PATH L"mario.ico"
 
 #define BACKGROUND_COLOR D3DXCOLOR(156.0f/255, 252.0f/255, 240.0f/255, 0.0f)
+#define BACKGROUND_COLOR_BLACK D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f)
 
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
@@ -86,7 +87,10 @@ void Render()
 	ID3D10RenderTargetView* pRenderTargetView = g->GetRenderTargetView();
 	ID3DX10Sprite* spriteHandler = g->GetSpriteHandler();
 
-	pD3DDevice->ClearRenderTargetView(pRenderTargetView, BACKGROUND_COLOR);
+	if (g->GetInstance()->GetCurrentSceneId() == 1)
+		pD3DDevice->ClearRenderTargetView(pRenderTargetView, BACKGROUND_COLOR_BLACK);
+	else
+		pD3DDevice->ClearRenderTargetView(pRenderTargetView, BACKGROUND_COLOR);
 
 	spriteHandler->Begin(D3DX10_SPRITE_SORT_TEXTURE);
 
