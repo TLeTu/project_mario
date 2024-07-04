@@ -523,6 +523,12 @@ void CGame::SwitchScene()
 	LPSCENE s = scenes[next_scene];
 	this->SetKeyHandler(s->GetKeyEventHandler());
 	s->Load();
+	if (next_scene_x != -1 && next_scene_y)
+	{
+		s->SetPlayerPosition(next_scene_x, next_scene_y);
+		next_scene_x = -1;
+		next_scene_y = -1;
+	}
 }
 
 void CGame::ReloadScene()
@@ -536,9 +542,11 @@ void CGame::ReloadScene()
 	s->Load();
 }
 
-void CGame::InitiateSwitchScene(int scene_id)
+void CGame::InitiateSwitchScene(int scene_id, float px, float py)
 {
 	next_scene = scene_id;
+	next_scene_x = px;
+	next_scene_y = py;
 }
 
 

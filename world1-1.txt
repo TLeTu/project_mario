@@ -335,7 +335,7 @@ mario_racoon.txt
 
 
 #portal
-300	2264	-109	3
+300	2264	-109	3	20	20
 
 # MARIO
 0	0	-130

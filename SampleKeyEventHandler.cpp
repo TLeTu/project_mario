@@ -113,10 +113,18 @@ void CSampleKeyHandler::KeyState(BYTE *states)
 	}
 	if (game->IsKeyDown(DIK_A))
 	{
-		mario->SetHolding(true);
+		mario->SetHoldingA(true);
 	}
 	else
 	{
-		mario->SetHolding(false);
+		mario->SetHoldingA(false);
+	}
+	if (game->IsKeyDown(DIK_UP))
+	{
+		mario->SetHoldingUp(true);
+	}
+	else
+	{
+		mario->SetHoldingUp(false);
 	}
 }

@@ -164,10 +164,13 @@ class CMario : public CGameObject
 
 	CKoopas* carriedKoopas;
 	bool isCarryingKoopas;
-	bool isHolding;
+	bool isHoldingA;
+	bool isHoldingUp;
 	bool inPortal;
 	int portalId;
 	bool chargedFlying;
+
+	float px, py;
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
@@ -205,7 +208,8 @@ public:
 		isCarryingKoopas = false;
 		carriedKoopas = nullptr;
 
-		isHolding = false;
+		isHoldingA = false;
+		isHoldingUp = false;
 		inPortal = false;
 		portalId = -1;
 
@@ -213,6 +217,7 @@ public:
 		chargedFlying = false;
 		fall_start = -1;
 		attack_start = -1;
+		px = py = 0;
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
@@ -235,5 +240,6 @@ public:
 
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 
-	void SetHolding(bool r) { isHolding = r; }
+	void SetHoldingA(bool r) { isHoldingA = r; }
+	void SetHoldingUp(bool r) { isHoldingUp = r; }
 };

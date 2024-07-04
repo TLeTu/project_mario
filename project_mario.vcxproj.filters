@@ -162,6 +162,9 @@
     <ClCompile Include="CameraPoint.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -272,6 +275,9 @@
     <ClInclude Include="CameraPoint.h">
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="box.txt">
@@ -337,5 +343,6 @@
     <Text Include="mario_small.txt">
       <Filter>Resource Files\Player</Filter>
     </Text>
+    <Text Include="world1-1-under.txt" />
   </ItemGroup>
 </Project>

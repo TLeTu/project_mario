@@ -3,9 +3,11 @@
 #include "Textures.h"
 #include "Mario.h"
 #include "debug.h"
-CPortal::CPortal(float x, float y, int scene_id ) :CGameObject(x, y)
+CPortal::CPortal(float x, float y, int scene_id, float px, float py ) :CGameObject(x, y)
 {
 	this->scene_id = scene_id;
+	this->px = px;
+	this->py = py;
 }
 
 void CPortal::Render()

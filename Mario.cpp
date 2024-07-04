@@ -50,7 +50,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	if (isCarryingKoopas && carriedKoopas)
 	{
-		if (isHolding)
+		if (isHoldingA)
 		{
 			if (nx > 0)
 				carriedKoopas->SetPosition(x + 20, y - 5);
@@ -99,7 +99,14 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		if (portalId != -1)
 		{
-			CGame::GetInstance()->InitiateSwitchScene(portalId);
+			CGame::GetInstance()->InitiateSwitchScene(portalId, px, py);
+		}
+	}
+	else if (inPortal && isHoldingUp && vy > 0)
+	{
+		if (portalId != -1)
+		{
+			CGame::GetInstance()->InitiateSwitchScene(portalId, px, py);
 		}
 	}
 
@@ -419,7 +426,7 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 			}
 			else if (koopas->GetState() == KOOPAS_STATE_SHELL) 
 			{
-				if (isHolding)
+				if (isHoldingA)
 				{
 					isCarryingKoopas = true;
 					carriedKoopas = koopas;
@@ -461,7 +468,9 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 {
 	this->inPortal = true;
-	portalId = dynamic_cast<CPortal*>(e->obj)->GetSceneId();
+	this->portalId = dynamic_cast<CPortal*>(e->obj)->GetSceneId();
+	this->px = dynamic_cast<CPortal*>(e->obj)->GetX();
+	this->py = dynamic_cast<CPortal*>(e->obj)->GetY();
 }
 
 //

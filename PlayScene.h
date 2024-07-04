@@ -45,6 +45,7 @@ public:
 	virtual void BrickToCoin();
 	virtual void CoinToBrick(LPGAMEOBJECT obj);
 	virtual void GetPlayerPosition(float& x, float& y);
+	virtual void SetPlayerPosition(float x, float y);
 	virtual void SetScenePart(int part);
 	virtual void ResetScenePart() { ScenePart = 0; }
 	virtual LPGAMEOBJECT GetEnemiesInRange(float x, float y);
