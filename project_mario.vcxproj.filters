@@ -168,9 +168,6 @@
     <ClCompile Include="WorldMario.cpp">
       <Filter>Source Files\Player</Filter>
     </ClCompile>
-    <ClCompile Include="tiles.txt">
-      <Filter>Resource Files\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="WorldTile.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
@@ -366,6 +363,9 @@
     </Text>
     <Text Include="world-mario.txt">
       <Filter>Resource Files\Player</Filter>
+    </Text>
+    <Text Include="tile.txt">
+      <Filter>Resource Files\Objects</Filter>
     </Text>
   </ItemGroup>
 </Project>

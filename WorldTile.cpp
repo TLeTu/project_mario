@@ -8,7 +8,7 @@
 
 void CWorldTile::Render()
 {
-	CSprites::GetInstance()->Get(this->spriteId)->Draw(x, y);
+	CAnimations::GetInstance()->Get(this->spriteId)->Render(x, y);
 	/*RenderBoundingBox();*/
 }
 

@@ -1,11 +1,17 @@
 #include "WorldMario.h"
+#include "debug.h"
 
 CWorldMario::CWorldMario(float x, float y) : CGameObject()
 {
+	this->sceneId = 0;
 }
 
 void CWorldMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	this->sceneId = CGame::GetInstance()->GetCurrentScene()->GetTileId(x, y);
+	//debug out scene id
+	//if (sceneId!= -1)
+	//	DebugOut(L"Scene ID: %d\n", this->sceneId);
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }

@@ -17,20 +17,20 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		switch (KeyCode)
 		{
 			case DIK_RIGHT:
-				if (mario->CheckMoveDirection(16,0))
-					mario->Move(16, 0);
+				if (mario->CheckMoveDirection(32,0))
+					mario->Move(32, 0);
 				break;
 			case DIK_LEFT:
-				if (mario->CheckMoveDirection(-16, 0))
-					mario->Move(-16, 0);
+				if (mario->CheckMoveDirection(-32, 0))
+					mario->Move(-32, 0);
 				break;
 			case DIK_UP:
-				if (mario->CheckMoveDirection(0, -16))
-				mario->Move(0, -16);
+				if (mario->CheckMoveDirection(0, -32))
+				mario->Move(0, -32);
 				break;
 			case DIK_DOWN:
-				if (mario->CheckMoveDirection(0, 16))
-					mario->Move(0, 16);
+				if (mario->CheckMoveDirection(0, 32))
+					mario->Move(0, 32);
 				break;
 		}
 

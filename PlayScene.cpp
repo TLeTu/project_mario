@@ -838,3 +838,17 @@ bool CPlayScene::CheckTile(float mx, float my)
 	}
 	return false;
 }
+
+int CPlayScene::GetTileId(float x, float y)
+{
+	for (int i = 0; i < tiles.size(); i++)
+	{
+		float tx, ty;
+		tiles[i]->GetPosition(tx, ty);
+		if (tx == x && ty == y)
+		{
+			return tiles[i]->GetSceneID();
+		}
+	}
+	return -1;
+}

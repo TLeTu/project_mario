@@ -61,6 +61,7 @@ public:
 	static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);
 
 	virtual bool CheckTile(float mx, float my);
+	virtual int GetTileId(float x, float y);
 };
 
 typedef CPlayScene* LPPLAYSCENE;

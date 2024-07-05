@@ -12,6 +12,8 @@
 
 class CWorldMario : public CGameObject
 {
+protected:
+	int sceneId;
 public:
 	CWorldMario(float x, float y);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
@@ -20,5 +22,6 @@ public:
 
 	virtual void Move(float mx, float my);
 	virtual bool CheckMoveDirection(float mx, float my);
+	virtual void SetSceneId(int sceneId) { this->sceneId = sceneId; }
 };
 
