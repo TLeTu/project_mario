@@ -523,7 +523,7 @@ void CGame::SwitchScene()
 	LPSCENE s = scenes[next_scene];
 	this->SetKeyHandler(s->GetKeyEventHandler());
 	s->Load();
-	if (next_scene_x != -1 && next_scene_y)
+	if (next_scene_x != -1 && next_scene_y != 1)
 	{
 		s->SetPlayerPosition(next_scene_x, next_scene_y);
 		next_scene_x = -1;

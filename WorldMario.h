@@ -23,5 +23,6 @@ public:
 	virtual void Move(float mx, float my);
 	virtual bool CheckMoveDirection(float mx, float my);
 	virtual void SetSceneId(int sceneId) { this->sceneId = sceneId; }
+	virtual int GetSceneId() { return sceneId; }
 };
 

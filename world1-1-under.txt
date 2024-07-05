@@ -81,7 +81,7 @@ mario_racoon.txt
 300	280	20	2	2320	130
 
 # MARIO
-0	20	20
+0	20	20	1
 
 # SCENELOADER
 100	720	180	1

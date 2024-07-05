@@ -32,6 +32,10 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 				if (mario->CheckMoveDirection(0, 32))
 					mario->Move(0, 32);
 				break;
+			case DIK_A:
+				if (mario->GetSceneId() != -1)
+					CGame::GetInstance()->InitiateSwitchScene(mario->GetSceneId(), -1, -1);
+				break;
 		}
 
 	}
