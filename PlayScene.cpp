@@ -30,6 +30,7 @@
 #include "Wall.h"
 #include "WorldMario.h"
 #include "WorldTile.h"
+#include "Leaf.h"
 
 
 #include "SampleKeyEventHandler.h"

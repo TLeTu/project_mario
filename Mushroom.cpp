@@ -4,7 +4,7 @@ CMushroom::CMushroom(float x, float y) :CGameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = MUSHROOM_GRAVITY;
-	SetState(MUSHROOM_STATE_WALKING);
+	SetState(MUSHROOM_STATE);
 }
 
 void CMushroom::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -23,15 +23,18 @@ void CMushroom::OnNoCollision(DWORD dt)
 
 void CMushroom::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-	if (!e->obj->IsBlocking()) return;
-	if (e->ny != 0)
-	{
-		vy = 0;
-	}
-	else if (e->nx != 0)
-	{
-		vx = -vx;
-	}
+	//if (GetState() == MUSHROOM_STATE)
+	//{
+		if (!e->obj->IsBlocking()) return;
+		if (e->ny != 0)
+		{
+			vy = 0;
+		}
+		else if (e->nx != 0)
+		{
+			vx = -vx;
+		}
+	//}
 }
 
 void CMushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -46,8 +49,8 @@ void CMushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CMushroom::Render()
 {
-	CAnimations::GetInstance()->Get(ID_ANI_MUSHROOM)->Render(x, y);
-	/*RenderBoundingBox();*/
+		CAnimations::GetInstance()->Get(ID_ANI_MUSHROOM)->Render(x, y);
+	RenderBoundingBox();
 }
 
 void CMushroom::SetState(int state)
@@ -55,7 +58,7 @@ void CMushroom::SetState(int state)
 	CGameObject::SetState(state);
 	switch (state)
 	{
-	case MUSHROOM_STATE_WALKING:
+	case MUSHROOM_STATE:
 		vx = -MUSHROOM_WALKING_SPEED;
 		break;
 	}

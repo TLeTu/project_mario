@@ -1,6 +1,9 @@
 #include "Box.h"
 #include "GameObject.h"
 #include "Collision.h"
+#include "PlayScene.h"
+#include "Leaf.h"
+#include "Mario.h"
 
 void CBox::Render()
 {
@@ -45,9 +48,20 @@ void CBox::SpawnCoin() {
 }
 
 void CBox::SpawnMushroom() {
-	LPGAMEOBJECT mushroom = new CMushroom(x, y - 17);
-	mushroom->SetPosition(x, y - 17);
-	CGame::GetInstance()->GetCurrentScene()->AddGameObject(mushroom);
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	if (mario->GetLevel() == MARIO_LEVEL_SMALL)
+	{ 
+		LPGAMEOBJECT mushroom = new CMushroom(x, y - 17);
+		mushroom->SetState(MUSHROOM_STATE);
+		mushroom->SetPosition(x, y - 17);
+		CGame::GetInstance()->GetCurrentScene()->AddGameObject(mushroom);
+	}
+	else 
+	{
+		LPGAMEOBJECT leaf = new CLeaf(x, y - 17);
+		leaf->SetPosition(x, y - 17);
+		CGame::GetInstance()->GetCurrentScene()->AddGameObject(leaf);
+	}
 }
 
 void CBox::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

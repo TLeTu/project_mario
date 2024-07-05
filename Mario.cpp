@@ -22,6 +22,7 @@
 #include "Button.h"
 #include "Brick.h"
 #include "LuckyBox.h"
+#include "Leaf.h"
 
 #include "Floor.h"
 
@@ -169,8 +170,6 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 	{
 		vx = 0;
 	}
-	if (dynamic_cast<CLuckyBox*>(e->obj))
-		OnCollisionWithLuckyBox(e);
 
 	if (dynamic_cast<CGoomba*>(e->obj))
 		OnCollisionWithGoomba(e);
@@ -196,6 +195,10 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithButton(e);
 	else if (dynamic_cast<CBrick*>(e->obj))
 		OnCollisionWithBrick(e);
+	else if (dynamic_cast<CLeaf*>(e->obj))
+		OnCOllisionWithLeaf(e);
+	else if (dynamic_cast<CLuckyBox*>(e->obj))
+		OnCollisionWithLuckyBox(e);
 
 }
 
@@ -251,16 +254,21 @@ void CMario::OnCollisionWithPiranha(LPCOLLISIONEVENT e)
 	CPiranha* piranha = dynamic_cast<CPiranha*>(e->obj);
 	if (untouchable == 0)
 	{
-		if (level > MARIO_LEVEL_SMALL)
+		if (level > MARIO_LEVEL_BIG)
 		{
-			level = MARIO_LEVEL_SMALL;
+			level = MARIO_LEVEL_BIG;
 			StartUntouchable();
+		}
+		else if (level > MARIO_LEVEL_SMALL)
+		{
+			level = MARIO_LEVEL_BIG;
+			StartUntouchable();
+
 		}
 		else
 		{
-				DebugOut(L">>> Mario DIE >>> \n");
-				SetState(MARIO_STATE_DIE);
-
+			DebugOut(L">>> Mario DIE >>> \n");
+			SetState(MARIO_STATE_DIE);
 		}
 	}
 }
@@ -304,15 +312,33 @@ void CMario::OnCollisionWithFireball(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 {
 	CMushroom* mushroom = dynamic_cast<CMushroom*>(e->obj);
-	if (level == MARIO_LEVEL_SMALL)
+	if (mushroom->GetState() == MUSHROOM_STATE)
 	{
-		SetLevel(MARIO_LEVEL_BIG);
+		if (level == MARIO_LEVEL_SMALL)
+		{
+			SetLevel(MARIO_LEVEL_BIG);
+			StartUntouchable();
+			mushroom->Delete();
+		}
+		else
+		{
+			mushroom->Delete();
+		}
+	}
+}
+
+void CMario::OnCOllisionWithLeaf(LPCOLLISIONEVENT e)
+{
+	CLeaf* leaf = dynamic_cast<CLeaf*>(e->obj);
+	if (level == MARIO_LEVEL_BIG)
+	{
+		SetLevel(MARIO_LEVEL_RACOON);
 		StartUntouchable();
-		mushroom->Delete();
+		leaf->Delete();
 	}
 	else
 	{
-		mushroom->Delete();
+		leaf->Delete();
 	}
 }
 
