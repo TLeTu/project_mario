@@ -166,6 +166,7 @@
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Tube.cpp" />
+    <ClCompile Include="UI.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Wall.cpp" />
     <ClCompile Include="WorldMario.cpp" />
@@ -208,6 +209,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="Tube.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="WorldMario.h" />
@@ -233,6 +235,7 @@
     <Text Include="mushroom.txt" />
     <Text Include="piranha.txt" />
     <Text Include="tile.txt" />
+    <Text Include="ui.txt" />
     <Text Include="world-map.txt" />
     <Text Include="world-mario.txt" />
     <Text Include="world1-1-under.txt" />

@@ -31,6 +31,7 @@
 #include "WorldMario.h"
 #include "WorldTile.h"
 #include "Leaf.h"
+#include "UI.h"
 
 
 #include "SampleKeyEventHandler.h"
@@ -235,7 +236,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 		break;
 	}
-
+	case OBJECT_TYPE_UI:
+	{
+		obj = new CUI(x, y);
+		break;
+	}
 
 	case OBJECT_TYPE_PLATFORM:
 	{
@@ -522,9 +527,8 @@ void CPlayScene::Update(DWORD dt)
 		{
 			cx -= game->GetBackBufferWidth() / 2;
 			if (cx < 0) cx = 0;
-
+			cy -= game->GetBackBufferHeight() / 8;
 			if (cy > 0) cy = 0;
-			else cy -= game->GetBackBufferHeight() / 4;
 			CGame::GetInstance()->SetCamPos(cx, cy);
 		}
 	}
@@ -546,9 +550,7 @@ void CPlayScene::Render()
 
 	for (size_t i = 0; i < enemies.size(); i++)
 	{
-		float ox, oy;
-		enemies[i]->GetPosition(ox, oy);
-		if (ox <= loadPositionX && enemies[i]->GetType() == "piranha")
+		if (enemies[i]->GetType() == "piranha")
 		{
 			enemies[i]->Render();
 		}
@@ -566,9 +568,7 @@ void CPlayScene::Render()
 
 	for (size_t i = 0; i < enemies.size(); i++)
 	{
-		float ox, oy;
-		enemies[i]->GetPosition(ox, oy);
-		if (ox <= loadPositionX && enemies[i]->GetType() != "piranha")
+		if (enemies[i]->GetType() != "piranha")
 		{
 			enemies[i]->Render();
 		}

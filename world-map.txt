@@ -19,6 +19,7 @@ mario_small.txt
 mario_racoon.txt
 world-mario.txt
 tile.txt
+ui.txt
 
 [OBJECTS]
 
@@ -307,6 +308,10 @@ tile.txt
 500	176	36	0	-1	501110
 500	208	36	0	-1	501110
 500	224	36	0	-1	501140
+
+
+#UI
+600	114	220
 
 #MARIO
 0	64	68	0

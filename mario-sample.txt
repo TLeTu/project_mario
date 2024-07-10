@@ -1,7 +1,6 @@
 [SETTINGS]
-start	10
-width	320
-height	240
+start	1
+
 
 #id	type	file
 # type: 0: intro, 1: play scene 
@@ -27,3 +26,4 @@ height	240
 34	textures\map.png
 35	textures\world-1.png
 36	textures\world-2.png
+80	textures\ui.png

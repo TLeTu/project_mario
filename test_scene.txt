@@ -17,6 +17,7 @@ luckybox.txt
 mario_big.txt
 mario_small.txt
 mario_racoon.txt
+ui.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -30,6 +31,8 @@ mario_racoon.txt
 9	0	196	16	16	39	90000	91000	92000
 
 6	50	120	1
+
+600	76	220
 
 
 # SCENELOADER

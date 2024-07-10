@@ -3,7 +3,7 @@
 #include "GameObject.h"
 
 #define SCENELOADER_BBOX_WIDTH 16
-#define SCENELOADER_BBOX_HEIGHT 500
+#define SCENELOADER_BBOX_HEIGHT 1000
 
 
 class CSceneLoader : public CGameObject
