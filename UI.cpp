@@ -148,3 +148,29 @@ void CUI::AddCard(int cardType)
 	}
 	else return;
 }
+
+void CUI::SetCardSlot(int cardSlot, int cardType)
+{
+	switch (cardSlot)
+	{
+	case 1:
+		cardSlot1->SetState(cardType);
+		cardSlot1->SetEmpty(false);
+		break;
+	case 2:
+		cardSlot2->SetState(cardType);
+		cardSlot2->SetEmpty(false);
+		break;
+	case 3:
+		cardSlot3->SetState(cardType);
+		cardSlot3->SetEmpty(false);
+		break;
+	}
+}
+
+void CUI::Save(int& score, int& life, int& money)
+{
+	score = scoreNum;
+	life = lifeNum;
+	money = moneyNum;
+}

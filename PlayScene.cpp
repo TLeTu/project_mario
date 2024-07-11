@@ -45,6 +45,9 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 	CScene(id, filePath)
 {
 	player = NULL;
+	UI = NULL;
+	loadPositionX = 0;
+	loadPositionY = 0;
 	ScenePart = 0;
 	key_handler = new CSampleKeyHandler(this);
 }
@@ -59,6 +62,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define ASSETS_SECTION_ANIMATIONS 2
 
 #define MAX_SCENE_LINE 1024
+
 
 void CPlayScene::_ParseSection_SPRITES(string line)
 {
@@ -621,8 +625,6 @@ void CPlayScene::Clear()
 	}
 
 	tiles.clear();
-
-	delete UI;
 }
 
 /*
@@ -664,6 +666,8 @@ void CPlayScene::Unload()
 	tiles.clear();
 
 	player = NULL;
+
+	delete UI;
 	UI = NULL;
 
 	DebugOut(L"[INFO] Scene %d unloaded! \n", id);

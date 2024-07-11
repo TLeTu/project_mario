@@ -248,6 +248,7 @@
     <Text Include="mario_small.txt" />
     <Text Include="mushroom.txt" />
     <Text Include="piranha.txt" />
+    <Text Include="savefile.txt" />
     <Text Include="tile.txt" />
     <Text Include="ui.txt" />
     <Text Include="world-map.txt" />

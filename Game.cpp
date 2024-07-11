@@ -508,12 +508,89 @@ void CGame::Load(LPCWSTR gameFile)
 	SwitchScene();
 }
 
+void CGame::LoadSave(LPCWSTR savefile)
+{
+	ifstream f;
+	f.open(savefile);
+	char str[MAX_GAME_LINE];
+
+	while (f.getline(str, MAX_GAME_LINE))
+	{
+		string line(str);
+
+		if (line[0] == '#') continue;	// skip comment lines	
+
+		SetLoadValue(line);
+	}
+
+	f.close();
+}
+
+void CGame::SetLoadValue(string line)
+{
+	vector<string> tokens = split(line);
+
+	if (tokens.size() < 1) return;
+
+	int type = atoi(tokens[0].c_str());
+	int value = atof(tokens[1].c_str());
+
+	switch (type)
+	{
+	case 0:
+		score = value;
+		((LPPLAYSCENE)scenes[current_scene])->GetUI()->AddScore(score);
+		break;
+	case 1:
+		money = value;
+		((LPPLAYSCENE)scenes[current_scene])->GetUI()->AddMoney(money);
+		break;
+	case 2:
+		lives = value;
+		((LPPLAYSCENE)scenes[current_scene])->GetUI()->AddLife(lives);
+		break;
+	case 3:
+		card1 = value;
+		((LPPLAYSCENE)scenes[current_scene])->GetUI()->SetCardSlot(1, card1);
+		break;
+	case 4:
+		card2 = value;
+		((LPPLAYSCENE)scenes[current_scene])->GetUI()->SetCardSlot(2, card2);
+		break;
+	case 5:
+		card3 = value;
+		((LPPLAYSCENE)scenes[current_scene])->GetUI()->SetCardSlot(3, card3);
+		break;
+	}
+}
+
+void CGame::Save(LPCWSTR savefile)
+{
+	ofstream f;
+	f.open(savefile);
+	f.clear();
+
+	f << "#	Save	file\n";
+	f << "#	Type	Value\n";
+	f << "#	0: score, 1: money, 2: lives, 3: card1, 4: card2, 5: card3\n";
+	f << "0	" << score << "\n";
+	f << "1	" << money << "\n";
+	f << "2	" << lives << "\n";
+	f << "3	" << card1 << "\n";
+	f << "4	" << card2 << "\n";
+	f << "5	" << card3 << "\n";
+
+	f.close();
+}
+
 void CGame::SwitchScene()
 {
 	if (next_scene < 0 || next_scene == current_scene) return;
 
 	DebugOut(L"[INFO] Switching to scene %d\n", next_scene);
 
+	//((LPPLAYSCENE)scenes[current_scene])->GetUI()->Save(score, lives, money);
+	//Save(L"savefile.txt");
 	scenes[current_scene]->Unload();
 
 	CSprites::GetInstance()->Clear();
@@ -529,10 +606,13 @@ void CGame::SwitchScene()
 		next_scene_x = -1;
 		next_scene_y = -1;
 	}
+	LoadSave(L"savefile.txt");
 }
 
 void CGame::ReloadScene()
 {
+	((LPPLAYSCENE)scenes[current_scene])->GetUI()->Save(score, lives, money);
+	Save(L"savefile.txt");
 	scenes[current_scene]->Unload();
 	CSprites::GetInstance()->Clear();
 	CAnimations::GetInstance()->Clear();
@@ -540,6 +620,7 @@ void CGame::ReloadScene()
 	this->SetKeyHandler(s->GetKeyEventHandler());
 	s->ResetScenePart();
 	s->Load();
+	LoadSave(L"savefile.txt");
 }
 
 void CGame::InitiateSwitchScene(int scene_id, float px, float py)
@@ -547,6 +628,7 @@ void CGame::InitiateSwitchScene(int scene_id, float px, float py)
 	next_scene = scene_id;
 	next_scene_x = px;
 	next_scene_y = py;
+
 }
 
 

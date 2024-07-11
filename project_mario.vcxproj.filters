@@ -430,5 +430,8 @@
     <Text Include="ui.txt">
       <Filter>Resource Files\Objects</Filter>
     </Text>
+    <Text Include="savefile.txt">
+      <Filter>Resource Files\Scenes</Filter>
+    </Text>
   </ItemGroup>
 </Project>

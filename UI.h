@@ -46,6 +46,8 @@ public:
 	virtual void DecreaseLife(int lifeNumber);
 	virtual void AddMoney(int moneyNumber);
 	virtual void AddCard(int cardType);
+	virtual void SetCardSlot(int cardSlot, int cardType);
+	virtual void Save(int& score, int& life, int& money);
 	void SetUIPosition(float x, float y);
 	CUI(float x, float y);
 };
