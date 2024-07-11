@@ -52,3 +52,22 @@ void CUIScore::SetUIPosition(float x, float y)
 	this->num7->SetPosition(x + 56, y);
 
 }
+
+void CUIScore::SetScore(int score)
+{
+	int num1 = score / 1000000;
+	int num2 = (score % 1000000) / 100000;
+	int num3 = (score % 100000) / 10000;
+	int num4 = (score % 10000) / 1000;
+	int num5 = (score % 1000) / 100;
+	int num6 = (score % 100) / 10;
+	int num7 = score % 10;
+
+	this->num1->SetState(num1);
+	this->num2->SetState(num2);
+	this->num3->SetState(num3);
+	this->num4->SetState(num4);
+	this->num5->SetState(num5);
+	this->num6->SetState(num6);
+	this->num7->SetState(num7);
+}

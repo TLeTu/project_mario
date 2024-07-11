@@ -16,6 +16,7 @@ class CUI : public CGameObject
 {
 protected:
 	int timeNum;
+	int scoreNum;
 
 	CUIBG* background;
 	CUITime* time;
@@ -38,6 +39,7 @@ protected:
 public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
+	virtual void AddScore(int scoreNumber);
 	void SetUIPosition(float x, float y);
 	CUI(float x, float y);
 };

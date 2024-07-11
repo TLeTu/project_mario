@@ -38,6 +38,7 @@ public:
 
 	virtual bool CheckTile(float mx, float my) = 0;
 	virtual int GetTileId(float x, float y) = 0;
+
 };
 typedef CScene * LPSCENE;
 

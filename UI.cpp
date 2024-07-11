@@ -13,11 +13,13 @@ CUI::CUI(float x, float y) : CGameObject(x, y)
 		timeStart = -1;
 		timeNum = 0;
 	}
+	scoreNum = 0;
 
 	background = new CUIBG(x, y);
 	time = new CUITime(x, y);
 	time->SetTime(timeNum);
 	score = new CUIScore(x, y);
+	score->SetScore(scoreNum);
 	money = new CUIMoney(x, y);
 	life = new CUILife(x, y);
 	cardSlot1 = new CUICardSlot(x, y);
@@ -69,4 +71,10 @@ void CUI::SetUIPosition(float x, float y)
 	cardSlot1->SetPosition(x + 98, y);
 	cardSlot2->SetPosition(x + 98 + 23, y);
 	cardSlot3->SetPosition(x + 98 + 23 + 23, y);
+}
+
+void CUI::AddScore(int scoreNumber)
+{
+	scoreNum += scoreNumber;
+	score->SetScore(scoreNum);
 }

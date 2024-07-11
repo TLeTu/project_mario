@@ -76,6 +76,9 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 				break;
 			}
 			else break;
+		case DIK_H:
+			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddScore(1000);
+			break;
 		}
 	}
 }

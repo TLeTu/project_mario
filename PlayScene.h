@@ -59,6 +59,7 @@ public:
 	virtual LPGAMEOBJECT GetEnemiesInRange(float x, float y);
 
 	LPGAMEOBJECT GetPlayer() { return player; }
+	LPUI GetUI() { return UI; }
 
 	void Clear();
 	void PurgeDeletedObjects();
