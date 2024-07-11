@@ -201,6 +201,9 @@
     <ClCompile Include="UI_Life.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="UI_CardSlot.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -342,6 +345,9 @@
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI_Life.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_CardSlot.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>

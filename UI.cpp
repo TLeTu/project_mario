@@ -8,6 +8,9 @@ CUI::CUI(float x, float y) : CGameObject(x, y)
 	score = new CUIScore(x, y);
 	money = new CUIMoney(x, y);
 	life = new CUILife(x, y);
+	cardSlot1 = new CUICardSlot(x, y);
+	cardSlot2 = new CUICardSlot(x, y);
+	cardSlot3 = new CUICardSlot(x, y);
 }
 
 void CUI::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -26,6 +29,9 @@ void CUI::Render()
 	score->Render();
 	money->Render();
 	life->Render();
+	cardSlot1->Render();
+	cardSlot2->Render();
+	cardSlot3->Render();
 }
 
 void CUI::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -43,4 +49,7 @@ void CUI::SetUIPosition(float x, float y)
 	score->SetUIPosition(x - 28, y + 4);
 	money->SetUIPosition(x + 52, y - 4);
 	life->SetUIPosition(x - 50, y + 4);
+	cardSlot1->SetPosition(x + 98, y);
+	cardSlot2->SetPosition(x + 98 + 23, y);
+	cardSlot3->SetPosition(x + 98 + 23 + 23, y);
 }

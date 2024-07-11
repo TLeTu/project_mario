@@ -246,8 +246,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			DebugOut(L"[ERROR] UI object was created before!\n");
 			return;
 		}
-		obj = new CUI(x, y);
-		UI = (CUI*)obj;
+		UI = new CUI(x, y);
 
 		DebugOut(L"[INFO] UI object has been created!\n");
 		break;
@@ -521,6 +520,8 @@ void CPlayScene::Update(DWORD dt)
 
 
 	if (player == NULL) return;
+
+	UI->Update(dt, &coObjects);
 	
 	UpdateCameraPosition();
 
@@ -571,7 +572,7 @@ void CPlayScene::Render()
 		cameraPoints[i]->Render();
 	}
 
-
+	UI->Render();
 
 }
 
@@ -620,6 +621,8 @@ void CPlayScene::Clear()
 	}
 
 	tiles.clear();
+
+	delete UI;
 }
 
 /*
@@ -876,10 +879,6 @@ void CPlayScene::UpdateUIPosition()
 {
 	if (UI != NULL)
 	{
-		if (CGame::GetInstance()->GetCurrentSceneId() == 1)
-		{
-			return;
-		}
 		float cx, cy;
 		CGame::GetInstance()->GetCamPos(cx, cy);
 
