@@ -128,3 +128,23 @@ void CUI::AddMoney(int moneyNumber)
 		moneyNum += moneyNumber;
 	money->SetMoney(moneyNum);
 }
+
+void CUI::AddCard(int cardType)
+{
+	if (cardSlot1->GetEmpty())
+	{
+		cardSlot1->SetState(cardType);
+		cardSlot1->SetEmpty(false);
+	}
+	else if (cardSlot2->GetEmpty())
+	{
+		cardSlot2->SetState(cardType);
+		cardSlot2->SetEmpty(false);
+	}
+	else if (cardSlot3->GetEmpty())
+	{
+		cardSlot3->SetState(cardType);
+		cardSlot3->SetEmpty(false);
+	}
+	else return;
+}

@@ -31,4 +31,5 @@ public:
 	virtual void SetState(int state);
 	CUICardSlot(float x, float y) { isEmpty = true; SetState(CARD_STATE_EMPTY); };
 	void SetEmpty(bool isEmpty) { this->isEmpty = isEmpty; };
+	bool GetEmpty() { return isEmpty; };
 };
