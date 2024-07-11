@@ -15,6 +15,8 @@
 class CUI : public CGameObject
 {
 protected:
+	int timeNum;
+
 	CUIBG* background;
 	CUITime* time;
 	CUIScore* score;
@@ -23,6 +25,8 @@ protected:
 	CUICardSlot* cardSlot1;
 	CUICardSlot* cardSlot2;
 	CUICardSlot* cardSlot3;
+
+	ULONGLONG timeStart;
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 

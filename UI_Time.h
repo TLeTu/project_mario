@@ -23,5 +23,6 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void SetUIPosition(float x, float y);
 	virtual void Render();
+	virtual void SetTime(int timeNum);
 	CUITime(float x, float y);
 };

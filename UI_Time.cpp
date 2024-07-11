@@ -41,3 +41,14 @@ void CUITime::SetUIPosition(float x, float y)
 	this->num3->SetPosition(x + 24, y);
 
 }
+
+void CUITime::SetTime(int timeNum)
+{
+	int num1 = timeNum / 100;
+	int num2 = (timeNum % 100) / 10;
+	int num3 = timeNum % 10;
+
+	this->num1->SetState(num1);
+	this->num2->SetState(num2);
+	this->num3->SetState(num3);
+}

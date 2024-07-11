@@ -3,8 +3,20 @@
 
 CUI::CUI(float x, float y) : CGameObject(x, y)
 {
+	if (CGame::GetInstance()->GetCurrentSceneId() != 1)
+	{
+		timeStart = GetTickCount64();
+		timeNum = 200;
+	}
+	else 
+	{
+		timeStart = -1;
+		timeNum = 0;
+	}
+
 	background = new CUIBG(x, y);
 	time = new CUITime(x, y);
+	time->SetTime(timeNum);
 	score = new CUIScore(x, y);
 	money = new CUIMoney(x, y);
 	life = new CUILife(x, y);
@@ -36,7 +48,12 @@ void CUI::Render()
 
 void CUI::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-
+	if (GetTickCount64() - timeStart > 500 && timeNum >0)
+	{
+		timeNum--;
+		time->SetTime(timeNum);
+		timeStart = GetTickCount64();
+	}
 	CGameObject::Update(dt, coObjects);
 }
 
