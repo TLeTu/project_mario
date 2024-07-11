@@ -36,3 +36,13 @@ void CUILife::SetUIPosition(float x, float y)
 	this->num1->SetPosition(x + 8, y);
 	this->num2->SetPosition(x + 16, y);
 }
+
+void CUILife::SetLife(int life)
+{
+	int num1 = life / 10;
+	int num2 = life % 10;
+
+	this->num1->SetState(num1);
+	this->num2->SetState(num2);
+}
+

@@ -14,6 +14,8 @@ CUI::CUI(float x, float y) : CGameObject(x, y)
 		timeNum = 0;
 	}
 	scoreNum = 0;
+	lifeNum = 3;
+	moneyNum = 0;
 
 	background = new CUIBG(x, y);
 	time = new CUITime(x, y);
@@ -21,7 +23,9 @@ CUI::CUI(float x, float y) : CGameObject(x, y)
 	score = new CUIScore(x, y);
 	score->SetScore(scoreNum);
 	money = new CUIMoney(x, y);
+	money->SetMoney(moneyNum);
 	life = new CUILife(x, y);
+	life->SetLife(lifeNum);
 	cardSlot1 = new CUICardSlot(x, y);
 	cardSlot2 = new CUICardSlot(x, y);
 	cardSlot3 = new CUICardSlot(x, y);
@@ -75,6 +79,52 @@ void CUI::SetUIPosition(float x, float y)
 
 void CUI::AddScore(int scoreNumber)
 {
-	scoreNum += scoreNumber;
+	//check if score + scoreNumber > 9999999 ,if true, set score = 9999999
+	if (scoreNum + scoreNumber > 9999999)
+	{
+		scoreNum = 9999999;
+	}
+	else
+		scoreNum += scoreNumber;
 	score->SetScore(scoreNum);
+}
+
+void CUI::AddLife(int lifeNumber)
+{
+	//check if life + lifeNumber > 99 ,if true, set life = 99
+	if (lifeNum + lifeNumber > 99)
+	{
+		lifeNum = 99;
+	}
+	else
+	{
+		lifeNum += lifeNumber;
+	}
+	life->SetLife(lifeNum);
+}
+
+void CUI::DecreaseLife(int lifeNumber)
+{
+	//check if life - lifeNumber < 0 ,if true, set life = 0
+	if (lifeNum - lifeNumber < 0)
+	{
+		lifeNum = 0;
+	}
+	else
+	{
+		lifeNum -= lifeNumber;
+	}
+	life->SetLife(lifeNum);
+}
+
+void CUI::AddMoney(int moneyNumber)
+{
+	//check if money + moneyNumber > 99 ,if true, set money = 99
+	if (moneyNum + moneyNumber > 99)
+	{
+		moneyNum = 99;
+	}
+	else
+		moneyNum += moneyNumber;
+	money->SetMoney(moneyNum);
 }

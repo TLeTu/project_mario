@@ -78,6 +78,11 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 			else break;
 		case DIK_H:
 			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddScore(1000);
+			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddLife(4);
+			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddMoney(4);
+			break;
+		case DIK_J:
+			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->DecreaseLife(1);
 			break;
 		}
 	}
