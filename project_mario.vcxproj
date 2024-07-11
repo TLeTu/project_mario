@@ -167,6 +167,12 @@
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Tube.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="UI_BG.cpp" />
+    <ClCompile Include="UI_Life.cpp" />
+    <ClCompile Include="UI_Money.cpp" />
+    <ClCompile Include="UI_Number.cpp" />
+    <ClCompile Include="UI_Score.cpp" />
+    <ClCompile Include="UI_Time.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Wall.cpp" />
     <ClCompile Include="WorldMario.cpp" />
@@ -210,6 +216,12 @@
     <ClInclude Include="Textures.h" />
     <ClInclude Include="Tube.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="UI_BG.h" />
+    <ClInclude Include="UI_Life.h" />
+    <ClInclude Include="UI_Money.h" />
+    <ClInclude Include="UI_Number.h" />
+    <ClInclude Include="UI_Score.h" />
+    <ClInclude Include="UI_Time.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="WorldMario.h" />

@@ -2,6 +2,9 @@
 #include <fstream>
 #include "AssetIDs.h"
 
+#include "UI_BG.h"
+#include "UI_Number.h"
+#include "UI_Time.h"
 #include "PlayScene.h"
 #include "Utils.h"
 #include "Textures.h"
@@ -238,7 +241,15 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	}
 	case OBJECT_TYPE_UI:
 	{
+		if (UI != NULL)
+		{
+			DebugOut(L"[ERROR] UI object was created before!\n");
+			return;
+		}
 		obj = new CUI(x, y);
+		UI = (CUI*)obj;
+
+		DebugOut(L"[INFO] UI object has been created!\n");
 		break;
 	}
 
@@ -343,7 +354,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
 		return;
-	}
+	};
 
 	// General object setup
 	if (obj != NULL) 
@@ -510,29 +521,10 @@ void CPlayScene::Update(DWORD dt)
 
 
 	if (player == NULL) return;
+	
+	UpdateCameraPosition();
 
-	if (CGame::GetInstance()->GetCurrentSceneId() != 1)
-	{
-		float cx, cy;
-		float cmx, _;
-		if (cameraPoints.size() != 0)
-		{
-			cameraPoints[0]->GetPosition(cmx, _);
-		}
-		else cmx = -1;
-
-		CGame* game = CGame::GetInstance();
-		player->GetPosition(cx, cy);
-		if (cx < cmx || cmx == -1)
-		{
-			cx -= game->GetBackBufferWidth() / 2;
-			if (cx < 0) cx = 0;
-			cy -= game->GetBackBufferHeight() / 8;
-			if (cy > 0) cy = 0;
-			CGame::GetInstance()->SetCamPos(cx, cy);
-		}
-	}
-
+	UpdateUIPosition();
 
 	PurgeDeletedObjects();
 }
@@ -669,6 +661,7 @@ void CPlayScene::Unload()
 	tiles.clear();
 
 	player = NULL;
+	UI = NULL;
 
 	DebugOut(L"[INFO] Scene %d unloaded! \n", id);
 }
@@ -852,4 +845,44 @@ int CPlayScene::GetTileId(float x, float y)
 		}
 	}
 	return -1;
+}
+
+void CPlayScene::UpdateCameraPosition()
+{
+	if (CGame::GetInstance()->GetCurrentSceneId() != 1)
+	{
+		float cx, cy;
+		float cmx, _;
+		if (cameraPoints.size() != 0)
+		{
+			cameraPoints[0]->GetPosition(cmx, _);
+		}
+		else cmx = -1;
+
+		CGame* game = CGame::GetInstance();
+		player->GetPosition(cx, cy);
+		if (cx < cmx || cmx == -1)
+		{
+			cx -= game->GetBackBufferWidth() / 2;
+			if (cx < 0) cx = 0;
+			cy -= game->GetBackBufferHeight() / 4;
+			if (cy > 0) cy = 0;
+			CGame::GetInstance()->SetCamPos(cx, cy);
+		}
+	}
+}
+
+void CPlayScene::UpdateUIPosition()
+{
+	if (UI != NULL)
+	{
+		if (CGame::GetInstance()->GetCurrentSceneId() == 1)
+		{
+			return;
+		}
+		float cx, cy;
+		CGame::GetInstance()->GetCamPos(cx, cy);
+
+		UI->SetUIPosition(cx + 108, cy + 220);
+	}
 }

@@ -1,9 +1,12 @@
 #pragma once
 
 #include "GameObject.h"
-
-#define UI_BBOX_WIDTH 152
-#define UI_BBOX_HEIGHT 28
+#include "UI_BG.h"
+#include "UI_Number.h"
+#include "UI_Time.h"
+#include "UI_Score.h"
+#include "UI_Money.h"
+#include "UI_Life.h"
 
 #define UI_ID_SPRITE 1000502
 
@@ -11,6 +14,12 @@
 class CUI : public CGameObject
 {
 protected:
+	CUIBG* background;
+	CUITime* time;
+	CUIScore* score;
+	CUIMoney* money;
+	CUILife* life;
+
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 
@@ -20,5 +29,6 @@ protected:
 
 public:
 	virtual void Render();
+	void SetUIPosition(float x, float y);
 	CUI(float x, float y);
 };

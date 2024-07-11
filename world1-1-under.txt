@@ -17,6 +17,7 @@ luckybox.txt
 mario_big.txt
 mario_small.txt
 mario_racoon.txt
+ui.txt
 
 [OBJECTS]
 #BG
@@ -79,6 +80,10 @@ mario_racoon.txt
 
 #PORTAL
 300	280	20	2	2320	130
+
+#UI
+600	76	220
+
 
 # MARIO
 0	20	20	1

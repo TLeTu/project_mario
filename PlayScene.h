@@ -8,16 +8,19 @@
 #include "Goomba.h"
 #include "WorldTile.h"
 #include "SceneLoader.h"
+#include "UI.h"
 //#include "Koopas.h"
 
 typedef CSceneLoader* LPSCENELOADER;
 typedef CWorldTile* LPWORLDTILE;
+typedef CUI* LPUI;
 
 class CPlayScene: public CScene
 {
 protected: 
 	// A play scene has to have player, right? 
-	LPGAMEOBJECT player;					
+	LPGAMEOBJECT player;
+	LPUI UI;
 
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> enemies;
@@ -36,6 +39,8 @@ protected:
 	void _ParseSection_OBJECTS(string line);
 
 	void LoadAssets(LPCWSTR assetFile);
+	void UpdateUIPosition();
+	void UpdateCameraPosition();
 	
 public: 
 	CPlayScene(int id, LPCWSTR filePath);
