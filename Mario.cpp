@@ -131,11 +131,18 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	if (GetState() == MARIO_STATE_ATTACK)
 	{
 
-		LPGAMEOBJECT obj;
+		LPGAMEOBJECT obj = NULL;
 		if (nx > 0)
 			obj = CGame::GetInstance()->GetCurrentScene()->GetEnemiesInRange(x + 22, y);
 		else
 			obj = CGame::GetInstance()->GetCurrentScene()->GetEnemiesInRange(x - 22, y);
+		if (obj == NULL)
+		{
+			if (nx > 0)
+				obj = ((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetBrickInRange(x + 22, y);
+			else
+				obj = ((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetBrickInRange(x - 22, y);
+		}
 		if (obj != NULL)
 		{
 			if (dynamic_cast<CGoomba*>(obj))
@@ -145,6 +152,20 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			else if (dynamic_cast<CKoopas*>(obj))
 			{
 				obj->SetState(KOOPAS_STATE_SHELL);
+			}
+			else if (dynamic_cast<CBrick*>(obj))
+			{
+				if (obj->GetState() == BRICK_STATE_NORMAL)
+				{
+					obj->SetState(BRICK_STATE_BREAK);
+				}
+				else if (obj->GetState() == BRICK_STATE_BUTTON)
+				{
+					float _, by;
+					obj->GetPosition(_, by);
+					obj->SetPosition(_, by - 8);
+					obj->SetState(BRICK_STATE_ANI);
+				}
 			}
 		}
 	}

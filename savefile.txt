@@ -1,10 +1,10 @@
 # Save file
 # Type Value
 # 0: score, 1: money, 2: lives, 3: card1, 4: card2, 5: card3, 6: mariolevel
-0	10850
-1	1
+0	25400
+1	22
 2	4
 3	200
-4	100
+4	400
 5	100
 6	3

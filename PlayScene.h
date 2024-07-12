@@ -64,6 +64,7 @@ public:
 	virtual void SetScenePart(int part);
 	virtual void ResetScenePart() { ScenePart = 0; }
 	virtual LPGAMEOBJECT GetEnemiesInRange(float x, float y);
+	virtual LPGAMEOBJECT GetBrickInRange(float x, float y);
 
 	void GameEnd(float lx, float ly, int cardType);
 

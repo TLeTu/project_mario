@@ -838,6 +838,20 @@ LPGAMEOBJECT CPlayScene::GetEnemiesInRange(float x, float y)
 	return NULL;
 }
 
+LPGAMEOBJECT CPlayScene::GetBrickInRange(float x, float y)
+{
+	for (int i = 0; i < coinBricks.size(); i++)
+	{
+		float bx, by;
+		coinBricks[i]->GetPosition(bx, by);
+		if (abs(bx - x) <= 8 && abs(by - y) <= 8)
+		{
+			return coinBricks[i];
+		}
+	}
+	return NULL;
+}
+
 void CPlayScene::SetPlayerPosition(float x, float y)
 {
 	player->SetPosition(x, y);
