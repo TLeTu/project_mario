@@ -107,16 +107,24 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	else if (inPortal && isHoldingUp && vy > 0)
 	{
-		if (portalId != -1)
-		{
-			CGame::GetInstance()->InitiateSwitchScene(portalId, px, py);
-		}
+		SetState(MARIO_STATE_UP);
 	}
 	if (GetState() == MARIO_STATE_DOWN)
 	{
 		y += 1;
 	}
 	if (GetState() == MARIO_STATE_DOWN && GetTickCount64() - down_start > 800)
+	{
+		if (portalId != -1)
+		{
+			CGame::GetInstance()->InitiateSwitchScene(portalId, px, py);
+		}
+	}
+	if (GetState() == MARIO_STATE_UP)
+	{
+		y -= 1;
+	}
+	if (GetState() == MARIO_STATE_UP && GetTickCount64() - down_start > 800)
 	{
 		if (portalId != -1)
 		{
@@ -135,7 +143,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 
 	isOnPlatform = false;
-	if (GetState() != MARIO_STATE_DOWN)
+	if (GetState() != MARIO_STATE_DOWN && GetState() != MARIO_STATE_UP)
 	{
 		inPortal = false;
 		portalId = -1;
@@ -795,7 +803,7 @@ void CMario::Render()
 		else if (GetLevel() == MARIO_LEVEL_RACOON)
 			aniId = ID_ANI_MARIO_RACOON_WALKING_RIGHT;
 	}
-	if (GetState() == MARIO_STATE_DOWN)
+	if (GetState() == MARIO_STATE_DOWN || GetState() == MARIO_STATE_UP)
 	{
 		aniId = ID_ANI_MARIO_FOWARD;
 	}
@@ -810,7 +818,7 @@ void CMario::Render()
 void CMario::SetState(int state)
 {
 	// DIE is the end state, cannot be changed! 
-	if (this->state == MARIO_STATE_DIE || this->state == MARIO_STATE_END || this->state == MARIO_STATE_DOWN)
+	if (this->state == MARIO_STATE_DIE || this->state == MARIO_STATE_END || this->state == MARIO_STATE_DOWN || this->state == MARIO_STATE_UP)
 	{
 		return;
 	}
@@ -912,6 +920,13 @@ void CMario::SetState(int state)
 		attack_start = GetTickCount64();
 		break;
 	case MARIO_STATE_DOWN:
+		vx = 0;
+		vy = 0;
+		ax = 0;
+		ay = 0;
+		down_start = GetTickCount64();
+		break;
+	case MARIO_STATE_UP:
 		vx = 0;
 		vy = 0;
 		ax = 0;

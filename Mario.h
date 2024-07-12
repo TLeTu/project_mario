@@ -46,6 +46,7 @@
 #define MARIO_STATE_END 2000
 
 #define MARIO_STATE_DOWN 3000
+#define MARIO_STATE_UP 4000
 
 
 #pragma region ANIMATION_ID
