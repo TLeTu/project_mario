@@ -4,6 +4,7 @@
 #include "Animation.h"
 #include "Animations.h"
 #include "Koopas.h"
+#include "DeadFloor.h"
 
 #include "debug.h"
 
@@ -195,6 +196,7 @@ class CMario : public CGameObject
 	void OnCollisionWithBrick(LPCOLLISIONEVENT e);
 	void OnCollisionWithLuckyBox(LPCOLLISIONEVENT e);
 	void OnCOllisionWithLeaf(LPCOLLISIONEVENT e);
+	void OnColisionWithDeadFloor(LPCOLLISIONEVENT e);
 
 	int GetAniIdBig();
 	int GetAniIdSmall();

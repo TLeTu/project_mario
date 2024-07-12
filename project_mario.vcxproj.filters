@@ -207,6 +207,9 @@
     <ClCompile Include="UI_ClearText.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="DeadFloor.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -355,6 +358,9 @@
     </ClInclude>
     <ClInclude Include="UI_ClearText.h">
       <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="DeadFloor.h">
+      <Filter>Header Files\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -245,6 +245,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCOllisionWithLeaf(e);
 	else if (dynamic_cast<CLuckyBox*>(e->obj))
 		OnCollisionWithLuckyBox(e);
+	else if (dynamic_cast<CDeadFloor*>(e->obj))
+		OnColisionWithDeadFloor(e);
 
 }
 
@@ -576,6 +578,12 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 	this->portalId = dynamic_cast<CPortal*>(e->obj)->GetSceneId();
 	this->px = dynamic_cast<CPortal*>(e->obj)->GetX();
 	this->py = dynamic_cast<CPortal*>(e->obj)->GetY();
+}
+
+void CMario::OnColisionWithDeadFloor(LPCOLLISIONEVENT e)
+{
+	DebugOut(L">>> Mario DIE >>> \n");
+	SetState(MARIO_STATE_DIE);
 }
 
 //
