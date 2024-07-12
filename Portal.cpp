@@ -12,7 +12,7 @@ CPortal::CPortal(float x, float y, int scene_id, float px, float py ) :CGameObje
 
 void CPortal::Render()
 {
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 

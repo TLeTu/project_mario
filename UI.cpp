@@ -7,7 +7,7 @@ CUI::CUI(float x, float y) : CGameObject(x, y)
 	if (CGame::GetInstance()->GetCurrentSceneId() != 1)
 	{
 		timeStart = GetTickCount64();
-		timeNum = 5;
+		timeNum = 200;
 	}
 	else 
 	{

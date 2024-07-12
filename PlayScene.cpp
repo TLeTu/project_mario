@@ -937,12 +937,15 @@ void CPlayScene::SetSaveValue(string line)
 			UI->SetLife(value);
 			break;
 		case 3:
+			if (value == 100) break;
 			UI->SetCardSlot(1, value);
 			break;
 		case 4:
+			if (value == 100) break;
 			UI->SetCardSlot(2, value);
 			break;
 		case 5:
+			if (value == 100) break;
 			UI->SetCardSlot(3, value);
 			break;
 		case 6:

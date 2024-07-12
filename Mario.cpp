@@ -214,6 +214,18 @@ void CMario::OnCollisionWithLuckyBox(LPCOLLISIONEVENT e)
 	CLuckyBox* luckyBox = dynamic_cast<CLuckyBox*>(e->obj);
 	if (luckyBox->GetState() != LUCKYBOX_STATE_EMPTY)
 	{
+		if (luckyBox->GetState() == LUCKYBOX_STATE_MUSHROOM)
+		{
+			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddCard(200);
+		}
+		else if (luckyBox->GetState() == LUCKYBOX_STATE_FLOWER)
+		{
+			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddCard(300);
+		}
+		else if (luckyBox->GetState() == LUCKYBOX_STATE_STAR)
+		{
+			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddCard(400);
+		}
 		luckyBox->SetRolling(false);
 		luckyBox->SpawnCoin();
 		luckyBox->SetState(LUCKYBOX_STATE_EMPTY);
@@ -324,11 +336,13 @@ void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 		if (level == MARIO_LEVEL_SMALL)
 		{
 			SetLevel(MARIO_LEVEL_BIG);
+			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddScore(1000);
 			StartUntouchable();
 			mushroom->Delete();
 		}
 		else
 		{
+			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddScore(1000);
 			mushroom->Delete();
 		}
 	}
@@ -340,11 +354,13 @@ void CMario::OnCOllisionWithLeaf(LPCOLLISIONEVENT e)
 	if (level == MARIO_LEVEL_BIG)
 	{
 		SetLevel(MARIO_LEVEL_RACOON);
+		((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddScore(100);
 		StartUntouchable();
 		leaf->Delete();
 	}
 	else
 	{
+		((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddScore(100);
 		leaf->Delete();
 	}
 }
@@ -368,7 +384,8 @@ void CMario::OnCollisionWithBox(LPCOLLISIONEVENT e)
 			{
 				box->SpawnCoin();
 				box->SetState(BOX_STATE_ANI);
-				coin++;
+				((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddMoney(1);
+				((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddScore(100);
 			}
 		}
 	}
@@ -385,9 +402,11 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 		{
 			goomba->SetState(GOOMBA_STATE_DIE);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
+			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddScore(100);
 		}
 		else if (goomba->GetState() != GOOMBA_STATE_DIE)
 		{
+			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddScore(100);
 			goomba->SetState(GOOMBA_STATE_WALKING);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
 		}
@@ -421,6 +440,7 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 	{
 		if (koopas->GetState() == KOOPAS_STATE_WALKING || koopas->GetState() == KOOPAS_STATE_SPIN)
 		{
+			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddScore(100);
 			koopas->SetState(KOOPAS_STATE_SHELL);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
 		}
@@ -493,7 +513,8 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 	if (coin->GetState() == COIN_STATE_NORMAL || coin->GetState() == COIN_STATE_TOBRICK)
 	{
 		coin->Delete();
-		this->coin++;
+		((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddMoney(1);
+		((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddScore(100);
 	}
 	else return;
 }

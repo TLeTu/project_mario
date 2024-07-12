@@ -76,6 +76,9 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 				break;
 			}
 			else break;
+		case DIK_K:
+			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddCard(200);
+			break;
 		}
 	}
 }

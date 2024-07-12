@@ -15,7 +15,7 @@ void CCameraPoint::GetBoundingBox(float& l, float& t, float& r, float& b)
 
 void CCameraPoint::Render()
 {
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CCameraPoint::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

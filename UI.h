@@ -51,6 +51,21 @@ public:
 	virtual void AddCard(int cardType);
 	virtual void SetCardSlot(int cardSlot, int cardType);
 	virtual void Save(int& score, int& life, int& money);
+	virtual void SetEmptyCardSlot(int cardSlot, bool isEmpty)
+	{
+		switch (cardSlot)
+		{
+		case 1:
+			cardSlot1->SetEmpty(isEmpty);
+			break;
+		case 2:
+			cardSlot2->SetEmpty(isEmpty);
+			break;
+		case 3:
+			cardSlot3->SetEmpty(isEmpty);
+			break;
+		}
+	};
 
 	int GetSore() { return scoreNum; };
 	int GetLife() { return lifeNum; };
