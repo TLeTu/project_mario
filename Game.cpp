@@ -654,3 +654,17 @@ CGame* CGame::GetInstance()
 	return __instance;
 }
 
+void CGame::GameOver()
+{
+	((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->DecreaseLife(1);
+	if (((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->GetLife() == 0)
+	{
+		((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->SetLife(3);
+		((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->SetScore(0);
+		((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->SetMoney(0);
+		((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->SetCardSlot(1, 100);
+		((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->SetCardSlot(2, 100);
+		((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->SetCardSlot(3, 100);
+	}
+	CGame::GetInstance()->InitiateSwitchScene(1, -1, -1);
+}

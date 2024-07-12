@@ -159,6 +159,7 @@ class CMario : public CGameObject
 	ULONGLONG untouchable_start;
 	ULONGLONG fall_start;
 	ULONGLONG attack_start;
+	ULONGLONG die_start;
 	BOOLEAN isOnPlatform;
 	int coin; 
 
@@ -218,6 +219,7 @@ public:
 		chargedFlying = false;
 		fall_start = -1;
 		attack_start = -1;
+		die_start = -1;
 		px = py = 0;
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

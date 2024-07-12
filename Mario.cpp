@@ -1,5 +1,8 @@
 #include <algorithm>
 #include "debug.h"
+#include "PlayScene.h"
+#include "PlayScene.h"
+
 
 #include "Mario.h"
 #include "Game.h"
@@ -129,9 +132,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 		LPGAMEOBJECT obj;
 		if (nx > 0)
-			obj = CGame::GetInstance()->GetCurrentScene()->GetEnemiesInRange(x+22, y);
+			obj = CGame::GetInstance()->GetCurrentScene()->GetEnemiesInRange(x + 22, y);
 		else
-			obj = CGame::GetInstance()->GetCurrentScene()->GetEnemiesInRange(x- 22, y);
+			obj = CGame::GetInstance()->GetCurrentScene()->GetEnemiesInRange(x - 22, y);
 		if (obj != NULL)
 		{
 			if (dynamic_cast<CGoomba*>(obj))
@@ -147,6 +150,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			SetState(MARIO_STATE_IDLE);
 	}
 
+	if (GetState() == MARIO_STATE_DIE && GetTickCount64() - die_start > 1000)
+	{
+		CGame::GetInstance()->GameOver();
+	}
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -816,6 +823,7 @@ void CMario::SetState(int state)
 		vy = -MARIO_JUMP_DEFLECT_SPEED;
 		vx = 0;
 		ax = 0;
+		die_start = GetTickCount64();
 		break;
 	case MARIO_STATE_ATTACK:
 		attack_start = GetTickCount64();
