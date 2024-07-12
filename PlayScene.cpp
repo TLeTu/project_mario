@@ -53,6 +53,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 	loadPositionX = 0;
 	loadPositionY = 0;
 	ScenePart = 0;
+	endStart = -1;
 	key_handler = new CSampleKeyHandler(this);
 }
 
@@ -531,6 +532,21 @@ void CPlayScene::Update(DWORD dt)
 	if (player == NULL) return;
 
 	UI->Update(dt, &coObjects);
+
+	if (player->GetState() == MARIO_STATE_END)
+	{
+		if (endStart == -1)
+		{
+			endStart = GetTickCount64();
+		}
+		else
+		{
+			if (GetTickCount64() - endStart > 5000)
+			{
+				CGame::GetInstance()->GameEnd();
+			}
+		}
+	}
 	
 	UpdateCameraPosition();
 

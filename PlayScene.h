@@ -32,6 +32,8 @@ protected:
 	int ScenePart;
 	float loadPositionX, loadPositionY;
 
+	ULONGLONG endStart;
+
 	void _ParseSection_SPRITES(string line);
 	void _ParseSection_ANIMATIONS(string line);
 
@@ -45,6 +47,8 @@ protected:
 	void LoadSaveFile();
 	void SetSaveValue(string line);
 	void SaveFile();
+
+	void GameEnd() {};
 	
 public: 
 	CPlayScene(int id, LPCWSTR filePath);
