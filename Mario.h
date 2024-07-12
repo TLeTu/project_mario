@@ -45,6 +45,8 @@
 
 #define MARIO_STATE_END 2000
 
+#define MARIO_STATE_DOWN 3000
+
 
 #pragma region ANIMATION_ID
 
@@ -124,6 +126,8 @@
 #define ID_ANI_MARIO_RACOON_SPIN_RIGHT	122000
 #define ID_ANI_MARIO_RACOON_SPIN_LEFT	122010
 
+#define ID_ANI_MARIO_FOWARD 123400
+
 #pragma endregion
 
 #define GROUND_Y 160.0f
@@ -162,6 +166,7 @@ class CMario : public CGameObject
 	ULONGLONG fall_start;
 	ULONGLONG attack_start;
 	ULONGLONG die_start;
+	ULONGLONG down_start;
 	BOOLEAN isOnPlatform;
 	int coin; 
 
@@ -222,6 +227,7 @@ public:
 		fall_start = -1;
 		attack_start = -1;
 		die_start = -1;
+		down_start = -1;
 		px = py = 0;
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

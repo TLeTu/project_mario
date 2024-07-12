@@ -35,6 +35,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	vx += ax * dt;
 	if (GetState() == MARIO_STATE_END) x += 1;
 
+
 	//debug out mario y
 	/*DebugOut(L"mario y: %f\n", y);*/
 	//debug out mario ax
@@ -102,10 +103,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	if (isSitting && inPortal)
 	{
-		if (portalId != -1)
-		{
-			CGame::GetInstance()->InitiateSwitchScene(portalId, px, py);
-		}
+		SetState(MARIO_STATE_DOWN);
 	}
 	else if (inPortal && isHoldingUp && vy > 0)
 	{
@@ -114,6 +112,18 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			CGame::GetInstance()->InitiateSwitchScene(portalId, px, py);
 		}
 	}
+	if (GetState() == MARIO_STATE_DOWN)
+	{
+		y += 1;
+	}
+	if (GetState() == MARIO_STATE_DOWN && GetTickCount64() - down_start > 800)
+	{
+		if (portalId != -1)
+		{
+			CGame::GetInstance()->InitiateSwitchScene(portalId, px, py);
+		}
+	}
+	
 
 	if (vx == MARIO_RUNNING_SPEED || vx == -MARIO_RUNNING_SPEED)
 	{
@@ -125,9 +135,11 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 
 	isOnPlatform = false;
-	inPortal = false;
-	portalId = -1;
-
+	if (GetState() != MARIO_STATE_DOWN)
+	{
+		inPortal = false;
+		portalId = -1;
+	}
 	if (GetState() == MARIO_STATE_ATTACK)
 	{
 
@@ -783,6 +795,10 @@ void CMario::Render()
 		else if (GetLevel() == MARIO_LEVEL_RACOON)
 			aniId = ID_ANI_MARIO_RACOON_WALKING_RIGHT;
 	}
+	if (GetState() == MARIO_STATE_DOWN)
+	{
+		aniId = ID_ANI_MARIO_FOWARD;
+	}
 
 	animations->Get(aniId)->Render(x, y);
 
@@ -794,7 +810,7 @@ void CMario::Render()
 void CMario::SetState(int state)
 {
 	// DIE is the end state, cannot be changed! 
-	if (this->state == MARIO_STATE_DIE || this->state == MARIO_STATE_END)
+	if (this->state == MARIO_STATE_DIE || this->state == MARIO_STATE_END || this->state == MARIO_STATE_DOWN)
 	{
 		return;
 	}
@@ -894,6 +910,13 @@ void CMario::SetState(int state)
 		break;
 	case MARIO_STATE_ATTACK:
 		attack_start = GetTickCount64();
+		break;
+	case MARIO_STATE_DOWN:
+		vx = 0;
+		vy = 0;
+		ax = 0;
+		ay = 0;
+		down_start = GetTickCount64();
 		break;
 	}
 
