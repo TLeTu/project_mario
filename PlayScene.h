@@ -41,6 +41,10 @@ protected:
 	void LoadAssets(LPCWSTR assetFile);
 	void UpdateUIPosition();
 	void UpdateCameraPosition();
+
+	void LoadSaveFile();
+	void SetSaveValue(string line);
+	void SaveFile();
 	
 public: 
 	CPlayScene(int id, LPCWSTR filePath);

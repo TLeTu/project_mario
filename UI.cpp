@@ -89,6 +89,12 @@ void CUI::AddScore(int scoreNumber)
 	score->SetScore(scoreNum);
 }
 
+void CUI::SetScore(int scoreNumber)
+{
+	scoreNum = scoreNumber;
+	score->SetScore(scoreNum);
+}
+
 void CUI::AddLife(int lifeNumber)
 {
 	//check if life + lifeNumber > 99 ,if true, set life = 99
@@ -117,6 +123,12 @@ void CUI::DecreaseLife(int lifeNumber)
 	life->SetLife(lifeNum);
 }
 
+void CUI::SetLife(int lifeNumber)
+{
+	lifeNum = lifeNumber;
+	life->SetLife(lifeNum);
+}
+
 void CUI::AddMoney(int moneyNumber)
 {
 	//check if money + moneyNumber > 99 ,if true, set money = 99
@@ -126,6 +138,12 @@ void CUI::AddMoney(int moneyNumber)
 	}
 	else
 		moneyNum += moneyNumber;
+	money->SetMoney(moneyNum);
+}
+
+void CUI::SetMoney(int moneyNumber)
+{
+	moneyNum = moneyNumber;
 	money->SetMoney(moneyNum);
 }
 
@@ -166,6 +184,20 @@ void CUI::SetCardSlot(int cardSlot, int cardType)
 		cardSlot3->SetEmpty(false);
 		break;
 	}
+}
+
+int CUI::GetCardSlot(int slot)
+{
+	switch (slot)
+	{
+	case 1:
+		return cardSlot1->GetState();
+	case 2:
+		return cardSlot2->GetState();
+	case 3:
+		return cardSlot3->GetState();
+	}
+	return 100;
 }
 
 void CUI::Save(int& score, int& life, int& money)

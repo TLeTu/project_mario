@@ -42,12 +42,20 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
 	virtual void AddScore(int scoreNumber);
+	virtual void SetScore(int scoreNumber);
 	virtual void AddLife(int lifeNumber);
 	virtual void DecreaseLife(int lifeNumber);
+	virtual void SetLife(int lifeNumber);
 	virtual void AddMoney(int moneyNumber);
+	virtual void SetMoney(int moneyNumber);
 	virtual void AddCard(int cardType);
 	virtual void SetCardSlot(int cardSlot, int cardType);
 	virtual void Save(int& score, int& life, int& money);
+
+	int GetSore() { return scoreNum; };
+	int GetLife() { return lifeNum; };
+	int GetMoney() { return moneyNum; };
+	int GetCardSlot( int slot);
 	void SetUIPosition(float x, float y);
 	CUI(float x, float y);
 };

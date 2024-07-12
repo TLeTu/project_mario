@@ -251,6 +251,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			return;
 		}
 		UI = new CUI(x, y);
+		LoadSaveFile();
 
 		DebugOut(L"[INFO] UI object has been created!\n");
 		break;
@@ -667,6 +668,8 @@ void CPlayScene::Unload()
 
 	player = NULL;
 
+	SaveFile();
+
 	delete UI;
 	UI = NULL;
 
@@ -888,4 +891,73 @@ void CPlayScene::UpdateUIPosition()
 
 		UI->SetUIPosition(cx + 108, cy + 220);
 	}
+}
+
+void CPlayScene::LoadSaveFile()
+{
+	if (UI == NULL) return;
+	ifstream f;
+	f.open(L"savefile.txt");
+
+	char str[MAX_SCENE_LINE];
+	while (f.getline(str, MAX_SCENE_LINE))
+	{
+		string line(str);
+		if (line[0] == '#') continue;
+		SetSaveValue(line);
+	}
+
+	f.close();
+}
+
+void CPlayScene::SetSaveValue(string line)
+{
+		vector<string> tokens = split(line);
+	
+		if (tokens.size() < 1) return;
+	
+		int type = atoi(tokens[0].c_str());
+		int value = atof(tokens[1].c_str());
+	
+		switch (type)
+		{
+		case 0:
+			UI->SetScore(value);
+			break;
+		case 1:
+			UI->SetMoney(value);
+			break;
+		case 2:
+			UI->SetLife(value);
+			break;
+		case 3:
+			UI->SetCardSlot(1, value);
+			break;
+		case 4:
+			UI->SetCardSlot(2, value);
+			break;
+		case 5:
+			UI->SetCardSlot(3, value);
+			break;
+		}
+}
+
+void CPlayScene::SaveFile()
+{
+	if (UI == NULL) return;
+	ofstream f;
+	f.open(L"savefile.txt");
+	f.clear();
+
+	f << "#	Save	file\n";
+	f << "#	Type	Value\n";
+	f << "#	0: score, 1: money, 2: lives, 3: card1, 4: card2, 5: card3\n";
+	f << "0	" << UI->GetSore() << "\n";
+	f << "1	" << UI->GetMoney() << "\n";
+	f << "2	" << UI->GetLife() << "\n";
+	f << "3	" << UI->GetCardSlot(1) << "\n";
+	f << "4	" << UI->GetCardSlot(2) << "\n";
+	f << "5	" << UI->GetCardSlot(3) << "\n";
+
+	f.close();
 }

@@ -59,13 +59,6 @@ class CGame
 	float next_scene_x = -1;
 	float next_scene_y = -1;
 
-	int score = 0;
-	int money = 0;
-	int lives = 0;
-	int card1 = 0;
-	int card2 = 0;
-	int card3 = 0;
-
 	void _ParseSection_SETTINGS(string line);
 	void _ParseSection_SCENES(string line);
 
@@ -119,9 +112,6 @@ public:
 	LPSCENE GetCurrentScene() { return scenes[current_scene]; }
 	int GetCurrentSceneId() { return current_scene; }
 	void Load(LPCWSTR gameFile);
-	void LoadSave(LPCWSTR saveFile);
-	void SetLoadValue(string line);
-	void Save(LPCWSTR saveFile);
 	void SwitchScene();
 	void InitiateSwitchScene(int scene_id, float px, float py);
 	void ReloadScene();

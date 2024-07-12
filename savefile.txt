@@ -1,9 +1,9 @@
 #	Save	file
 #	Type	Value
 #	0: score, 1: money, 2: lives, 3: card1, 4: card2, 5: card3
-0	10000
-1	40
-2	99
+0	1000
+1	4
+2	7
 3	100
 4	100
 5	100
