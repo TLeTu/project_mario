@@ -9,8 +9,10 @@
 #define MUSHROOM_BBOX_HEIGHT 14
 
 #define MUSHROOM_STATE 100
+#define GREEN_MUSHROOM_STATE 101
 
 #define ID_ANI_MUSHROOM 1111110
+#define ID_ANI_GREEN_MUSHROOM 1311110
 
 class CMushroom : public CGameObject
 {

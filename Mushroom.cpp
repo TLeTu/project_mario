@@ -49,7 +49,10 @@ void CMushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CMushroom::Render()
 {
+	if (GetState() == MUSHROOM_STATE)
 		CAnimations::GetInstance()->Get(ID_ANI_MUSHROOM)->Render(x, y);
+	else if (GetState() == GREEN_MUSHROOM_STATE)
+		CAnimations::GetInstance()->Get(ID_ANI_GREEN_MUSHROOM)->Render(x, y);
 	//RenderBoundingBox();
 }
 
@@ -59,6 +62,9 @@ void CMushroom::SetState(int state)
 	switch (state)
 	{
 	case MUSHROOM_STATE:
+		vx = -MUSHROOM_WALKING_SPEED;
+		break;
+	case GREEN_MUSHROOM_STATE:
 		vx = -MUSHROOM_WALKING_SPEED;
 		break;
 	}

@@ -352,6 +352,12 @@ void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 			mushroom->Delete();
 		}
 	}
+	else
+	{
+		((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddScore(1000);
+		((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddLife(1);
+		mushroom->Delete();
+	}
 }
 
 void CMario::OnCOllisionWithLeaf(LPCOLLISIONEVENT e)
@@ -381,7 +387,7 @@ void CMario::OnCollisionWithBox(LPCOLLISIONEVENT e)
 			float _, by;
 			box->GetPosition(_, by);
 			box->SetPosition(_, by - 8);
-			if (box->GetState() == BOX_STATE_MUSHROOM)
+			if (box->GetState() == BOX_STATE_MUSHROOM || box->GetState() == BOX_STATE_GREEN_MUSHROOM)
 			{
 				box->SpawnMushroom();
 				box->SetState(BOX_STATE_ANI);

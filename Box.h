@@ -15,6 +15,7 @@
 #define BOX_STATE_NORMAL 100
 #define BOX_STATE_EMPTY 200
 #define BOX_STATE_MUSHROOM 300
+#define BOX_STATE_GREEN_MUSHROOM 301
 #define BOX_STATE_ANI 400
 
 class CBox : public CGameObject {
@@ -34,6 +35,11 @@ public:
 		{
 			this->SetState(BOX_STATE_MUSHROOM);
 		}
+		else if (type == 2)
+		{
+			this->SetState(BOX_STATE_GREEN_MUSHROOM);
+		}
+
 		down_start = -1;
 		initY = y;
 	}
