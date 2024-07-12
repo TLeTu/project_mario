@@ -116,6 +116,7 @@ public:
 	void InitiateSwitchScene(int scene_id, float px, float py);
 	void ReloadScene();
 	void GameOver();
+	void GameEnd();
 
 	void _ParseSection_TEXTURES(string line);
 

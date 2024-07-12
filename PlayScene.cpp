@@ -884,6 +884,7 @@ void CPlayScene::UpdateCameraPosition()
 			CGame::GetInstance()->SetCamPos(cx, cy);
 		}
 	}
+	else CGame::GetInstance()->SetCamPos(0, 0);
 }
 
 void CPlayScene::UpdateUIPosition()

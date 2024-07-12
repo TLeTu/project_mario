@@ -1,12 +1,13 @@
 #include "UI.h"
 #include "debug.h"
-
+#include "Mario.h"
+#include "PlayScene.h"
 CUI::CUI(float x, float y) : CGameObject(x, y)
 {
 	if (CGame::GetInstance()->GetCurrentSceneId() != 1)
 	{
 		timeStart = GetTickCount64();
-		timeNum = 200;
+		timeNum = 5;
 	}
 	else 
 	{
@@ -54,11 +55,15 @@ void CUI::Render()
 
 void CUI::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (GetTickCount64() - timeStart > 1000 && timeNum >0)
+	if (GetTickCount64() - timeStart > 1000 && timeNum > 0 && ((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer()->GetState() != MARIO_STATE_DIE)
 	{
 		timeNum--;
 		time->SetTime(timeNum);
 		timeStart = GetTickCount64();
+	}
+	if (timeNum == 0)
+	{
+		((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer()->SetState(MARIO_STATE_DIE);
 	}
 	CGameObject::Update(dt, coObjects);
 }

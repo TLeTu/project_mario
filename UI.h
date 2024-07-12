@@ -55,6 +55,7 @@ public:
 	int GetSore() { return scoreNum; };
 	int GetLife() { return lifeNum; };
 	int GetMoney() { return moneyNum; };
+	int GetTime() { return timeNum; };
 	int GetCardSlot( int slot);
 	void SetUIPosition(float x, float y);
 	CUI(float x, float y);

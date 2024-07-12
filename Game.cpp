@@ -668,3 +668,11 @@ void CGame::GameOver()
 	}
 	CGame::GetInstance()->InitiateSwitchScene(1, -1, -1);
 }
+
+void CGame::GameEnd()
+{
+	int timeNum = ((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->GetTime();
+	int score = timeNum * 50;
+	((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddScore(score);
+	CGame::GetInstance()->InitiateSwitchScene(1, -1, -1);
+}
