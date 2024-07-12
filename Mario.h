@@ -43,6 +43,8 @@
 
 #define MARIO_STATE_ATTACK 1000
 
+#define MARIO_STATE_END 2000
+
 
 #pragma region ANIMATION_ID
 

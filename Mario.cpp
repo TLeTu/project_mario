@@ -33,6 +33,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	vy += ay * dt;
 	vx += ax * dt;
+	if (GetState() == MARIO_STATE_END) x += 1;
 
 	//debug out mario y
 	/*DebugOut(L"mario y: %f\n", y);*/
@@ -162,7 +163,6 @@ void CMario::OnNoCollision(DWORD dt)
 {
 	x += vx * dt;
 	y += vy * dt;
-
 }
 
 void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
@@ -229,6 +229,7 @@ void CMario::OnCollisionWithLuckyBox(LPCOLLISIONEVENT e)
 		luckyBox->SetRolling(false);
 		luckyBox->SpawnCoin();
 		luckyBox->SetState(LUCKYBOX_STATE_EMPTY);
+		SetState(MARIO_STATE_END);
 	}
 	else return;
 }
@@ -743,6 +744,16 @@ void CMario::Render()
 	else if ( level == MARIO_LEVEL_RACOON)
 		aniId = GetAniIdRacoon();
 
+	if (GetState() == MARIO_STATE_END)
+	{
+		if (GetLevel() == MARIO_LEVEL_SMALL)
+			aniId = ID_ANI_MARIO_SMALL_WALKING_RIGHT;
+		else if (GetLevel() == MARIO_LEVEL_BIG)
+			aniId = ID_ANI_MARIO_WALKING_RIGHT;
+		else if (GetLevel() == MARIO_LEVEL_RACOON)
+			aniId = ID_ANI_MARIO_RACOON_WALKING_RIGHT;
+	}
+
 	animations->Get(aniId)->Render(x, y);
 
 	//RenderBoundingBox();
@@ -753,7 +764,7 @@ void CMario::Render()
 void CMario::SetState(int state)
 {
 	// DIE is the end state, cannot be changed! 
-	if (this->state == MARIO_STATE_DIE)
+	if (this->state == MARIO_STATE_DIE || this->state == MARIO_STATE_END)
 	{
 		return;
 	}
@@ -845,6 +856,11 @@ void CMario::SetState(int state)
 		vx = 0;
 		ax = 0;
 		die_start = GetTickCount64();
+		break;
+	case MARIO_STATE_END:
+		vy = 0;
+		vx = 0;
+		ax = 0;
 		break;
 	case MARIO_STATE_ATTACK:
 		attack_start = GetTickCount64();

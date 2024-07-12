@@ -55,7 +55,7 @@ void CUI::Render()
 
 void CUI::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (GetTickCount64() - timeStart > 1000 && timeNum > 0 && ((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer()->GetState() != MARIO_STATE_DIE)
+	if (GetTickCount64() - timeStart > 1000 && timeNum > 0 && ((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer()->GetState() != MARIO_STATE_DIE && ((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer()->GetState() != MARIO_STATE_END)
 	{
 		timeNum--;
 		time->SetTime(timeNum);
