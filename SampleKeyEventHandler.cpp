@@ -69,13 +69,7 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		case DIK_R: // reset
 			CGame::GetInstance()->ReloadScene();
 			break;
-		case DIK_Q:
-			if (mario->GetLevel() == MARIO_LEVEL_RACOON)
-			{
-				mario->SetState(MARIO_STATE_ATTACK);
-				break;
-			}
-			else break;
+
 		case DIK_K:
 			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddCard(200);
 			break;
@@ -142,6 +136,13 @@ void CSampleKeyHandler::KeyState(BYTE *states)
 			else
 			{
 				mario->SetState(MARIO_STATE_WALKING_LEFT);
+			}
+		}
+		else if (game->IsKeyDown(DIK_Q))
+		{
+			if (mario->GetLevel() == MARIO_LEVEL_RACOON)
+			{
+				mario->SetState(MARIO_STATE_ATTACK);
 			}
 		}
 		else

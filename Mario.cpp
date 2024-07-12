@@ -147,8 +147,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				obj->SetState(KOOPAS_STATE_SHELL);
 			}
 		}
-		if (GetTickCount64() - attack_start > 400)
-			SetState(MARIO_STATE_IDLE);
 	}
 
 	if (GetState() == MARIO_STATE_DIE && GetTickCount64() - die_start > 1000)
