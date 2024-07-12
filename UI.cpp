@@ -54,7 +54,7 @@ void CUI::Render()
 
 void CUI::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (GetTickCount64() - timeStart > 500 && timeNum >0)
+	if (GetTickCount64() - timeStart > 1000 && timeNum >0)
 	{
 		timeNum--;
 		time->SetTime(timeNum);

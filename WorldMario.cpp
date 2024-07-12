@@ -4,6 +4,7 @@
 CWorldMario::CWorldMario(float x, float y) : CGameObject()
 {
 	this->sceneId = 0;
+	level = MARIO_LEVEL_SMALL;
 }
 
 void CWorldMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

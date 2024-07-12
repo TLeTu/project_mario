@@ -1,6 +1,10 @@
 #include <iostream>
 #include <fstream>
 #include "AssetIDs.h"
+#include <sstream>
+#include <string>
+#include <map>
+
 
 #include "UI_BG.h"
 #include "UI_Number.h"
@@ -251,7 +255,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			return;
 		}
 		UI = new CUI(x, y);
-		LoadSaveFile();
 
 		DebugOut(L"[INFO] UI object has been created!\n");
 		break;
@@ -459,6 +462,7 @@ void CPlayScene::Load()
 	}
 
 	f.close();
+	LoadSaveFile();
 
 	DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
 }
@@ -636,6 +640,8 @@ void CPlayScene::Clear()
 */
 void CPlayScene::Unload()
 {
+
+	SaveFile();
 	for (int i = 0; i < objects.size(); i++)
 		delete objects[i];
 
@@ -666,12 +672,10 @@ void CPlayScene::Unload()
 
 	tiles.clear();
 
-	player = NULL;
-
-	SaveFile();
 
 	delete UI;
 	UI = NULL;
+	player = NULL;
 
 	DebugOut(L"[INFO] Scene %d unloaded! \n", id);
 }
@@ -896,6 +900,7 @@ void CPlayScene::UpdateUIPosition()
 void CPlayScene::LoadSaveFile()
 {
 	if (UI == NULL) return;
+	if (player == NULL) return;
 	ifstream f;
 	f.open(L"savefile.txt");
 
@@ -939,25 +944,55 @@ void CPlayScene::SetSaveValue(string line)
 		case 5:
 			UI->SetCardSlot(3, value);
 			break;
+		case 6:
+			if (CGame::GetInstance()->GetCurrentSceneId() != 1)
+				((CMario*)player)->SetLevel(value);
+			break;
 		}
 }
 
 void CPlayScene::SaveFile()
 {
 	if (UI == NULL) return;
-	ofstream f;
-	f.open(L"savefile.txt");
-	f.clear();
+	if (player == NULL) return;
 
-	f << "#	Save	file\n";
-	f << "#	Type	Value\n";
-	f << "#	0: score, 1: money, 2: lives, 3: card1, 4: card2, 5: card3\n";
-	f << "0	" << UI->GetSore() << "\n";
-	f << "1	" << UI->GetMoney() << "\n";
-	f << "2	" << UI->GetLife() << "\n";
-	f << "3	" << UI->GetCardSlot(1) << "\n";
-	f << "4	" << UI->GetCardSlot(2) << "\n";
-	f << "5	" << UI->GetCardSlot(3) << "\n";
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
-	f.close();
+	std::map<int, int> saveData;
+	std::ifstream inputFile(L"savefile.txt");
+
+	if (inputFile.is_open()) {
+		std::string line;
+		while (std::getline(inputFile, line)) {
+			if (line[0] == '#') continue; // Skip comments
+			std::istringstream iss(line);
+			int type, value;
+			if (!(iss >> type >> value)) { break; } // Error
+			saveData[type] = value;
+		}
+		inputFile.close();
+	}
+
+	// Update the necessary values
+	saveData[0] = UI->GetSore();
+	saveData[1] = UI->GetMoney();
+	saveData[2] = UI->GetLife();
+	saveData[3] = UI->GetCardSlot(1);
+	saveData[4] = UI->GetCardSlot(2);
+	saveData[5] = UI->GetCardSlot(3);
+	if (CGame::GetInstance()->GetCurrentSceneId() != 1)
+		saveData[6] = ((CMario*)player)->GetLevel();
+
+	// Write the updated data back to the file
+	std::ofstream outputFile(L"savefile.txt");
+	outputFile.clear();
+	outputFile << "# Save file\n";
+	outputFile << "# Type Value\n";
+	outputFile << "# 0: score, 1: money, 2: lives, 3: card1, 4: card2, 5: card3, 6: mariolevel\n";
+
+	for (const auto& pair : saveData) {
+		outputFile << pair.first << "\t" << pair.second << "\n";
+	}
+
+	outputFile.close();
 }

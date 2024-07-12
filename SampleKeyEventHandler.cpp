@@ -76,20 +76,6 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 				break;
 			}
 			else break;
-		case DIK_H:
-			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddScore(1000);
-			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddLife(4);
-			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddMoney(4);
-			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddCard(200);
-			break;
-		case DIK_J:
-			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->DecreaseLife(1);
-			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddCard(300);
-			break;
-		case DIK_K:
-			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddCard(400);
-			break;
-
 		}
 	}
 }
