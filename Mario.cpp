@@ -211,20 +211,25 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithLuckyBox(LPCOLLISIONEVENT e)
 {
+	float lx, ly;
 	CLuckyBox* luckyBox = dynamic_cast<CLuckyBox*>(e->obj);
+	luckyBox->GetPosition(lx, ly);
 	if (luckyBox->GetState() != LUCKYBOX_STATE_EMPTY)
 	{
 		if (luckyBox->GetState() == LUCKYBOX_STATE_MUSHROOM)
 		{
 			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddCard(200);
+			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GameEnd(lx, ly, 200);
 		}
 		else if (luckyBox->GetState() == LUCKYBOX_STATE_FLOWER)
 		{
 			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddCard(300);
+			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GameEnd(lx, ly, 300);
 		}
 		else if (luckyBox->GetState() == LUCKYBOX_STATE_STAR)
 		{
 			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetUI()->AddCard(400);
+			((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GameEnd(lx, ly, 400);
 		}
 		luckyBox->SetRolling(false);
 		luckyBox->SpawnCoin();

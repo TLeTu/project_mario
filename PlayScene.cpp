@@ -9,6 +9,7 @@
 #include "UI_BG.h"
 #include "UI_Number.h"
 #include "UI_Time.h"
+#include "UI_ClearText.h"
 #include "PlayScene.h"
 #include "Utils.h"
 #include "Textures.h"
@@ -535,17 +536,10 @@ void CPlayScene::Update(DWORD dt)
 
 	if (player->GetState() == MARIO_STATE_END)
 	{
-		if (endStart == -1)
-		{
-			endStart = GetTickCount64();
-		}
-		else
-		{
 			if (GetTickCount64() - endStart > 5000)
 			{
 				CGame::GetInstance()->GameEnd();
 			}
-		}
 	}
 	
 	UpdateCameraPosition();
@@ -939,7 +933,7 @@ void CPlayScene::SetSaveValue(string line)
 		if (tokens.size() < 1) return;
 	
 		int type = atoi(tokens[0].c_str());
-		int value = atof(tokens[1].c_str());
+		int value = (int)atof(tokens[1].c_str());
 	
 		switch (type)
 		{
@@ -1015,4 +1009,13 @@ void CPlayScene::SaveFile()
 	}
 
 	outputFile.close();
+}
+
+void CPlayScene::GameEnd(float lx, float ly, int cardType)
+{
+	endStart = GetTickCount64();
+	CUIClearText* clearText = new CUIClearText(lx, ly - 50);
+	clearText->SetCard(cardType);
+	clearText->SetCardSlotPosition(lx +80, ly - 50);
+	AddGameObject(clearText);
 }

@@ -48,7 +48,6 @@ protected:
 	void SetSaveValue(string line);
 	void SaveFile();
 
-	void GameEnd() {};
 	
 public: 
 	CPlayScene(int id, LPCWSTR filePath);
@@ -65,6 +64,8 @@ public:
 	virtual void SetScenePart(int part);
 	virtual void ResetScenePart() { ScenePart = 0; }
 	virtual LPGAMEOBJECT GetEnemiesInRange(float x, float y);
+
+	void GameEnd(float lx, float ly, int cardType);
 
 	LPGAMEOBJECT GetPlayer() { return player; }
 	LPUI GetUI() { return UI; }

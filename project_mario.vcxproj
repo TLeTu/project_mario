@@ -169,6 +169,7 @@
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UI_BG.cpp" />
     <ClCompile Include="UI_CardSlot.cpp" />
+    <ClCompile Include="UI_ClearText.cpp" />
     <ClCompile Include="UI_Life.cpp" />
     <ClCompile Include="UI_Money.cpp" />
     <ClCompile Include="UI_Number.cpp" />
@@ -219,6 +220,7 @@
     <ClInclude Include="UI.h" />
     <ClInclude Include="UI_BG.h" />
     <ClInclude Include="UI_CardSlot.h" />
+    <ClInclude Include="UI_ClearText.h" />
     <ClInclude Include="UI_Life.h" />
     <ClInclude Include="UI_Money.h" />
     <ClInclude Include="UI_Number.h" />
