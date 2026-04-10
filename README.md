@@ -8,4 +8,5 @@ This is a clone of Super Mario Bros. 3, featuring a world selection menu and a f
 - Fully Playable World 1-1 – Experience the first level with accurate mechanics and visuals.
 - Smooth Platforming Controls – Run, jump, and interact just like in the original game.
 
-## Controls
+## Demo
+[![Watch Gameplay](https://img.youtube.com/vi/ju8iLB4NdCs/0.jpg)](https://youtu.be/ju8iLB4NdCs)
