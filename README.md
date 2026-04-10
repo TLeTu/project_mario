@@ -1,11 +1,11 @@
 # A re-creation of stage 1-1 from the game Super Mario Bros 3, made by Nintendo.
 
-Instruction:
-- Step 1: Clone the project
-- Step 2: Use Visual Studio 2022 to open the sln file
-- Step 3: Build and run the project
+## Overview
+This is a clone of Super Mario Bros. 3, featuring a world selection menu and a fully playable World 1-1 level. The project aims to replicate the classic gameplay, physics, and mechanics of the original game.
 
-How to play:
-- Use arrow keys to move
-- Press a to choose the level when you are on the world map
-- Press s to jump and hold a to run
+## Features
+- World Selection Menu – Choose your starting world before jumping into the action.
+- Fully Playable World 1-1 – Experience the first level with accurate mechanics and visuals.
+- Smooth Platforming Controls – Run, jump, and interact just like in the original game.
+
+## Controls
